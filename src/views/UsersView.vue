@@ -7,16 +7,17 @@
         <div class="header-opciones">
             <div class="row">
                 <div class="col-6"><button class="btn">Add User</button></div>
+                <div class="col"></div>
                 <div class="col">
                     <div class="row">
-                    <div class="col-sm-6"><p>On-Line:</p></div>
-                    <div class="col-sm-2"><div class="circulo-verde"></div></div>
+                        <div class="col"><p class="estado-online">On-Line:</p></div>
+                        <div class="col"><div class="circulo-verde">{{ contadores[0].usersActive }}</div></div>
+                        <div class="col"><p class="estado-offline">Off-Line:</p></div>
+                        <div class="col"><div class="circulo-rojo">{{ contadores[0].usersDisconnect }}</div></div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div>
         <UsersList :usersList="users"/>
     </div>
 </template>
@@ -31,6 +32,12 @@ import { db } from "../utils/FirebaseConfig.js"
 import { collection, getDocs } from "firebase/firestore";
 
 let users = reactive([]);
+let contadores = reactive ([   {
+        usersNum: 0,
+        usersActive: 0,
+        usersDisconnect: 0
+    }
+]);
 
 onMounted(() => {
     getListaUsuarios();
@@ -42,6 +49,11 @@ async function getListaUsuarios() {
     
     querySnapshotUsers.forEach((doc) => {
     users.push(doc.data());
+    let activesUsers = users.filter(user => user.state == true)
+        let disconnectUsers = users.filter(user => user.state == false)
+        contadores[0].usersNum = users.length;
+        contadores[0].usersActive = activesUsers.length;
+        contadores[0].usersDisconnect = disconnectUsers.length;
    
 });
 console.log(users);
@@ -127,13 +139,33 @@ console.log(users);
     width: 20px;
     height: 20px;
     margin: auto;
-    margin-top: 10px;
+    margin-left: -15px;
+    margin-top: 5px;
     border-radius: 50%;
     background: rgb(67, 228, 22);
+    color: black;
 }
 
-.estado{
-    width: 1px;
+.circulo-rojo {
+    width: 20px;
+    height: 20px;
+    margin: auto;
+    margin-top: -13px;
+    margin-left: -15px;
+    border-radius: 50%;
+    background: rgb(228, 22, 22);
+}
+
+.estado-online{
+    margin-top: 3px;
+    margin-left: -40px;
+    width: 80px;
+}
+
+.estado-offline{
+    margin-top: -13px;
+    margin-left: -40px;
+    width: 80px;
 }
 
 </style>
