@@ -1,0 +1,109 @@
+<template>
+<div class="silueta-card">
+    <div class="flex-items">
+        <img class="" :src="props.user.imgUser" width="70" height="70"/>
+    </div>
+    <div class="flex-items">
+        <p class="informacion">{{ props.user.name }} {{ props.user.surname1 }} {{ props.user.surname2 }}<br/>
+            {{ props.user.email }}</p>
+    </div>
+    <div class="flex-items">
+        <div class="flex-estado">
+            <div class="flex-item-estado">
+                <div class="circulo-verde"></div>
+            </div>
+            <div class="flex-item-estado">
+                <p class="estado">{{ props.user.rol }}</p>
+            </div>
+        </div> 
+    </div>
+</div><!--silueta-card-->
+
+</template>
+
+<script setup>
+import { defineProps } from 'vue';
+ const props = defineProps({
+    ticket: {
+        type: Object,
+    },
+    user: {
+       type: Object,
+    },
+    
+   })
+</script>
+
+<style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+.silueta-card {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 10px;
+    border: 1px solid;
+    border-radius: 10px;
+    box-shadow: 0px 5px 5px 2px #757575;
+}
+
+.flex-items:nth-child(1) {
+    justify-content: center;
+    align-items: center;
+    /* background-color: aqua; */
+   
+}
+
+.flex-items:nth-child(2) {
+    width: 210px;
+    justify-content: start;
+    align-items:start;
+    /* background-color: rgb(28, 196, 196); */
+}
+.flex-estado {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: normal;
+  align-items: normal;
+  align-content: normal;
+  width: 60px;
+}
+
+.flex-item-estado:nth-child(1) {
+  display: block;
+}
+
+.informacion {
+    margin-top: 10px;
+    line-height: 20px;
+    text-align: left;
+}
+.estado {
+    margin-top: 10px;
+    margin-left: -5px;
+    /* background-color: rgb(180, 9, 186); */
+} 
+.flex-items:nth-child(3) {
+    justify-content: center;
+    align-items: center;
+    /* background-color: rgb(255, 0, 217); */
+}
+
+img {
+    border-radius: 50%;
+    border: 2px solid rgb(2, 30, 132);
+    margin: 0px 0px 0px 0px;
+}
+
+.circulo-verde {
+    width: 20px;
+    height: 20px;
+    margin: auto;
+    margin-top: 10px;
+    border-radius: 50%;
+    background: rgb(67, 228, 22);
+}
+</style>
