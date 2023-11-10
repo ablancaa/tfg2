@@ -5,9 +5,9 @@
         <div class="titleMark"><span class="pageTitle">Dashboard Admin</span></div>
         <div class="row">
             <div class="contenFlex">
-                <div class="bloque-estadiscicas"><!-- <h1>Estadísticas</h1> -->
+                <div class="bloque-estadiscicas">
                     <canvas id="grafica"></canvas>
-                </div>
+                </div><!--Fin Bloque Estadisticas -->  
                     <div class="row">
                         <div class="bloque-tickets">
                             <div class="row">
@@ -37,7 +37,7 @@
                                     <span class="num-contador circulo-rojo">{{ contadores[1].ticketsEnd }}</span>
                                 </div>
                             </div>
-                        </div>                       
+                        </div><!--Fin Bloque Tickets -->                     
                         <div class="bloque-usuarios">
                             <div class="row">
                                 <div class="col">
@@ -66,7 +66,7 @@
                                     <span class="num-contador circulo-rojo">{{ contadores[2].clientsDisconnect }}</span>
                                 </div>
                             </div>
-                        </div>
+                        </div><!--Fin Bloque Usuarios -->
                         <div class="bloque-tecnicos">
                             <div class="row">
                                 <div class="col">
@@ -97,8 +97,7 @@
                                     <!-- <div class="circulo-rojo">5</div> -->
                                 </div>
                             </div>
-                        </div>
-                    
+                        </div><!--Fin Bloque Técnicos -->
                 </div>
             </div><!--Fin contentFlex -->
         </div><!--Fin Row -->
