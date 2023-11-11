@@ -10,7 +10,8 @@
     <div class="flex-items">
         <div class="flex-estado">
             <div class="flex-item-estado">
-                <div class="circulo-verde"></div>
+                <div class="circulo-verde" v-if="props.user.state"></div>
+                <div class="circulo-rojo" v-else></div>
             </div>
             <div class="flex-item-estado">
                 <p class="estado">{{ props.user.rol }}</p>
@@ -105,5 +106,13 @@ img {
     margin-top: 10px;
     border-radius: 50%;
     background: rgb(67, 228, 22);
+}
+.circulo-rojo {
+    width: 20px;
+    height: 20px;
+    margin: auto;
+    margin-top: 10px;
+    border-radius: 50%;
+    background: rgb(228, 22, 22);
 }
 </style>
