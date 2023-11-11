@@ -15,7 +15,7 @@
                                     <div class="siluelta_card_peq">
                                         <img alt="Imagen tickets" class="icono" src="../assets/ico/logoTicketBlack.png" width="65">
                                         <router-link to="/userview">
-                                            <p class="title">Usuarios</p>
+                                            <p class="title">Tickets</p>
                                         </router-link>
                                     </div>
                                 </div>
