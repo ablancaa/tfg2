@@ -72,7 +72,7 @@ border: 2px solid var(--color-light);
 outline: 2px solid var(--color-light);
 outline-offset: -2px;
 border-radius: 12px;
-box-shadow: 0 5px 10px rgba(98, 0, 255, .25), 0 -5px 20px rgba(98, 0, 255,.1);
+box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25), 0 -5px 20px rgba(98, 0, 255,.1);
 scale: 1.04;
 transition: all .5s cubic-bezier(0,1.46,1,1.62) .3s;
 }

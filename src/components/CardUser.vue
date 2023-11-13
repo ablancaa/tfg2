@@ -4,8 +4,10 @@
         <img class="" :src="props.user.imgUser" width="70" height="70"/>
     </div>
     <div class="flex-items">
+       
         <p class="informacion">{{ props.user.name }} {{ props.user.surname1 }} {{ props.user.surname2 }}<br/>
-            {{ props.user.email }}</p>
+            <span class="email">{{ props.user.email }}</span></p>
+        
     </div>
     <div class="flex-items">
         <div class="flex-estado">
@@ -15,6 +17,7 @@
             </div>
             <div class="flex-item-estado">
                 <p class="estado">{{ props.user.rol }}</p>
+                
             </div>
         </div> 
     </div>
@@ -33,6 +36,8 @@ import { defineProps } from 'vue';
     },
     
    })
+   //console.log(props.ticket)
+   console.log(props.user)
 </script>
 
 <style scoped>
@@ -81,6 +86,13 @@ import { defineProps } from 'vue';
     margin-top: 10px;
     line-height: 20px;
     text-align: left;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.email{
+    font-size: 16px;
+    font-weight: 400;
 }
 .estado {
     margin-top: 10px;

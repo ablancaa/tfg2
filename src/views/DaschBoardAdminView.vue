@@ -51,19 +51,19 @@
                                 <div class="siluelta_card_grande">
                                     <div class="">
                                         <h5 class="contenido-card-grande">Nº Usuarios: </h5>
-                                        <span class="num-contador cuadrado-numerador">{{ contadores[2].clientsNum }}</span>
+                                        <span class="num-contador cuadrado-numerador">{{ contadores[0].usersNum }}</span>
                                     </div>
                                     <hr />
                                     <div class="">
                                         <div class="">
                                             <h5>On-Line: </h5>
                                         </div>
-                                        <span class="num-contador circulo-verde">{{ contadores[2].clientsActive }}</span>
+                                        <span class="num-contador circulo-verde">{{ contadores[0].usersActive }}</span>
                                     </div>
                                     <div class="">
                                         <h5>Off-Line:</h5>
                                     </div>
-                                    <span class="num-contador circulo-rojo">{{ contadores[2].clientsDisconnect }}</span>
+                                    <span class="num-contador circulo-rojo">{{ contadores[0].usersDisconnect }}</span>
                                 </div>
                             </div>
                         </div><!--Fin Bloque Usuarios -->
@@ -80,20 +80,20 @@
                                 </div>
                                 <div class="siluelta_card_grande">
                                     <div class="">
-                                        <h5 class="contenido-card-grande">Nº Usuarios: </h5>
-                                        <span class="num-contador cuadrado-numerador">{{ contadores[0].usersNum }}</span>
+                                        <h5 class="contenido-card-grande">Nº Técnicos: </h5>
+                                        <span class="num-contador cuadrado-numerador">{{ contadores[0].usersTecnico }}</span>
                                         
                                     </div>
                                     <hr />
                                     <div class="">
                                         <div class="">
                                             <h5>Libres: </h5>
-                                        </div><span class="num-contador circulo-verde">{{ contadores[0].usersActive
+                                        </div><span class="num-contador circulo-verde">{{ contadores[0].userUnAssignment
                                         }}</span>
                                     </div>
                                     <div class="">
                                         <h5>Asignados: </h5>
-                                    </div><span class="num-contador circulo-rojo">{{ contadores[0].usersDisconnect }}</span>
+                                    </div><span class="num-contador circulo-rojo">{{ contadores[0].userAssignment }}</span>
                                     <!-- <div class="circulo-rojo">5</div> -->
                                 </div>
                             </div>
@@ -118,25 +118,32 @@ import Chart from 'chart.js/auto';
 
 let users = reactive([]);
 let tickets = reactive([]);
-let clients = reactive([]);
+
 
 let contadores = reactive([
     {
         usersNum: 0,
         usersActive: 0,
-        usersDisconnect: 0
+        usersDisconnect: 0,
+        usersTecnico: 0,
+        userAssignment: 0,
+        userUnAssignment: 0,
+        usersAdmin: 0,
+        usersDocente: 0,
+        usersServicios: 0
     },
     {
         ticketsNum: 0,
         ticketsProgress: 0,
         ticketsEnd: 0
     },
-    {
-        clientsNum: 0,
-        clientsActive: 0,
-        clientsDisconnect: 0
-    },
 ])
+
+let arrayGraficoResumen = reactive([
+    {
+    ticketsNum: 0,
+    }
+]);
 
 
 
@@ -152,15 +159,20 @@ async function getListados() {
 
     const querySnapshotUsers = await getDocs(collection(db, "users"));
     const querySnapshotTickets = await getDocs(collection(db, "tickets"));
-    const querySnapshotClients = await getDocs(collection(db, "clients"));
 
     querySnapshotUsers.forEach((doc) => {
         users.push(doc.data());
         let activesUsers = users.filter(user => user.state == true)
         let disconnectUsers = users.filter(user => user.state == false)
+        let userTecnico = users.filter(user => user.rol == 'Técnico')
+        let tecnicoAsignado = users.filter(user => user.assignment == true)
+        let tecnicoNoAsignado = users.filter(user => user.assignment == false)
         contadores[0].usersNum = users.length;
         contadores[0].usersActive = activesUsers.length;
         contadores[0].usersDisconnect = disconnectUsers.length;
+        contadores[0].usersTecnico = userTecnico.length
+        contadores[0].userAssignment = tecnicoAsignado.length
+        contadores[0].userUnAssignment = tecnicoNoAsignado.length
     });
 
     querySnapshotTickets.forEach((doc) => {
@@ -170,25 +182,13 @@ async function getListados() {
         contadores[1].ticketsNum = tickets.length
         contadores[1].ticketsProgress = ticketProcces.length
         contadores[1].ticketsEnd = ticketEnd.length
+        arrayGraficoResumen.ticketEnd = tickets.length;
     });
-
-    querySnapshotClients.forEach((clientsList) => {
-        clients.push(clientsList.data());
-        let activesClients = clients.filter(client => client.state == true)
-        let disconnectClients = clients.filter(client => client.state == false)
-        contadores[2].clientsNum = clients.length
-        contadores[2].clientsActive = activesClients.length;
-        contadores[2].clientsDisconnect = disconnectClients.length;
-    });
-
-    //console.log(users)
-    //console.log(tickets)
-    //console.log(clients) 
 }
 const pintaGrafica = () => {
 
     const ctx = document.getElementById("grafica");
-    const labels = ['Activos', 'En Espera', 'En proceso', 'Resuelto']
+    const labels = ['Nº Tickets', 'En Espera', 'En proceso', 'Resuelto']
     //const graph = document.querySelector("#grafica");
     new Chart(ctx, {
         type: 'bar',
@@ -197,7 +197,7 @@ const pintaGrafica = () => {
             datasets: [{
                 display: true,
                 label: 'Tickets',
-                data: [5, 6, 3, 2],
+                data: [5,1,3,2],
                 borderColor: 'black',
                 pointStyle: 'rectRounded',
                 backgroundColor: 'rgba(9, 129, 176, 0.2)',

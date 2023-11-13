@@ -10,13 +10,13 @@
                 <div class="col"></div>
                 <div class="col">
                     <div class="row">
-                        <div class="col"><p class="estado-online">On-Line:</p><p class="estado-offline">Off-Line:</p></div>
-                        <div class="col"><div class="circulo-verde">{{ contadores[0].usersActive }}</div><div class="circulo-rojo">{{ contadores[0].usersDisconnect }}</div></div>
+                        <div class="col-6"><p class="estado-online">On-Line:</p> <p class="estado-offline">Off-Line:</p></div>
+                        <div class="col-6"><div class="circulo-verde">{{ contadores[0].usersActive }}</div> <div class="circulo-rojo">{{ contadores[0].usersDisconnect }}</div></div>
                     </div>
                 </div>
             </div>
         </div>
-        <UsersList :usersList="users"/>
+        <UsersList :usersList="users" :ticketList="tickets"/>
     </div>
 </template>
 
@@ -30,6 +30,7 @@ import { db } from "../utils/FirebaseConfig.js"
 import { collection, getDocs } from "firebase/firestore";
 
 let users = reactive([]);
+let tickets = reactive([]);
 let contadores = reactive ([   {
         usersNum: 0,
         usersActive: 0,
@@ -39,6 +40,7 @@ let contadores = reactive ([   {
 
 onMounted(() => {
     getListaUsuarios();
+    getListaTickets();
 
 });
 
@@ -50,14 +52,10 @@ async function getListaUsuarios() {
     let activesUsers = users.filter(user => user.state == true)
         let disconnectUsers = users.filter(user => user.state == false)
         contadores[0].usersNum = users.length;
-        contadores[0].usersActive = activesUsers.length+1;
+        contadores[0].usersActive = activesUsers.length;
         contadores[0].usersDisconnect = disconnectUsers.length;
    
-});
-console.log(contadores[0].usersNum)
-console.log(contadores[0].usersActive)
-console.log(contadores[0].usersDisconnect)
-console.log(users);
+    });
 }
 
 // async function getListados() {
@@ -97,6 +95,22 @@ console.log(users);
 //console.log(tickets)
 //console.log(clients) 
 //}
+async function getListaTickets() {
+
+const querySnapshotTickets = await getDocs(collection(db, "tickets"));
+querySnapshotTickets.forEach((doc) => {
+ tickets.push(doc.data());
+ let ticketProcces = tickets.filter(ticket => ticket.state == "procces")
+ let ticketEnd = tickets.filter(ticket => ticket.state == "end")
+ contadores[0].ticketsNum = tickets.length
+ contadores[0].ticketsProcces = ticketProcces.length
+ contadores[0].ticketsEnd = ticketEnd.length
+});
+console.log("Num Tickets: "+contadores[0].ticketsNum)
+console.log("Tickets Procces: "+contadores[0].ticketsProcces)
+console.log("Tickets End: "+contadores[0].ticketsEnd)
+//console.log(tickets);
+}
 </script>
 <script>
     export default {
@@ -140,7 +154,7 @@ console.log(users);
     width: 20px;
     height: 20px;
     margin: auto;
-    margin-left: -15px;
+    margin-left: 10px;
     margin-top: 5px;
     border-radius: 50%;
     background: rgb(67, 228, 22);
@@ -152,20 +166,20 @@ console.log(users);
     height: 20px;
     margin: auto;
     margin-top: 4px;
-    margin-left: -15px;
+    margin-left: 10px;
     border-radius: 50%;
     background: rgb(228, 22, 22);
 }
 
 .estado-online{
     margin-top: 3px;
-    margin-left: 40px;
+    margin-left: 0px;
     width: 80px;
 }
 
 .estado-offline{
     margin-top: -13px;
-    margin-left: 40px;
+    margin-left: 0px;
     width: 80px;
 }
 
