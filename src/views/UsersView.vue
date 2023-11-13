@@ -6,14 +6,12 @@
         <div class="searchbar"><SearchBar/></div>
         <div class="header-opciones">
             <div class="row">
-                <div class="col-6"><button class="btn">Add User</button></div>
+                <div class="col"><button class="btn">Add User</button></div>
                 <div class="col"></div>
                 <div class="col">
                     <div class="row">
-                        <div class="col"><p class="estado-online">On-Line:</p></div>
-                        <div class="col"><div class="circulo-verde">{{ contadores[0].usersActive }}</div></div>
-                        <div class="col"><p class="estado-offline">Off-Line:</p></div>
-                        <div class="col"><div class="circulo-rojo">{{ contadores[0].usersDisconnect }}</div></div>
+                        <div class="col"><p class="estado-online">On-Line:</p><p class="estado-offline">Off-Line:</p></div>
+                        <div class="col"><div class="circulo-verde">{{ contadores[0].usersActive }}</div><div class="circulo-rojo">{{ contadores[0].usersDisconnect }}</div></div>
                     </div>
                 </div>
             </div>
@@ -52,10 +50,13 @@ async function getListaUsuarios() {
     let activesUsers = users.filter(user => user.state == true)
         let disconnectUsers = users.filter(user => user.state == false)
         contadores[0].usersNum = users.length;
-        contadores[0].usersActive = activesUsers.length;
+        contadores[0].usersActive = activesUsers.length+1;
         contadores[0].usersDisconnect = disconnectUsers.length;
    
 });
+console.log(contadores[0].usersNum)
+console.log(contadores[0].usersActive)
+console.log(contadores[0].usersDisconnect)
 console.log(users);
 }
 
@@ -125,7 +126,7 @@ console.log(users);
 }
 .btn {
     margin-top: 9px;
-    margin-left: -70px;
+    margin-left: 0px;
     border-color: white;
     color: #ffffff;
     font-weight: 600;
@@ -150,7 +151,7 @@ console.log(users);
     width: 20px;
     height: 20px;
     margin: auto;
-    margin-top: -13px;
+    margin-top: 4px;
     margin-left: -15px;
     border-radius: 50%;
     background: rgb(228, 22, 22);
@@ -158,13 +159,13 @@ console.log(users);
 
 .estado-online{
     margin-top: 3px;
-    margin-left: -40px;
+    margin-left: 40px;
     width: 80px;
 }
 
 .estado-offline{
     margin-top: -13px;
-    margin-left: -40px;
+    margin-left: 40px;
     width: 80px;
 }
 

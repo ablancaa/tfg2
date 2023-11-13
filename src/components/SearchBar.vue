@@ -55,7 +55,7 @@ padding: .25em .5em;
 background-color: var(--bgInput);
 grid-column: 1/span 1;
 grid-row: 1/span 1;
-position: fixed;
+position: relative;
 border-radius: 4px;
 translate: 10px -10px;
 transition: all .5s ease-out .5s;
