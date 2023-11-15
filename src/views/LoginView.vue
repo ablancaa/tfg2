@@ -66,7 +66,7 @@ import { useDataStore } from '../store/datosUser.js'
               console.log(error.code);
               alert(error.message);
         })
-          router.push("/dashBoard_admin")
+          router.push("/dashBoardAdmin")
       }
     }
 </script>

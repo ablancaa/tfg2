@@ -1,9 +1,11 @@
 <template>
     <div class="container">
      <div class="row">
-        <div class="col-sm-12 col-md-6 col-lg-6 marginTop" v-for="user in props.usersList" :key="user.idUser">
+        <div class="col-sm-12 col-md-6 col-lg-6 marginTop " v-for="user in props.usersList" :key="user">
         <div v-for="ticket in props.ticketList" :key="ticket.idTicket"></div>
-            <CardUser :user="user" :ticket="ticketList"/>
+            <router-link :to="{ name: 'userDetail', params:  { idUser: user.idUser, name: user.name, surname1: user.surname1, surname2: user.surname2, rol: user.rol, email: user.email, phone: user.phone } }" class="page-link">
+              <CardUser :user="user" :ticket="ticketList"/>
+            </router-link>
         </div>
     </div>
   </div>
@@ -19,12 +21,15 @@ import CardUser from './CardUser.vue';
         type: Array,
       }
   })
-  console.log(props.usersList)
-  console.log(props.ticketList)
+  // console.log(props.usersList)
+  // console.log(props.ticketList)
 </script>
   
 <style scoped>
 .marginTop{
     margin-top: 0px;
 }
+
+
+
 </style>

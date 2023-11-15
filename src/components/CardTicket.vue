@@ -54,21 +54,21 @@
 </template>
 <script setup>
 import { defineProps } from 'vue';
- const props = defineProps({
+const props = defineProps({
     tickets: {
         type: Object,
     },
     userList: {
         type: Object,
     }
-   })
-console.log(props.userList)
-console.log(props.tickets)
+})
+// console.log(props.userList)
+// console.log(props.tickets)
 
-function generarIdUnico1 () { 
+function generarIdUnico () { 
     return Math.random().toString(30).substring(2);           
 } 
-console.log(generarIdUnico1());
+console.log(generarIdUnico());
 </script>
 
 <style  scoped>

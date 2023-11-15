@@ -13,11 +13,11 @@
             <router-link to="/"><img src="../assets/ico/exitWhite.png" width="25"/></router-link>
           </div>
           <div class="menu-items">
-            <li><img alt="icono dashboard" class="icono" src="../assets/ico/dashboardWhite.png" width="25"><router-link to="/dashBoard_admin">DashBoard Admin</router-link></li>
-            <li><img alt="icono dashboard" class="icono" src="../assets/ico/dashboardWhite.png" width="25"><router-link to="/dashBoard_user">DashBoard User</router-link></li>
-            <li><router-link to="/tickets_view">Tickets</router-link></li>
-            <li><router-link to="/userview">Users</router-link></li>
-            <li><router-link to="/estadisticas_view">Estadísticas</router-link></li>
+            <li><img alt="icono dashboard" class="icono" src="../assets/ico/dashboardWhite.png" width="25"><router-link to="/dashBoardAdmin">DashBoard Admin</router-link></li>
+            <li><img alt="icono dashboard" class="icono" src="../assets/ico/dashboardWhite.png" width="25"><router-link to="/dashBoardUser">DashBoard User</router-link></li>
+            <li><router-link to="/ticketsView">Tickets</router-link></li>
+            <li><router-link to="/userView">Users</router-link></li>
+            <li><router-link to="/estadisticasView">Estadísticas</router-link></li>
             <li><a href="#"></a></li>
             <li><a href="#"></a></li>
             <li><a href="#"></a></li>
@@ -34,7 +34,8 @@
 
 <script setup>
 import { useDataStore } from '../store/datosUser.js'
-import { defineProps } from 'vue';
+import { defineProps, ref } from 'vue';
+
 const store = useDataStore();
 
 
@@ -44,8 +45,9 @@ let props = defineProps({
       },
   })
   console.log(props.currenUser)
-  let userCurren = store.datosUser.email;
-</script>
+  let userCurren = ref(store.datosUser.email);
+  console.log(userCurren.value)
+  </script>
 
 <style  scoped>
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
@@ -60,6 +62,7 @@ body {
 }
 .currenUser{
   color: #ffffff;
+  font-size: 14px;
 }
 .container {
   max-width: 1050px;

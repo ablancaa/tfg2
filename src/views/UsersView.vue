@@ -3,10 +3,10 @@
     <div class="container">
         <br/>
         <div class="titleMark"><span class="pageTitle">Users View</span></div>
-        <div class="searchbar"><SearchBar/></div>
+        <div class="searchbar"><SearchBar v-on:search="setSearchTerm"/></div>
         <div class="header-opciones">
             <div class="row">
-                <div class="col"><button class="btn">Add User</button></div>
+                <div class="col"><button class="btn" @click="showForm">Add User</button></div>
                 <div class="col"></div>
                 <div class="col">
                     <div class="row">
@@ -16,7 +16,12 @@
                 </div>
             </div>
         </div>
-        <UsersList :usersList="users" :ticketList="tickets"/>
+        <AddUser v-if="showModal" 
+        @close="showModal = false" 
+        @newUser="addUser"/>
+
+        <UsersList :usersList="usersListFiltered" :ticketList="tickets" 
+        @deleteClientId="deleteClient"/>
     </div>
 </template>
 
@@ -24,11 +29,14 @@
 import NavBar2 from '@/components/NavBar2.vue'
 import SearchBar from '@/components/SearchBar.vue'
 import UsersList from '@/components/UsersList.vue'
-
-import { reactive, onMounted } from "vue";
+import AddUser from "@/components/AddUser.vue"
+import { reactive, onMounted, ref, computed } from "vue";
 import { db } from "../utils/FirebaseConfig.js"
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, addDoc, deleteDoc, doc } from "firebase/firestore";
 
+
+
+let searchTerm = ref("");
 let users = reactive([]);
 let tickets = reactive([]);
 let contadores = reactive ([   {
@@ -37,12 +45,37 @@ let contadores = reactive ([   {
         usersDisconnect: 0
     }
 ]);
+let showModal = ref(false);
 
 onMounted(() => {
     getListaUsuarios();
     getListaTickets();
+    
+   
 
 });
+
+
+
+const usersListFiltered = computed(() => {
+  if (!searchTerm.value) {
+    return users;
+  } else if (searchTerm.value) {
+    return users.filter((item) => {
+      return (
+        item.name.toLowerCase().includes(searchTerm.value.toLowerCase()) ||
+        item.surname1.toLowerCase().includes(searchTerm.value.toLowerCase()) ||
+        item.surname2.toLowerCase().includes(searchTerm.value.toLowerCase()) ||
+        item.email.toLowerCase().includes(searchTerm.value) ||
+        item.rol.toLowerCase().includes(searchTerm.value)
+      );
+    });
+  }
+  return users;
+});
+function setSearchTerm(search) {
+  searchTerm.value = search;
+}
 
 async function getListaUsuarios() {
     const querySnapshotUsers = await getDocs(collection(db, "users"));
@@ -56,6 +89,57 @@ async function getListaUsuarios() {
         contadores[0].usersDisconnect = disconnectUsers.length;
    
     });
+    sessionStorage.setItem("usersList", JSON.stringify(users));
+}
+
+function showForm(){
+  showModal.value = true;
+}
+async function addUser(newUser){
+    let assignment = ref();
+  console.log(newUser);
+  if(newUser.rol == 'Técnico'){
+    assignment.value = false;
+  }
+  try {
+  const docRef = await addDoc(collection(db, "users"), {
+    idUser: newUser.idUser,
+    name: newUser.name,
+    surname1: newUser.surname1,
+    surname2: newUser.surname2,
+    state: newUser.state,
+    rol: newUser.rol,
+    imgUser: newUser.avatar,
+    assignment: assignment.value,
+    email: newUser.email,
+    adress: newUser.adress,
+    phones: {
+      mobile: newUser.phones.mobile,
+    //   landline: newUser.phones.landline,
+    },
+  });
+  console.log("Document written with ID: ", docRef.id);
+  //console.log(newClient)
+  } catch (e) {
+  console.error("Error adding document: ", e);
+  }
+  location.reload();
+}
+
+async function deleteClient(idUUI) {
+  let refUsuarioEnFirebase;
+  const querySnapshotClients = await getDocs(collection(db, "users"));
+  querySnapshotClients.forEach((doc) => {
+    users.push(doc.data());
+  //console.log(doc.id)
+  //console.log(doc.data().idClient)
+  if(doc.data().idUser == idUUI){
+    refUsuarioEnFirebase = doc.id;
+    //console.log("Se borra el registro:  "+refClienteEnFirebase)
+  }
+  });
+  await deleteDoc(doc(db, "users",refUsuarioEnFirebase));
+  location.reload();
 }
 
 // async function getListados() {
@@ -132,8 +216,7 @@ console.log("Tickets End: "+contadores[0].ticketsEnd)
     border-radius: 10px;
     height: 55px;
     width: 100%;
-    background-color: rgb(0, 0, 0);
-    
+    background-color: rgb(0, 0, 0); 
 }
 .header-opciones{
     margin-top: 10px;

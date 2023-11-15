@@ -14,7 +14,7 @@
                                 <div class="col">
                                     <div class="siluelta_card_peq">
                                         <img alt="Imagen tickets" class="icono" src="../assets/ico/logoTicketBlack.png" width="65">
-                                        <router-link to="/userview">
+                                        <router-link to="/ticketsView">
                                             <p class="title">Tickets</p>
                                         </router-link>
                                     </div>
@@ -43,7 +43,7 @@
                                 <div class="col">
                                     <div class="siluelta_card_peq">
                                         <img alt="Imagen tickets" class="icono" src="../assets/ico/userBlack.png" width="65">
-                                        <router-link to="/userview" :currenUser="currenUser">
+                                        <router-link to="/userView">
                                             <p class="title">Usuarios</p>
                                         </router-link>
                                     </div>
@@ -73,7 +73,7 @@
                                     <div class="siluelta_card_peq">
                                         <img alt="Imagen tickets" class="icono" src="../assets/ico/userBlack.png"
                                             width="65">
-                                        <router-link to="/userview">
+                                        <router-link to="/userView">
                                             <p class="title">Técnicos</p>
                                         </router-link>
                                     </div>
@@ -148,15 +148,10 @@ let arrayGraficoResumen = reactive([
 
 console.log(store.datosUser.email)
 
-
-
 onMounted(() => {
     getListados();
     pintaGrafica();
 });
-
-
-
 
 async function getListados() {
 

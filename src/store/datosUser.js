@@ -30,7 +30,5 @@ export const useDataStore  = defineStore('datosUser',{
         asignarUsuarioActivo(dato){
             this.datosUser.email= dato;
         }
-    }
-       
-
+    }   
 })

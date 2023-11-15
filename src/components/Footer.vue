@@ -22,8 +22,7 @@
     background-color: black;
     color: #fff;
     font-size: 38px;
-   
-    line-height:2em;
+    line-height:2em; 
 }
 .tituloLogo{
     font-weight: 700;

@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import LoginView from '../views/LoginView.vue';
 import RegisterView from '../views/RegisterView.vue';
 import UserView from '../views/UsersView.vue';
+import UserDetail from "../views/UserDetail.vue";
 import DashBoard_Admin from '../views/DaschBoardAdminView.vue';
 import DashBoard_User from '../views/DaschBoardUserView.vue';
 import TicketsView from '../views/TicketsView.vue';
@@ -19,28 +20,42 @@ const routes = [
     component: RegisterView
   },
   {
-    path: '/dashBoard_admin',
-    name: 'dashBoard_admin',
+    path: '/dashBoardAdmin',
+    name: 'dashBoardAdmin',
     component: DashBoard_Admin
   },
   {
-    path: '/dashBoard_user',
-    name: 'dashBoard_user',
+    path: '/dashBoardUser',
+    name: 'dashBoardUser',
     component: DashBoard_User
   },
   {
     path: '/userView',
-    name: 'userview',
+    name: 'userView',
     component: UserView
   },
   {
-    path: '/tickets_view',
-    name: 'tickets_view',
+    path: '/userDetail/:idUser/name/:name/surname1/:surname1/surname2/:surname2/rol/:rol/email/:email/phone/:phone',
+    name: 'userDetail',
+    component: UserDetail,
+    props: false,
+    children: [
+      {
+        // UserProfile will be rendered inside User's <router-view>
+        // when /user/:id/profile is matched
+        path: 'userDetail',
+        component: UserDetail,
+      }
+    ]
+  },
+  {
+    path: '/ticketsView',
+    name: 'ticketsView',
     component: TicketsView
   },
   {
-    path: '/estadisticas_view',
-    name: 'estadisticas_view',
+    path: '/estadisticasView',
+    name: 'estadisticasView',
     component: EstadisticasView
   }, 
   {

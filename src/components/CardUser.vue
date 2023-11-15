@@ -27,17 +27,17 @@
 
 <script setup>
 import { defineProps } from 'vue';
- const props = defineProps({
-    ticket: {
-        type: Object,
-    },
-    user: {
-       type: Object,
-    },
-    
-   })
-   //console.log(props.ticket)
-   console.log(props.user)
+
+    const props = defineProps({
+        ticket: {
+            type: Object,
+        },
+        user: {
+            type: Object,
+        },    
+    })
+   // console.log(props.ticket)
+   // console.log(props.user)
 </script>
 
 <style scoped>
@@ -54,6 +54,7 @@ import { defineProps } from 'vue';
     border-radius: 10px;
     box-shadow: 0px 5px 5px 2px #757575;
 }
+
 
 .flex-items:nth-child(1) {
     justify-content: center;
@@ -108,7 +109,7 @@ import { defineProps } from 'vue';
 img {
     border-radius: 50%;
     border: 2px solid rgb(2, 30, 132);
-    margin: 0px 0px 0px 0px;
+    margin: 0px 10px 0px 10px;
 }
 
 .circulo-verde {
