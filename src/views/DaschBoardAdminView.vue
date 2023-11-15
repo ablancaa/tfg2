@@ -1,5 +1,5 @@
 <template>
-    <NavBar2 />
+    <NavBar2 :currenUser="store.datosUser.email"/>
     <div class="container">
         <br />
         <div class="titleMark"><span class="pageTitle">Dashboard Admin</span></div>
@@ -43,7 +43,7 @@
                                 <div class="col">
                                     <div class="siluelta_card_peq">
                                         <img alt="Imagen tickets" class="icono" src="../assets/ico/userBlack.png" width="65">
-                                        <router-link to="/userview">
+                                        <router-link to="/userview" :currenUser="currenUser">
                                             <p class="title">Usuarios</p>
                                         </router-link>
                                     </div>
@@ -115,10 +115,11 @@ import { reactive, onMounted } from "vue";
 import { db } from "../utils/FirebaseConfig.js"
 import { collection, getDocs } from "firebase/firestore";
 import Chart from 'chart.js/auto';
+import { useDataStore } from '../store/datosUser.js'
 
 let users = reactive([]);
 let tickets = reactive([]);
-
+const store = useDataStore();
 
 let contadores = reactive([
     {
@@ -144,6 +145,8 @@ let arrayGraficoResumen = reactive([
     ticketsNum: 0,
     }
 ]);
+
+console.log(store.datosUser.email)
 
 
 

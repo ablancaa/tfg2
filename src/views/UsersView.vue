@@ -10,8 +10,8 @@
                 <div class="col"></div>
                 <div class="col">
                     <div class="row">
-                        <div class="col-6"><p class="estado-online">On-Line:</p> <p class="estado-offline">Off-Line:</p></div>
-                        <div class="col-6"><div class="circulo-verde">{{ contadores[0].usersActive }}</div> <div class="circulo-rojo">{{ contadores[0].usersDisconnect }}</div></div>
+                            <div class="col-6"><p class="estado-online ">On-Line:</p> <p class="estado-offline">Off-Line:</p></div>
+                            <div class="col-6"><div class="circulo-verde">{{ contadores[0].usersActive }}</div> <div class="circulo-rojo">{{ contadores[0].usersDisconnect }}</div></div>
                     </div>
                 </div>
             </div>
@@ -122,6 +122,11 @@ console.log("Tickets End: "+contadores[0].ticketsEnd)
     width: 100%;
     height: 100%;
 }
+
+.estado{
+    height: 55px;
+    background-color: rgb(122, 198, 198);
+}
 .titleMark{
     margin-top: 50px;
     border-radius: 10px;
@@ -153,7 +158,7 @@ console.log("Tickets End: "+contadores[0].ticketsEnd)
 .circulo-verde {
     width: 20px;
     height: 20px;
-    margin: auto;
+
     margin-left: 10px;
     margin-top: 5px;
     border-radius: 50%;
@@ -164,7 +169,6 @@ console.log("Tickets End: "+contadores[0].ticketsEnd)
 .circulo-rojo {
     width: 20px;
     height: 20px;
-    margin: auto;
     margin-top: 4px;
     margin-left: 10px;
     border-radius: 50%;
@@ -174,13 +178,13 @@ console.log("Tickets End: "+contadores[0].ticketsEnd)
 .estado-online{
     margin-top: 3px;
     margin-left: 0px;
-    width: 80px;
+    width: 65px;
 }
 
 .estado-offline{
     margin-top: -13px;
     margin-left: 0px;
-    width: 80px;
+    width: 65px;
 }
 
 </style>

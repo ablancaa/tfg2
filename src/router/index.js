@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import LoginView from '../views/LoginView.vue';
+import RegisterView from '../views/RegisterView.vue';
 import UserView from '../views/UsersView.vue';
 import DashBoard_Admin from '../views/DaschBoardAdminView.vue';
 import DashBoard_User from '../views/DaschBoardUserView.vue';
@@ -11,6 +12,11 @@ const routes = [
     path: '/',
     name: 'login',
     component: LoginView
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: RegisterView
   },
   {
     path: '/dashBoard_admin',

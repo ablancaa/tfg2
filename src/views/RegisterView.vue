@@ -10,13 +10,12 @@
       <div class="col-xs-12 col-md-6 col-lg-12">
         <br/><br/>
         <div class="formulario">
-        <span class="tituloFormulario"><h1><img alt="Vue logo" src="../assets/ico/userBlack.png" width="70"> Login</h1><br/></span>
-        <div v-if="loginNoOk">{{ error }}</div>
+        <span class="tituloFormulario"><h1><img alt="Vue logo" src="../assets/ico/userBlack.png" width="70"> Register</h1><br/></span>
         <span class="item"><form>
             <input type="text" placeholder="Email" v-model="email"/><br/><br/>
             <input type="text" placeholder="Password" v-model="password"/><br/><br/>
-            <button class="btn btn-dark" @click="login">Login</button><br/>
-            <router-link to="/register"><div><br/>Register</div></router-link>
+            <button class="btn btn-dark" @click="register">Register</button>
+            <router-link to="/"><div><br/>Login</div></router-link>
           </form></span>
         </div>
           <br/>
@@ -32,48 +31,37 @@
 //import HelloWorld from '@/components/HelloWorld.vue'
 //const emit = defineEmits(['change', 'delete']);
 import { ref } from 'vue'
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { useRouter } from 'vue-router';
-
-// import { getAuth } from 'firebase/auth';
+import {getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import "firebase/auth";
-import { useDataStore } from '../store/datosUser.js'
-  const store = useDataStore(); 
-  
-  let loginNoOk = ref(false);
-  const auth = getAuth();
-  const router = useRouter();
-  const email = ref("");
-  const password = ref("");
-  const error = ref("El usuario o el password está vacío")
+import { useRouter } from 'vue-router';
         
-    const login = () => {
-      if(email.value == '' || password.value == '') {
-        alert("Usuario o Password vacio");
-        loginNoOk.value = true;
-        router.push("/")
-      } else {
-        signInWithEmailAndPassword(auth, email.value, password.value)
-        .then((userCredential)=> {
-              const user = userCredential.user;
-              store.datosUser = user;
-              console.log("Successfully registered!");
-              console.log(user.email);
-              store.datosUser.email = user.email;    
-              store.asignarUsuarioActivo(user.email)    
+
+        const router = useRouter();
+        const email = ref("");
+        const password = ref("");
+        
+        const register = () => {
+          if(email.value == '' || password.value == '') {
+            alert("Usuario o Password vacio");
+            router.push('/register')
+          } else {
+            createUserWithEmailAndPassword(getAuth(), email.value, password.value)
+            .then((data)=> {
+                alert("Successfully registered!"+data.getAuth);
+                
             })
-        .catch((error)=>{
-              console.log(error.code);
-              alert(error.message);
-        })
-          router.push("/dashBoard_admin")
-      }
-    }
+            .catch((error)=>{
+                console.log(error.code);
+                alert(error.message);
+            })
+            router.push('/')
+          } 
+        };
 </script>
 
 <script>
     export default {
-        name:'Login-View'
+        name:'Register-View'
     }
 </script>
 

@@ -9,7 +9,7 @@
               <span class="line line3"></span>
             </div>  
           <div class="logo">
-            <span class="profile-image img"><img src="../assets/img/Profile.jpg" width="40"/></span>
+            <span class="profile-image img"><span class="currenUser">{{ userCurren }} </span><img src="../assets/img/Profile.jpg" width="40"/></span>
             <router-link to="/"><img src="../assets/ico/exitWhite.png" width="25"/></router-link>
           </div>
           <div class="menu-items">
@@ -33,7 +33,18 @@
 </template>
 
 <script setup>
+import { useDataStore } from '../store/datosUser.js'
+import { defineProps } from 'vue';
+const store = useDataStore();
 
+
+let props = defineProps({
+  currenUser: {
+        type: String,
+      },
+  })
+  console.log(props.currenUser)
+  let userCurren = store.datosUser.email;
 </script>
 
 <style  scoped>
@@ -47,7 +58,9 @@
 body {
   font-family: "Poppins", sans-serif;
 }
-
+.currenUser{
+  color: #ffffff;
+}
 .container {
   max-width: 1050px;
   width: 90%;
