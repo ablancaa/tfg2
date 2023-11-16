@@ -322,7 +322,7 @@ hr {
 }
 
 .cuadrado-numerador {
-    width: 26px;
+    width: 40px;
     height: 26px;
     border-radius: 10%;
     float: right;

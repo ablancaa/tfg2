@@ -31,22 +31,32 @@
 //import { defineEmits } from 'vue'
 //import HelloWorld from '@/components/HelloWorld.vue'
 //const emit = defineEmits(['change', 'delete']);
-import { ref } from 'vue'
+import {  reactive, onMounted, ref  } from 'vue'
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { db, collection, getDocs } from "../utils/FirebaseConfig.js"
+import {  } from "firebase/firestore";
 import { useRouter } from 'vue-router';
 
 // import { getAuth } from 'firebase/auth';
 import "firebase/auth";
 import { useDataStore } from '../store/datosUser.js'
+
   const store = useDataStore(); 
   
   let loginNoOk = ref(false);
+  let users = reactive([]);
+  //let rol = ref();
+  let emails = ref();
   const auth = getAuth();
   const router = useRouter();
   const email = ref("");
   const password = ref("");
   const error = ref("El usuario o el password está vacío")
-        
+  
+  onMounted(() => {
+    getListaUsuarios();
+  });
+
     const login = () => {
       if(email.value == '' || password.value == '') {
         alert("Usuario o Password vacio");
@@ -59,16 +69,90 @@ import { useDataStore } from '../store/datosUser.js'
               store.datosUser = user;
               console.log("Successfully registered!");
               console.log(user.email);
-              store.datosUser.email = user.email;    
-              store.asignarUsuarioActivo(user.email)    
+              
+              store.datosUser.email = user.email;
+              emails.value = user.email;    
+              store.asignarUsuarioActivo(user.email)
+              
             })
         .catch((error)=>{
               console.log(error.code);
               alert(error.message);
         })
+        
+
+        /* DISCRIMINA EL ROL USUARIO QUE SE LOGA PARA CARGAR EL DASHBOARD CORRESPONDIENTE */
+        const userDocente = users.filter(user => user.rol == 'Docente')
+        //console.log(userDocente)
+        let userD = userDocente.filter(user =>user.email == email.value)
+        //console.log(userD)
+
+        const  userTecnico = users.filter(user => user.rol == 'Técnico')
+        //console.log(userTecnico)
+        let userT = userTecnico.filter(user =>user.email == email.value)
+        //console.log(userT)
+
+        const  userAdmin = users.filter(user => user.rol == 'Admin')
+        //console.log(userAdmin)
+        let userA = userAdmin.filter(user =>user.email == email.value)
+        //console.log(userA)
+
+        const  userService = users.filter(user => user.rol == 'Servicios')
+        //console.log(userService)
+        let userS = userService.filter(user =>user.email == email.value)
+        //console.log(userS)
+                
+        if(userD.length == 1){
+          router.push("/dashBoardUser")
+          console.log("USER D")
+        }
+        if(userT.length == 1){
           router.push("/dashBoardAdmin")
+          console.log("USER T")
+        }
+        if(userA.length == 1){
+          router.push("/dashBoardAdmin")
+          console.log("USER A")
+        }
+        if(userS.length == 1){
+          router.push("/dashBoardUser")
+          console.log("USER S")
+        }
+        
+        //let incluyeVeinte = users.includes(store.datosUser.email);
+        //let incluyeValor = users.includes(store.datosUser.email, -1)
+
+            //console.log(incluyeVeinte) // true  
+            //console.log(incluyeValor)
+        // for(let i=0; i < users.length; i++){
+        //         if(rol.value[i]=="Docente"){
+        //            router.push("/dashBoardUser")
+        //          } else {
+        //            router.push("/dashBoardAdmin")
+        //         }
+                
+        //       }   
+        // if (rol == "duniamonnec@hotmail.com"){
+        //   router.push("/dashBoardAdmin")
+          
+        // } else {
+        //   router.push("/dashBoardUser")
+        //   console.log("sale: "+users.rol)
+        // }
       }
+    
     }
+    
+    async function getListaUsuarios() {
+    const querySnapshotUsers = await getDocs(collection(db, "users"));
+    
+    querySnapshotUsers.forEach((doc) => {
+    users.push(doc.data());
+    let userTecnico = users.filter(user => user.rol == 'Técnico')
+    //console.log(userTecnico)
+    });
+    sessionStorage.setItem("usersList", JSON.stringify(users));
+}
 </script>
 
 <script>

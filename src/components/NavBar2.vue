@@ -24,7 +24,7 @@
             <li><a href="#"></a></li>
             <li><a href="#"></a></li>
             <li><a href="#"></a></li>
-            <li><span class="profile-image img"><img src="../assets/img/Profile.jpg" height="70"/></span>
+            <li><span class="profile-image img"  ><img src="../assets/img/Profile.jpg" height="70" @click="exit"/></span>
             <router-link to="/"><img src="../assets/ico/exitWhite.png" width="25"/></router-link></li>
           </div>
         </div>
@@ -47,7 +47,13 @@ let props = defineProps({
   console.log(props.currenUser)
   let userCurren = ref(store.datosUser.email);
   console.log(userCurren.value)
-  </script>
+
+function exit () {
+  store.datosUser.email = '';
+  location.reload();
+}
+</script>
+
 
 <style  scoped>
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
