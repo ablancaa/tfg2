@@ -25,7 +25,7 @@
                         <select class="form-control" v-model="rol">
                             <option disabled value="">Seleccione un rol para el usuario</option>
                             <option>Docente</option>
-                            <option>Administrativo</option>
+                            <option>Admin</option>
                             <option>Técnico</option>
                             <option>Servicios</option>
                         </select><!-- <input type="text" class="form-control" placeholder="Rol del usuario" v-model="rol"></input>--></div>
