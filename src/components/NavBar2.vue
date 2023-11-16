@@ -18,7 +18,7 @@
             <li><router-link to="/ticketsView">Tickets</router-link></li>
             <li><router-link to="/userView">Users</router-link></li>
             <li><router-link to="/estadisticasView">Estadísticas</router-link></li>
-            <li><a href="#"></a></li>
+            <li><router-link to="/about">About</router-link></li>
             <li><a href="#"></a></li>
             <li><a href="#"></a></li>
             <li><a href="#"></a></li>

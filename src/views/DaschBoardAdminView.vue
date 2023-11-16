@@ -9,12 +9,13 @@
                     <canvas id="grafica"></canvas>
                 </div><!--Fin Bloque Estadisticas -->  
                     <div class="row">
+                        <router-link to="/ticketsView" class="page-link">
                         <div class="bloque-tickets">
                             <div class="row">
                                 <div class="col">
                                     <div class="siluelta_card_peq">
                                         <img alt="Imagen tickets" class="icono" src="../assets/ico/logoTicketBlack.png" width="65">
-                                        <router-link to="/ticketsView">
+                                        <router-link to="/ticketsView" class="page-link">
                                             <p class="title">Tickets</p>
                                         </router-link>
                                     </div>
@@ -37,13 +38,14 @@
                                     <span class="num-contador circulo-rojo">{{ contadores[1].ticketsEnd }}</span>
                                 </div>
                             </div>
-                        </div><!--Fin Bloque Tickets -->                     
+                        </div></router-link>  <!--Fin Bloque Tickets -->  
+                        <router-link to="/userView" class="page-link">           
                         <div class="bloque-usuarios">
                             <div class="row">
                                 <div class="col">
                                     <div class="siluelta_card_peq">
                                         <img alt="Imagen tickets" class="icono" src="../assets/ico/userBlack.png" width="65">
-                                        <router-link to="/userView">
+                                        <router-link to="/userView" class="page-link">
                                             <p class="title">Usuarios</p>
                                         </router-link>
                                     </div>
@@ -66,14 +68,15 @@
                                     <span class="num-contador circulo-rojo">{{ contadores[0].usersDisconnect }}</span>
                                 </div>
                             </div>
-                        </div><!--Fin Bloque Usuarios -->
+                        </div></router-link><!--Fin Bloque Usuarios -->
+                        <router-link to="/userView" class="page-link">
                         <div class="bloque-tecnicos">
                             <div class="row">
                                 <div class="col">
                                     <div class="siluelta_card_peq">
                                         <img alt="Imagen tickets" class="icono" src="../assets/ico/userBlack.png"
                                             width="65">
-                                        <router-link to="/userView">
+                                        <router-link to="/userView" class="page-link">
                                             <p class="title">Técnicos</p>
                                         </router-link>
                                     </div>
@@ -97,7 +100,7 @@
                                     <!-- <div class="circulo-rojo">5</div> -->
                                 </div>
                             </div>
-                        </div><!--Fin Bloque Técnicos -->
+                        </div><!--Fin Bloque Técnicos --></router-link>
                 </div>
             </div><!--Fin contentFlex -->
         </div><!--Fin Row -->
