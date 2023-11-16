@@ -89,7 +89,7 @@ input {
   flex-direction:column;
   background-color: white;
   border-radius: 10px;
-  height: 320px;
+  height: 350px;
   align-self: center;
   margin-top: -190px;
   box-shadow: 0px 10px 13px -7px #ffffff, 5px 15px 15px 15px rgba(255, 255, 255, 0);

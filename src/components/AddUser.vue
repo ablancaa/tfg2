@@ -1,22 +1,23 @@
 <template>
     <div id="modal">
-    
-        <div class="container rounded bg-white mt-5 mb-5">
+        <div class="container rounded bg-white  mb-5">
+        <br/>
+            <div class="titleMark"><span class="pageTitle">Add User</span></div>
     <div class="row">
         <!-- <div class="col-md-3 border-right">
             <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" :src="avatar"><span class="font-weight-bold">{{ name }} {{ surname1 }}</span><span class="text-black-50">{{email}}</span><span> </span></div>
         </div> -->
-        <div class="titleMark"><span class="pageTitle">Add User</span></div>
+        
         <div class="col-md-5 border-right">
             <div class="p-3 py-5">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4 class="text-right">Profile Settings</h4>
                 </div>
                 <div class="row mt-2">
-                    <div class="col-md-12"><label class="labels">idUser</label><input type="text" class="form-control" :placeholder="id" v-model="idUser" disabled></div>
-                    <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control" placeholder="first name" v-model="name"></div>
-                    <div class="col-md-6"><label class="labels">Surname</label><input type="text" class="form-control" placeholder="surname1" v-model="surname1"></div>
-                    <div class="col-md-6"><label class="labels">Surname</label><input type="text" class="form-control" placeholder="surname2" v-model="surname2"></div>
+                    <div class="col-sm-12 col-md-12"><label class="labels">idUser</label><input type="text" class="form-control" :placeholder="id" v-model="idUser" disabled></div>
+                    <div class="col-sm-12 col-md-12"><label class="labels">Name</label><input type="text" class="form-control" placeholder="first name" v-model="name"></div>
+                    <div class="col-sm-12 col-md-12"><label class="labels">Surname</label><input type="text" class="form-control" placeholder="surname1" v-model="surname1"></div>
+                    <div class="col-sm-12 col-md-12"><label class="labels">Surname</label><input type="text" class="form-control" placeholder="surname2" v-model="surname2"></div>
                 </div>
                 <div class="row mt-3">
                     <div class="col-md-12"><label class="labels">Avatar</label><input type="text" class="form-control" placeholder="enter Mobile phone number" v-model="avatar"></div>
@@ -110,7 +111,7 @@ let newUser = reactive({})
   left: 0;
   height: 100vh;
   width: 100vw;
-  transition: all .5s;
+  transition: all .10s;
   z-index: 10;
   overflow-y: scroll;
 }
@@ -170,5 +171,10 @@ body {
     width: 100%;
     background-color: rgb(0, 0, 0);
     
+}
+.pageTitle {
+    color: #ffffff;
+    font-size: 38px;
+    font-weight: 700;
 }
 </style>

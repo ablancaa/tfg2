@@ -118,27 +118,6 @@ import { useDataStore } from '../store/datosUser.js'
           router.push("/dashBoardUser")
           console.log("USER S")
         }
-        
-        //let incluyeVeinte = users.includes(store.datosUser.email);
-        //let incluyeValor = users.includes(store.datosUser.email, -1)
-
-            //console.log(incluyeVeinte) // true  
-            //console.log(incluyeValor)
-        // for(let i=0; i < users.length; i++){
-        //         if(rol.value[i]=="Docente"){
-        //            router.push("/dashBoardUser")
-        //          } else {
-        //            router.push("/dashBoardAdmin")
-        //         }
-                
-        //       }   
-        // if (rol == "duniamonnec@hotmail.com"){
-        //   router.push("/dashBoardAdmin")
-          
-        // } else {
-        //   router.push("/dashBoardUser")
-        //   console.log("sale: "+users.rol)
-        // }
       }
     
     }
@@ -185,7 +164,7 @@ input {
   flex-direction:column;
   background-color: white;
   border-radius: 10px;
-  height: 320px;
+  height: 350px;
   align-self: center;
   margin-top: -190px;
   box-shadow: 0px 10px 13px -7px #ffffff, 5px 15px 15px 15px rgba(255, 255, 255, 0);
