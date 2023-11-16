@@ -113,9 +113,7 @@ async function addUser(newUser){
     assignment: assignment.value,
     email: newUser.email,
     adress: newUser.adress,
-    phones: {
-      mobile: newUser.phones.mobile,
-    //   landline: newUser.phones.landline,
+    phone: newUser.phone.mobile,
     },
   });
   console.log("Document written with ID: ", docRef.id);
