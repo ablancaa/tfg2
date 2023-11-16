@@ -68,7 +68,6 @@ let surname1 = ref("");
 let surname2 = ref("");
 let rol = ref("");
 let mobile = ref("");
-// let landline = ref("");
 let adress = ref("");
 let email = ref("");
 let idUser = ref("");
@@ -88,9 +87,7 @@ let newUser = reactive({})
                 state: false,
                 adress: adress.value,
                 email: email.value,
-                phones: {
-                    mobile: mobile.value,
-                    // landline: landline.value,
+                phone: mobile.value,
                 },
             });
         }
