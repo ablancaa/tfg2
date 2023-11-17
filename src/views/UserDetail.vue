@@ -9,6 +9,7 @@
             <div class="col-12">
                 <div class="silueta-card">
                     <div>{{ user[0].name }} {{ user[0].surname1 }} {{ user[0].surname2 }}<br/> {{ user[0].email }}<br/> {{ user[0].rol }}<br/>{{ user[0].phone  }}</div>
+                <button  @click="deleteUser(route.params.idUser)"><img src="../assets/ico/delete.png" width="40" height="40"/></button>
                 </div>
             </div>
         </div>
@@ -18,24 +19,51 @@
 <script setup>
 //import { collection, query, where } from "firebase/firestore";
 //import { db } from "../utils/FirebaseConfig.js"
-import { reactive } from 'vue';
-import { useRoute } from 'vue-router'
+import { reactive, ref } from 'vue';
+import { useRouter, useRoute  } from 'vue-router'
+import { db, getDocs } from "../utils/FirebaseConfig.js"
+import { collection, deleteDoc, doc } from "firebase/firestore";
+
 import NavBar2 from '@/components/NavBar2.vue';
-const route = useRoute();  
 
+    const router = useRouter() //Utiliza el router.push("/")
+    const route = useRoute() //recibe los parámetros del router
 
-let user = reactive ([
-    {
-    idUser: route.params.idUser,
-    name: route.params.name,
-    surname1: route.params.surname1,
-    surname2: route.params.surname2,
-    rol: route.params.rol,
-    email: route.params.email,
-    phone: route.params.phone,
-    }])
+    let refUsuarioEnFirebase = ref()
+    let ids = reactive([]);
+    let users = reactive([]);
+    let user = reactive ([
+        {
+        idUser: route.params.idUser,
+        name: route.params.name,
+        surname1: route.params.surname1,
+        surname2: route.params.surname2,
+        rol: route.params.rol,
+        email: route.params.email,
+        phone: route.params.phone,
+        }]
+    );
+   
+async function deleteUser(idUser){
+    console.log(idUser)
+    const querySnapshotClients = await getDocs(collection(db, "users"));
+    querySnapshotClients.forEach((doc) => {
+    ids.push(doc.id);
+    users.push(doc.data());
+    });
 
- 
+  for(let i= 0 ; i< users.length; i++){
+    if(idUser == users[i].idUser){
+        console.log(ids[i])
+        console.log(users[i].idUser)
+        refUsuarioEnFirebase.value = ids[i]
+        console.log(refUsuarioEnFirebase.value)
+    }
+  }
+  
+  await deleteDoc(doc(db, "users",refUsuarioEnFirebase.value));
+  await router.push("/userView")
+}
 
 </script>
 

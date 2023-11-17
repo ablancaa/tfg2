@@ -31,13 +31,10 @@
 //import { defineEmits } from 'vue'
 //import HelloWorld from '@/components/HelloWorld.vue'
 //const emit = defineEmits(['change', 'delete']);
-import {  reactive, onMounted, ref  } from 'vue'
+import { reactive, onMounted, ref  } from 'vue'
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { db, collection, getDocs } from "../utils/FirebaseConfig.js"
-import {  } from "firebase/firestore";
 import { useRouter } from 'vue-router';
-
-// import { getAuth } from 'firebase/auth';
 import "firebase/auth";
 import { useDataStore } from '../store/datosUser.js'
 
@@ -45,7 +42,6 @@ import { useDataStore } from '../store/datosUser.js'
   
   let loginNoOk = ref(false);
   let users = reactive([]);
-  //let rol = ref();
   let emails = ref();
   const auth = getAuth();
   const router = useRouter();

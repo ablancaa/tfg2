@@ -32,8 +32,8 @@ import SearchBar from '@/components/SearchBar.vue'
 import UsersList from '@/components/UsersList.vue'
 import AddUser from "@/components/AddUser.vue"
 import { reactive, onMounted, ref, computed } from "vue";
-import { db } from "../utils/FirebaseConfig.js"
-import { collection, getDocs, addDoc, deleteDoc, doc } from "firebase/firestore";
+import { db, getDocs } from "../utils/FirebaseConfig.js"
+import { collection, addDoc, deleteDoc, doc } from "firebase/firestore";
 
 
 
@@ -93,43 +93,67 @@ function showForm(){
 }
 
 async function addUser(newUser){
-    let assignment = ref();
+  let assignment = ref("");
     console.log(newUser);
-    if(newUser.rol == 'Técnico'){
-      assignment.value = false;
+  if(newUser.rol === 'Técnico') {
+    assignment.value = false;
+    try {
+      const docRef = await addDoc(collection(db, "users"), {
+      idUser: newUser.idUser,
+      imgUser: newUser.avatar,
+      name: newUser.name,
+      surname1: newUser.surname1,
+      surname2: newUser.surname2,
+      rol: newUser.rol,
+      phone: newUser.phone,
+      assignment: assignment.value,
+      adress: newUser.adress,
+      email: newUser.email,
+      state: newUser.state,
+    });
+  
+    console.log("Document written with ID: ", docRef.id);
+    console.log(newUser)
+
+    } catch (e) {
+      console.error("Error adding document: ", e);
     }
-  try {
-  const docRef = await addDoc(collection(db, "users"), {
-    idUser: newUser.idUser,
-    name: newUser.name,
-    surname1: newUser.surname1,
-    surname2: newUser.surname2,
-    state: newUser.state,
-    rol: newUser.rol,
-    imgUser: newUser.avatar,
-    assignment: assignment.value,
-    email: newUser.email,
-    adress: newUser.adress,
-    phone: newUser.phone,
-  });
-  console.log("Document written with ID: ", docRef.id);
-  //console.log(newClient)
-  } catch (e) {
-  console.error("Error adding document: ", e);
+  } else {
+    
+    try {
+    const docRef = await addDoc(collection(db, "users"), {
+    
+      idUser: newUser.idUser,
+      imgUser: newUser.avatar,
+      name: newUser.name,
+      surname1: newUser.surname1,
+      surname2: newUser.surname2,
+      rol: newUser.rol,
+      phone: newUser.phone,
+      adress: newUser.adress,
+      email: newUser.email,
+      state: newUser.state,
+    });
+  
+    console.log("Document written with ID: ", docRef.id);
+    console.log(newUser)
+
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
   }
   location.reload();
 }
 
-async function deleteClient(idUUI) {
+async function deleteClient(idUser) {
+  console.log(idUser)
   let refUsuarioEnFirebase;
   const querySnapshotClients = await getDocs(collection(db, "users"));
   querySnapshotClients.forEach((doc) => {
     users.push(doc.data());
-  //console.log(doc.id)
-  //console.log(doc.data().idClient)
-  if(doc.data().idUser == idUUI){
+
+  if(doc.data().idUser == idUser){
     refUsuarioEnFirebase = doc.id;
-    //console.log("Se borra el registro:  "+refClienteEnFirebase)
   }
   });
   await deleteDoc(doc(db, "users",refUsuarioEnFirebase));
@@ -201,10 +225,7 @@ console.log("Tickets End: "+contadores[0].ticketsEnd)
     height: 100%;
 }
 
-.estado{
-    height: 55px;
-    background-color: rgb(122, 198, 198);
-}
+
 .titleMark{
     margin-top: 50px;
     border-radius: 10px;

@@ -1,7 +1,7 @@
 <template>
 <div class="silueta-card">
     <div class="flex-items">
-        <img class="" :src="props.user.imgUser" width="60" height="60"/>
+        <img class="imgUser" :src="props.user.imgUser" width="60" height="60"/>
     </div>
     <div class="flex-items">
        
@@ -60,7 +60,7 @@ import { defineProps } from 'vue';
 
     justify-content: center;
     align-items: center;
-    background-color: aqua; 
+    /* background-color: aqua;  */
    
 }
 
@@ -99,18 +99,20 @@ import { defineProps } from 'vue';
 .estado {
     margin-top: 10px;
     margin-left: -5px;
-    background-color: rgb(180, 9, 186); 
+    /* background-color: rgb(180, 9, 186);  */
 } 
 .flex-items:nth-child(3) {
     justify-content: center;
     align-items: center;
-    background-color: rgb(255, 0, 217);
+    /* background-color: rgb(255, 0, 217); */
 }
+.imgUser{
 
+}
 img {
     border-radius: 50%;
     border: 2px solid rgb(2, 30, 132);
-    margin: 0px 10px 0px -10px;
+    margin: 0px 10px 0px 5px;
 }
 
 .circulo-verde {

@@ -93,19 +93,19 @@
                             <div class="siluelta_card_grande">
                                 <div class="">
                                     <h5 class="contenido-card-grande">Nº Técnicos: </h5>
-                                    <span class="num-contador cuadrado-numerador">{{ contadores[0].usersTecnico }}</span>
+                                    <span class="num-contador cuadrado-numerador">{{ contadores[2].usersTecnico }}</span>
                                 </div>
                                 <hr />
                                 <div class="">
                                     <div class="">
                                         <h5>Libres: </h5>
                                     </div>
-                                    <span class="num-contador circulo-verde">{{ contadores[0].userUnAssignment }}</span>
+                                    <span class="num-contador circulo-verde">{{ contadores[2].userUnAssignment }}</span>
                                 </div>
                                 <div class="">
                                     <h5>Asignados: </h5>
                                 </div>
-                                <span class="num-contador circulo-rojo">{{ contadores[0].userAssignment }}</span>
+                                <span class="num-contador circulo-rojo">{{ contadores[2].userAssignment }}</span>
                             </div>
                         </div>
                     </div><!--Fin div técnicos-->
@@ -138,9 +138,6 @@ let contadores = reactive([
         usersNum: 0,
         usersActive: 0,
         usersDisconnect: 0,
-        usersTecnico: 0,
-        userAssignment: 0,
-        userUnAssignment: 0,
         usersAdmin: 0,
         usersDocente: 0,
         usersServicios: 0
@@ -150,6 +147,11 @@ let contadores = reactive([
         ticketsProgress: 0,
         ticketsEnd: 0
     },
+    {
+        usersTecnico: 0,
+        userAssignment: 0,
+        userUnAssignment: 0,
+    }
 ])
 
 let arrayGraficoResumen = reactive([
@@ -168,7 +170,6 @@ onBeforeMount(()=>{
     getListados();
 })
 async function getListados() {
-
     const querySnapshotUsers = await getDocs(collection(db, "users"));
     const querySnapshotTickets = await getDocs(collection(db, "tickets"));
 
@@ -182,9 +183,10 @@ async function getListados() {
         contadores[0].usersNum = users.length;
         contadores[0].usersActive = activesUsers.length;
         contadores[0].usersDisconnect = disconnectUsers.length;
-        contadores[0].usersTecnico = userTecnico.length
-        contadores[0].userAssignment = tecnicoAsignado.length
-        contadores[0].userUnAssignment = tecnicoNoAsignado.length
+
+        contadores[2].usersTecnico = userTecnico.length
+        contadores[2].userAssignment = tecnicoAsignado.length;
+        contadores[2].userUnAssignment = tecnicoNoAsignado.length
     });
 
     querySnapshotTickets.forEach((doc) => {
@@ -198,7 +200,6 @@ async function getListados() {
     });
 }
 const pintaGrafica = () => {
-    console.log(contadores[1].ticketsEnd)
     const ctx = document.getElementById("grafica");
     const labels = ['Nº Tickets', 'En Espera', 'En proceso', 'Resuelto']
     //const graph = document.querySelector("#grafica");
