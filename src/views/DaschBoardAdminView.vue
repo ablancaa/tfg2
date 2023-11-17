@@ -5,12 +5,12 @@
         <div class="titleMark"><span class="pageTitle">Dashboard Admin</span></div>
             <div class="row">
                 
-                <div class="col-sm-12 col-md-6">
+                <div class="col-sm-12 col-md-12">
                     <div class="bloque-estadiscicas">
                     <canvas id="grafica"></canvas></div> <!--Fin Bloque Estadisticas -->
                 </div> <!--Fin col 1 estadísticas-->
                 
-                <div class="col-sm-12 col-md-6">
+                <div class="col-sm-12 col-md-4">
                     <router-link to="/ticketsView" class="page-link"> 
                     <div class="bloque-tickets">
                         <div class="row">
@@ -44,7 +44,7 @@
                     </router-link>
                  </div> <!--Fin col 2 tickets-->
                  
-                 <div class="col-sm-12 col-md-6">
+                 <div class="col-sm-12 col-md-4">
                     <router-link to="/userView" class="page-link">
                     <div class="bloque-usuarios">
                         <div class="row">
@@ -77,7 +77,7 @@
                     </div><!--Fin div bloque-usuarios-->
                     </router-link>
                 </div><!--Fin col 2 usuarios-->
-                <div class="col-sm-12 col-md-6">
+                <div class="col-sm-12 col-md-4">
                     <router-link to="/userView" class="page-link">
                     <div class="bloque-tecnicos">
                         <div class="row">
