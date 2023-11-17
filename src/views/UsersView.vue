@@ -20,9 +20,10 @@
         @close="showModal = false" 
         @newUser="addUser"/>
 
-        <UsersList :usersList="usersListFiltered" :ticketList="tickets" 
-        @deleteClientId="deleteClient"/>
+       
     </div>
+    <UsersList :usersList="usersListFiltered" :ticketList="tickets" 
+        @deleteClientId="deleteClient"/>
 </template>
 
 <script setup>
@@ -50,12 +51,7 @@ let showModal = ref(false);
 onMounted(() => {
     getListaUsuarios();
     getListaTickets();
-    
-   
-
-});
-
-
+  });
 
 const usersListFiltered = computed(() => {
   if (!searchTerm.value) {
@@ -95,12 +91,13 @@ async function getListaUsuarios() {
 function showForm(){
   showModal.value = true;
 }
+
 async function addUser(newUser){
     let assignment = ref();
-  console.log(newUser);
-  if(newUser.rol == 'Técnico'){
-    assignment.value = false;
-  }
+    console.log(newUser);
+    if(newUser.rol == 'Técnico'){
+      assignment.value = false;
+    }
   try {
   const docRef = await addDoc(collection(db, "users"), {
     idUser: newUser.idUser,
@@ -113,10 +110,7 @@ async function addUser(newUser){
     assignment: assignment.value,
     email: newUser.email,
     adress: newUser.adress,
-    phones: {
-      mobile: newUser.phones.mobile,
-    //   landline: newUser.phones.landline,
-    },
+    phone: newUser.phone,
   });
   console.log("Document written with ID: ", docRef.id);
   //console.log(newClient)

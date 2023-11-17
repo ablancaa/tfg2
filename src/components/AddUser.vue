@@ -1,12 +1,12 @@
 <template>
     <div id="modal">
-        <div class="container rounded bg-white  mb-5">
+        <div class="container rounded bg-white mb-5">
         <br/>
             <div class="titleMark"><span class="pageTitle">Add User</span></div>
     <div class="row">
-        <!-- <div class="col-md-3 border-right">
+        <div class="col-md-3 border-right">
             <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" :src="avatar"><span class="font-weight-bold">{{ name }} {{ surname1 }}</span><span class="text-black-50">{{email}}</span><span> </span></div>
-        </div> -->
+        </div> 
         
         <div class="col-md-5 border-right">
             <div class="p-3 py-5">
@@ -21,7 +21,7 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col-md-12"><label class="labels">Avatar</label><input type="text" class="form-control" placeholder="enter Mobile phone number" v-model="avatar"></div>
-                    <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text" class="form-control" placeholder="enter Mobile phone number" v-model="mobile"></div>
+                    <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text" class="form-control" placeholder="enter Mobile phone number" v-model="phone"></div>
                     <div class="col-md-12"><label class="labels">Rol</label>
                         <select class="form-control" v-model="rol">
                             <option disabled value="">Seleccione un rol para el usuario</option>
@@ -67,7 +67,7 @@ let name = ref("");
 let surname1 = ref("");
 let surname2 = ref("");
 let rol = ref("");
-let mobile = ref("");
+let phone = ref("");
 // let landline = ref("");
 let adress = ref("");
 let email = ref("");
@@ -88,10 +88,7 @@ let newUser = reactive({})
                 state: false,
                 adress: adress.value,
                 email: email.value,
-                phones: {
-                    mobile: mobile.value,
-                    // landline: landline.value,
-                },
+                phone: phone.value,
             });
         }
         emit('newUser', newUser);

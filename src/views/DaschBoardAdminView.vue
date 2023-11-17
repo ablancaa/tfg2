@@ -3,108 +3,117 @@
     <div class="container">
         <br />
         <div class="titleMark"><span class="pageTitle">Dashboard Admin</span></div>
-        <div class="row">
-            <div class="contenFlex">
-                <div class="bloque-estadiscicas">
-                    <canvas id="grafica"></canvas>
-                </div><!--Fin Bloque Estadisticas -->  
-                    <div class="row">
-                        <router-link to="/ticketsView" class="page-link">
-                        <div class="bloque-tickets">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="siluelta_card_peq">
-                                        <img alt="Imagen tickets" class="icono" src="../assets/ico/logoTicketBlack.png" width="65">
-                                        <router-link to="/ticketsView" class="page-link">
-                                            <p class="title">Tickets</p>
-                                        </router-link>
-                                    </div>
-                                </div>
-                                <div class="siluelta_card_grande">
-                                    <div class="">
-                                        <h5 class="contenido-card-grande">Nº Tickets: </h5>
-                                        <span class="num-contador cuadrado-numerador">{{ contadores[1].ticketsNum }}</span>
-                                    </div>
-                                    <hr />
-                                    <div class="">
-                                        <div class="">
-                                            <h5>En proceso: </h5>
-                                        </div>
-                                        <span class="num-contador circulo-naranja">{{ contadores[1].ticketsProgress }}</span>
-                                    </div>
-                                    <div class="">
-                                        <h5>Finalizados:</h5>
-                                    </div>
-                                    <span class="num-contador circulo-rojo">{{ contadores[1].ticketsEnd }}</span>
+            <div class="row">
+                
+                <div class="col-sm-12 col-md-6">
+                    <div class="bloque-estadiscicas">
+                    <canvas id="grafica"></canvas></div> <!--Fin Bloque Estadisticas -->
+                </div> <!--Fin col 1 estadísticas-->
+                
+                <div class="col-sm-12 col-md-6">
+                    <router-link to="/ticketsView" class="page-link"> 
+                    <div class="bloque-tickets">
+                        <div class="row">
+                            <div class="col">
+                                <div class="siluelta_card_peq">
+                                    <img alt="Imagen tickets" class="icono" src="../assets/ico/logoTicketBlack.png" width="65">
+                                    <router-link to="/ticketsView" class="page-link">
+                                        <p class="title">Tickets</p>
+                                    </router-link>
                                 </div>
                             </div>
-                        </div></router-link>  <!--Fin Bloque Tickets -->  
-                        <router-link to="/userView" class="page-link">           
-                        <div class="bloque-usuarios">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="siluelta_card_peq">
-                                        <img alt="Imagen tickets" class="icono" src="../assets/ico/userBlack.png" width="65">
-                                        <router-link to="/userView" class="page-link">
-                                            <p class="title">Usuarios</p>
-                                        </router-link>
-                                    </div>
+                            <div class="siluelta_card_grande">
+                                <div class="">
+                                    <h5 class="contenido-card-grande">Nº Tickets: </h5>
+                                    <span class="num-contador cuadrado-numerador">{{ contadores[1].ticketsNum }}</span>
                                 </div>
-                                <div class="siluelta_card_grande">
+                                <hr />
+                                <div class="">
                                     <div class="">
-                                        <h5 class="contenido-card-grande">Nº Usuarios: </h5>
-                                        <span class="num-contador cuadrado-numerador">{{ contadores[0].usersNum }}</span>
+                                        <h5>En proceso: </h5>
                                     </div>
-                                    <hr />
-                                    <div class="">
-                                        <div class="">
-                                            <h5>On-Line: </h5>
-                                        </div>
-                                        <span class="num-contador circulo-verde">{{ contadores[0].usersActive }}</span>
-                                    </div>
-                                    <div class="">
-                                        <h5>Off-Line:</h5>
-                                    </div>
-                                    <span class="num-contador circulo-rojo">{{ contadores[0].usersDisconnect }}</span>
+                                    <span class="num-contador circulo-naranja">{{ contadores[1].ticketsProgress }}</span>
+                                </div>
+                                <div class="">
+                                    <h5>Finalizados:</h5>
+                                </div>
+                                <span class="num-contador circulo-rojo">{{ contadores[1].ticketsEnd }}</span>
+                            </div>
+                        </div>
+                    </div><!--Fin div bloque-tickets-->
+                    </router-link>
+                 </div> <!--Fin col 2 tickets-->
+                 
+                 <div class="col-sm-12 col-md-6">
+                    <router-link to="/userView" class="page-link">
+                    <div class="bloque-usuarios">
+                        <div class="row">
+                            <div class="col">
+                                <div class="siluelta_card_peq">
+                                    <img alt="Imagen tickets" class="icono" src="../assets/ico/userBlack.png" width="65">
+                                    <router-link to="/userView" class="page-link">
+                                        <p class="title">Usuarios</p>
+                                    </router-link>
                                 </div>
                             </div>
-                        </div></router-link><!--Fin Bloque Usuarios -->
-                        <router-link to="/userView" class="page-link">
-                        <div class="bloque-tecnicos">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="siluelta_card_peq">
-                                        <img alt="Imagen tickets" class="icono" src="../assets/ico/userBlack.png"
-                                            width="65">
-                                        <router-link to="/userView" class="page-link">
-                                            <p class="title">Técnicos</p>
-                                        </router-link>
-                                    </div>
+                            <div class="siluelta_card_grande">
+                                <div class="">
+                                    <h5 class="contenido-card-grande">Nº Usuarios: </h5>
+                                    <span class="num-contador cuadrado-numerador">{{ contadores[0].usersNum }}</span>
                                 </div>
-                                <div class="siluelta_card_grande">
+                                <hr />
+                                <div class="">
                                     <div class="">
-                                        <h5 class="contenido-card-grande">Nº Técnicos: </h5>
-                                        <span class="num-contador cuadrado-numerador">{{ contadores[0].usersTecnico }}</span>
-                                        
+                                        <h5>On-Line: </h5>
                                     </div>
-                                    <hr />
-                                    <div class="">
-                                        <div class="">
-                                            <h5>Libres: </h5>
-                                        </div><span class="num-contador circulo-verde">{{ contadores[0].userUnAssignment
-                                        }}</span>
-                                    </div>
-                                    <div class="">
-                                        <h5>Asignados: </h5>
-                                    </div><span class="num-contador circulo-rojo">{{ contadores[0].userAssignment }}</span>
-                                    <!-- <div class="circulo-rojo">5</div> -->
+                                    <span class="num-contador circulo-verde">{{ contadores[0].usersActive }}</span>
+                                </div>
+                                <div class="">
+                                    <h5>Off-Line:</h5>
+                                </div>
+                                <span class="num-contador circulo-rojo">{{ contadores[0].usersDisconnect }}</span>
+                            </div>
+                        </div>
+                    </div><!--Fin div bloque-usuarios-->
+                    </router-link>
+                </div><!--Fin col 2 usuarios-->
+                <div class="col-sm-12 col-md-6">
+                    <router-link to="/userView" class="page-link">
+                    <div class="bloque-tecnicos">
+                        <div class="row">
+                            <div class="col">
+                                <div class="siluelta_card_peq">
+                                    <img alt="Imagen tickets" class="icono" src="../assets/ico/userBlack.png"
+                                        width="65">
+                                    <router-link to="/userView" class="page-link">
+                                        <p class="title">Técnicos</p>
+                                    </router-link>
                                 </div>
                             </div>
-                        </div><!--Fin Bloque Técnicos --></router-link>
-                </div>
-            </div><!--Fin contentFlex -->
-        </div><!--Fin Row -->
-    </div><!--Fin container -->
+                            <div class="siluelta_card_grande">
+                                <div class="">
+                                    <h5 class="contenido-card-grande">Nº Técnicos: </h5>
+                                    <span class="num-contador cuadrado-numerador">{{ contadores[0].usersTecnico }}</span>
+                                </div>
+                                <hr />
+                                <div class="">
+                                    <div class="">
+                                        <h5>Libres: </h5>
+                                    </div>
+                                    <span class="num-contador circulo-verde">{{ contadores[0].userUnAssignment }}</span>
+                                </div>
+                                <div class="">
+                                    <h5>Asignados: </h5>
+                                </div>
+                                <span class="num-contador circulo-rojo">{{ contadores[0].userAssignment }}</span>
+                            </div>
+                        </div>
+                    </div><!--Fin div técnicos-->
+                    </router-link>
+                </div><!--Fin col 3 Técnicos -->
+            </div><!--Fin Row bloque -->
+            
+    </div><!--Fin container-->
     <br />
     <Footer />
 </template>
@@ -114,7 +123,7 @@
 import NavBar2 from '@/components/NavBar2.vue'
 import Footer from '@/components/Footer.vue'
 
-import { reactive, onMounted } from "vue";
+import { reactive, onMounted, onBeforeMount } from "vue";
 import { db } from "../utils/FirebaseConfig.js"
 import { collection, getDocs } from "firebase/firestore";
 import Chart from 'chart.js/auto';
@@ -152,10 +161,12 @@ let arrayGraficoResumen = reactive([
 console.log(store.datosUser.email)
 
 onMounted(() => {
-    getListados();
     pintaGrafica();
 });
 
+onBeforeMount(()=>{
+    getListados();
+})
 async function getListados() {
 
     const querySnapshotUsers = await getDocs(collection(db, "users"));
@@ -187,7 +198,7 @@ async function getListados() {
     });
 }
 const pintaGrafica = () => {
-
+    console.log(contadores[1].ticketsEnd)
     const ctx = document.getElementById("grafica");
     const labels = ['Nº Tickets', 'En Espera', 'En proceso', 'Resuelto']
     //const graph = document.querySelector("#grafica");
@@ -238,8 +249,6 @@ export default {
     height: 55px;
     width: 100%;
     background-color: rgb(0, 0, 0);
-   
-
 }
 
 hr {
@@ -261,13 +270,8 @@ hr {
 
 .container {
     width: 100%;
-    height: 100%;
+    
     background-color: rgb(255, 255, 255);
-}
-
-.contenFlex {
-    display: flex;
-    flex-direction: column;
 }
 
 .bloque-estadiscicas {
@@ -301,7 +305,7 @@ hr {
 }
 
 .siluelta_card_grande {
-    width: 226px;
+    width: 190px;
     height: 140px;
     flex-shrink: 0;
     border-radius: 10px;
@@ -312,6 +316,7 @@ hr {
 
 .contenido-card-grande {
     margin-top: 15px;
+    margin-left: -20px;
 }
 
 .num-contador {
@@ -325,7 +330,7 @@ hr {
 }
 
 .cuadrado-numerador {
-    width: 40px;
+    width: 30px;
     height: 26px;
     border-radius: 10%;
     float: right;
@@ -374,7 +379,6 @@ hr {
     font-size: 18px;
     color: #FFF;
 }
-
 
 .bloque-usuarios {
     display: flex;
