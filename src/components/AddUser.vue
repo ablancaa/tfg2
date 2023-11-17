@@ -4,11 +4,11 @@
         <br/>
             <div class="titleMark"><span class="pageTitle">Add User</span></div>
     <div class="row">
-        <div class="col-md-3 border-right">
+        <!-- <div class="col-md-3 border-right">
             <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" :src="avatar"><span class="font-weight-bold">{{ name }} {{ surname1 }}</span><span class="text-black-50">{{email}}</span><span> </span></div>
-        </div> 
+        </div>  -->
         
-        <div class="col-md-5 border-right">
+        <div class="col-md-12 border-right align-items-center flex-column">
             <div class="p-3 py-5">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4 class="text-right">Profile Settings</h4>
@@ -29,7 +29,8 @@
                             <option>Admin</option>
                             <option>Técnico</option>
                             <option>Servicios</option>
-                        </select><!-- <input type="text" class="form-control" placeholder="Rol del usuario" v-model="rol"></input>--></div>
+                        </select>
+                    </div>
                     <div class="col-md-12"><label class="labels">Address Line 1</label><input type="text" class="form-control" placeholder="enter address line 1" v-model="adress"></div>
                     <!-- <div class="col-md-12"><label class="labels">Address Line 2</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div> -->
                     <!-- <div class="col-md-12"><label class="labels">Postcode</label><input type="text" class="form-control" placeholder="Postcode" value=""></div>-->
@@ -62,16 +63,16 @@ import{ ref, reactive, defineEmits } from 'vue'
 const emit = defineEmits(['newUser','close'])
 
 let id = ref(generarIdUnico());
+let idUser = ref("");
 let avatar = ref('https://i.pravatar.cc/80');
 let name = ref("");
 let surname1 = ref("");
 let surname2 = ref("");
 let rol = ref("");
 let phone = ref("");
-// let landline = ref("");
 let adress = ref("");
 let email = ref("");
-let idUser = ref("");
+
 let newUser = reactive({})
 
     const newClient = () => {
@@ -80,15 +81,15 @@ let newUser = reactive({})
         } else {
             newUser = ({
                 idUser: id.value,
-                name: name.value,
                 avatar: avatar.value,
+                name: name.value,
                 surname1: surname1.value,
                 surname2: surname2.value,
                 rol: rol.value,
-                state: false,
+                phone: phone.value,
                 adress: adress.value,
                 email: email.value,
-                phone: phone.value,
+                state: false,
             });
         }
         emit('newUser', newUser);
