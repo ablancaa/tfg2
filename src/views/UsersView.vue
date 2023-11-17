@@ -110,7 +110,12 @@ async function addUser(newUser){
     assignment: assignment.value,
     email: newUser.email,
     adress: newUser.adress,
+<<<<<<< HEAD
     phone: newUser.phone,
+=======
+    phone: newUser.phone.mobile,
+    },
+>>>>>>> b70ceae5aab3584eac6bf37d4d49fb10275eb79f
   });
   console.log("Document written with ID: ", docRef.id);
   //console.log(newClient)
