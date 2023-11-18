@@ -97,8 +97,9 @@ import { defineProps } from 'vue';
     font-weight: 400;
 }
 .estado {
+    font-size: 14px;
     margin-top: 10px;
-    margin-left: -5px;
+    margin-left: -15px;
     /* background-color: rgb(180, 9, 186);  */
 } 
 .flex-items:nth-child(3) {

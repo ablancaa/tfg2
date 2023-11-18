@@ -134,7 +134,7 @@ async function addUser(newUser){
       email: newUser.email,
       state: newUser.state,
     });
-  
+
     console.log("Document written with ID: ", docRef.id);
     console.log(newUser)
 

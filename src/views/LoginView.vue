@@ -89,9 +89,13 @@ import { useDataStore } from '../store/datosUser.js'
         //console.log(userT)
 
         const  userAdmin = users.filter(user => user.rol == 'Admin')
-        //console.log(userAdmin)
+        console.log(userAdmin)
         let userA = userAdmin.filter(user =>user.email == email.value)
-        //console.log(userA)
+        console.log(userA)
+        if(userA.length == 1){
+          router.push("/dashBoardAdmin")
+          console.log("USER A")
+        }
 
         const  userService = users.filter(user => user.rol == 'Servicios')
         //console.log(userService)
@@ -123,7 +127,7 @@ import { useDataStore } from '../store/datosUser.js'
     
     querySnapshotUsers.forEach((doc) => {
     users.push(doc.data());
-    let userTecnico = users.filter(user => user.rol == 'Técnico')
+    //let userTecnico = users.filter(user => user.rol == 'Técnico')
     //console.log(userTecnico)
     });
     sessionStorage.setItem("usersList", JSON.stringify(users));
