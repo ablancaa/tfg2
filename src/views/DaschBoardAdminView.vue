@@ -35,9 +35,21 @@
                                     <span class="num-contador circulo-naranja">{{ contadores[1].ticketsProgress }}</span>
                                 </div>
                                 <div class="">
+                                    <div class="">
+                                        <h5>Activos: </h5>
+                                    </div>
+                                    <span class="num-contador circulo-naranja">{{ contadores[1].ticketsActive }}</span>
+                                </div>
+                                <div class="">
+                                    <div class="">
+                                        <h5>En Espera: </h5>
+                                    </div>
+                                    <span class="num-contador circulo-naranja">{{ contadores[1].ticketsWait }}</span>
+                                </div>
+                                <div class="">
                                     <h5>Finalizados:</h5>
                                 </div>
-                                <span class="num-contador circulo-rojo">{{ contadores[1].ticketsEnd }}</span>
+                                <span class="num-contador circulo-verde">{{ contadores[1].ticketsEnd }}</span>
                             </div>
                         </div>
                     </div><!--Fin div bloque-tickets-->
@@ -145,7 +157,9 @@ let contadores = reactive([
     {
         ticketsNum: 0,
         ticketsProgress: 0,
-        ticketsEnd: 0
+        ticketsEnd: 0,
+        ticketsActive: 0,
+        ticketsWait: 0,
     },
     {
         usersTecnico: 0,
@@ -154,16 +168,16 @@ let contadores = reactive([
     }
 ])
 
-let arrayGraficoResumen = reactive([
-    {
-    ticketsNum: 0,
-    }
-]);
+// let arrayGraficoResumen = reactive([
+//     {
+//     ticketsNum: 0,
+//     }
+// ]);
 
 console.log(store.datosUser.email)
 
 onMounted(() => {
-    pintaGrafica();
+    pintaGrafica(); 
 });
 
 onBeforeMount(()=>{
@@ -193,24 +207,30 @@ async function getListados() {
         tickets.push(doc.data());
         let ticketProcces = tickets.filter(ticket => ticket.state == "procces")
         let ticketEnd = tickets.filter(ticket => ticket.state == "end")
+        let ticketActive = tickets.filter(ticket => ticket.state == "active")
+        let ticketWait = tickets.filter(ticket => ticket.state == "wait")
         contadores[1].ticketsNum = tickets.length
         contadores[1].ticketsProgress = ticketProcces.length
         contadores[1].ticketsEnd = ticketEnd.length
-        arrayGraficoResumen.ticketEnd = tickets.length;
+        contadores[1].ticketsActive = ticketActive.length
+        contadores[1].ticketsWait = ticketWait.length
+        // arrayGraficoResumen.ticketsNum = tickets.length;
     });
 }
 const pintaGrafica = () => {
+    // let nTickets = arrayGraficoResumen[0].ticketsNum;
+    // console.log(arrayGraficoResumen[0].ticketsNum);
     const ctx = document.getElementById("grafica");
     const labels = ['Nº Tickets', 'En Espera', 'En proceso', 'Resuelto']
-    //const graph = document.querySelector("#grafica");
+
     new Chart(ctx, {
         type: 'bar',
         data: {
             labels: labels,
             datasets: [{
-                display: true,
+                display: false,
                 label: 'Tickets',
-                data: [5,1,3,2],
+                data: [8,6,7],
                 borderColor: 'black',
                 pointStyle: 'rectRounded',
                 backgroundColor: 'rgba(9, 129, 176, 0.2)',
@@ -225,7 +245,6 @@ const pintaGrafica = () => {
             }
         }
     });
-
 }
 
 </script>
@@ -310,7 +329,7 @@ hr {
 
 .siluelta_card_grande {
     width: 190px;
-    height: 140px;
+    height: auto;
     flex-shrink: 0;
     border-radius: 10px;
     border-right: 2px solid rgba(0, 0, 0, 0.50);
