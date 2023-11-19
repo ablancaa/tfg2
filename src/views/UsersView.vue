@@ -19,8 +19,6 @@
         <AddUser v-if="showModal" 
         @close="showModal = false" 
         @newUser="addUser"/>
-
-       
     </div>
     <UsersList :usersList="usersListFiltered" :ticketList="tickets" 
         @deleteClientId="deleteClient"/>
