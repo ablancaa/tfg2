@@ -3,7 +3,7 @@
      <div class="row">
         <div class="col-sm-12 col-md-6 col-lg-6 marginTop " v-for="user in props.usersList" :key="user">
         <div v-for="ticket in props.ticketList" :key="ticket.idTicket"></div>
-            <router-link :to="{ name: 'userDetail', params:  { idUser: user.idUser, name: user.name, surname1: user.surname1, surname2: user.surname2, rol: user.rol, email: user.email, phone: user.phone } }" class="page-link">
+            <router-link :to="{ name: 'userDetail', params:  { idUser: user.idUser, name: user.name, surname1: user.surname1, surname2: user.surname2, rol: user.rol, email: user.email, phone: user.phone, imgUser: user.imgUser } }" class="page-link">
               <CardUser :user="user" :ticket="ticketList" @deleteUser="deleteUser" />
             </router-link>
         </div>

@@ -53,7 +53,7 @@ import { useDataStore } from '../store/datosUser.js'
     getListaUsuarios();
   });
 
-    const login = () => {
+    const login = async () => {
       if(email.value == '' || password.value == '') {
         alert("Usuario o Password vacio");
         loginNoOk.value = true;
@@ -69,6 +69,8 @@ import { useDataStore } from '../store/datosUser.js'
               store.datosUser.email = user.email;
               emails.value = user.email;    
               store.asignarUsuarioActivo(user.email)
+              console.log(store.asignarUsuarioActivo(user.email))
+              // router.push("/dashBoardAdmin")
               
             })
         .catch((error)=>{
@@ -86,10 +88,10 @@ import { useDataStore } from '../store/datosUser.js'
         const  userTecnico = users.filter(user => user.rol == 'Técnico')
         //console.log(userTecnico)
         let userT = userTecnico.filter(user =>user.email == email.value)
-        //console.log(userT)
+        console.log(userT)
 
         const  userAdmin = users.filter(user => user.rol == 'Admin')
-        console.log(userAdmin)
+        //console.log(userAdmin)
         let userA = userAdmin.filter(user =>user.email == email.value)
         console.log(userA)
         if(userA.length == 1){
@@ -100,7 +102,7 @@ import { useDataStore } from '../store/datosUser.js'
         const  userService = users.filter(user => user.rol == 'Servicios')
         //console.log(userService)
         let userS = userService.filter(user =>user.email == email.value)
-        //console.log(userS)
+        console.log(userS)
                 
         if(userD.length == 1){
           router.push("/dashBoardUser")

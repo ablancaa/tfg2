@@ -1,5 +1,5 @@
 <template>
-    <NavBar2 :currenUser="store.datosUser.email"/>
+    <NavBar2 :currenUser="store.getEmail"/>
     <div class="container">
         <br />
         <div class="titleMark"><span class="pageTitle">Dashboard Admin</span></div>
@@ -281,9 +281,12 @@ hr {
     height: 210px;
     flex-shrink: 0;
     margin-top: 15px;
-    background-color: rgb(216, 216, 216);
+    background-color: rgb(255, 255, 255);
     border-radius: 10px;
+    border: 1px solid #000;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
+
 
 .bloque-tickets {
     display: flex;
