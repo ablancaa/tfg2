@@ -13,8 +13,8 @@
             <router-link to="/"><img src="../assets/ico/exitWhite.png" width="25"/></router-link>
           </div>
           <div class="menu-items">
-            <li><img alt="icono dashboard" class="icono" src="../assets/ico/dashboardWhite.png" width="25"><router-link to="/dashBoardAdmin">DashBoard Admin</router-link></li>
-            <li><img alt="icono dashboard" class="icono" src="../assets/ico/dashboardWhite.png" width="25"><router-link to="/dashBoardUser">DashBoard User</router-link></li>
+            <li><!--<img alt="icono dashboard" class="icono" src="../assets/ico/dashboardWhite.png" width="25">--><router-link to="/dashBoardAdmin">DashBoard Admin</router-link></li>
+            <li><!--<img alt="icono dashboard" class="icono" src="../assets/ico/dashboardWhite.png" width="25">--><router-link to="/dashBoardUser">DashBoard User</router-link></li>
             <li><router-link to="/ticketsView">Tickets</router-link></li>
             <li><router-link to="/userView">Users</router-link></li>
             <li><router-link to="/estadisticasView">Estadísticas</router-link></li>
