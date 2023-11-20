@@ -90,15 +90,15 @@ async function deleteUser(idUser) {
 
     for (let i = 0; i < users.length; i++) {
         if (idUser == users[i].idUser) {
-            console.log(ids[i])
-            console.log(users[i].idUser)
+            //console.log(ids[i])
+            //console.log(users[i].idUser)
             refUsuarioEnFirebase.value = ids[i]
-            console.log(refUsuarioEnFirebase.value)
+            //console.log(refUsuarioEnFirebase.value)
         }
     }
 
     await deleteDoc(doc(db, "users", refUsuarioEnFirebase.value));
-    await router.push("/userView")
+    await router.push("/usersView")
 }
 
 async function getListaTickets() {
@@ -200,8 +200,7 @@ hr {
 }
 .item-3 {
     display: flex;
-    align-content: center;
-    justify-content: end;
+    justify-content:flex-end; 
     border-radius: 0px 10px 10px 0px; 
 } 
 

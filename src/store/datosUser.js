@@ -13,6 +13,7 @@ export const useDataStore  = defineStore('datosUser',{
         return {
             datosUser: [{
                 email: '',
+                avatar: ''
             }]
         }
     },
@@ -23,16 +24,16 @@ export const useDataStore  = defineStore('datosUser',{
 
     actions: {
         mostrarDatosUsuario(){
-           console.log(this.datosUser);
-        },
-        asignarUsuarioActivo(dato){
-            this.datosUser.email= dato;
+           console.log(this.datosUser.email);
         },
         getEmail: () => {
             return this.datosUser.email
         },
-        setEmail(mail){
+        setEmail(mail) {
             this.datosUser.email = mail;
+        },
+        setAvatar(avatar) {
+            this.datosUser.avatar = avatar;
         }
     }   
 })

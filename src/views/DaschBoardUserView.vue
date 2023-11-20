@@ -60,6 +60,33 @@
 //import NavBar from '@/components/NavBar.vue'
 import NavBar2 from '@/components/NavBar2.vue'
 import Footer from '@/components/Footer.vue'
+
+import { reactive } from 'vue'
+let contadores = reactive([
+    {
+        usersNum: 0,
+        usersActive: 0,
+        usersDisconnect: 0,
+        usersAdmin: 0,
+        usersDocente: 0,
+        usersServicios: 0
+    },
+    {
+        ticketsNum: 0,
+        ticketsProgress: 0,
+        ticketsEnd: 0,
+        ticketsActive: 0,
+        ticketsWait: 0,
+    },
+    {
+        usersTecnico: 0,
+        userAssignment: 0,
+        userUnAssignment: 0,
+    }
+])
+    localStorage.tickets = JSON.stringify(contadores[1]);
+    localStorage.usuarios = JSON.stringify(contadores[0]);
+
 </script>
 
 <script>

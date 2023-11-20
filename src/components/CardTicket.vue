@@ -15,6 +15,7 @@
                     <div class=""><span class="">Estado: </span><img src="../assets/ico/trabajo-en-progreso.png" width="20" height="20"/> {{ props.tickets.state }}</div>
                     <div class=""><span class="">Prioridad: </span><img src="../assets/ico/trabajo-en-progreso.png" width="20" height="20"/> {{ props.tickets.priority }}</div>
                     <div class="">Categoría: {{ props.tickets.category }}</div>
+                    <div class="">Fecha: {{ props.tickets.date }}</div>
                 </div>
             </div>
     </div>
@@ -65,10 +66,10 @@ const props = defineProps({
 // console.log(props.userList)
 // console.log(props.tickets)
 
-function generarIdUnico () { 
-    return Math.random().toString(30).substring(2);           
-} 
-console.log(generarIdUnico());
+// function generarIdUnico () { 
+//     return Math.random().toString(30).substring(2);           
+// } 
+//console.log(generarIdUnico());
 </script>
 
 <style  scoped>

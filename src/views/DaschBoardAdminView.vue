@@ -1,5 +1,5 @@
 <template>
-    <NavBar2 :currenUser="currenUser"/>
+    <NavBar2 :users="users"/>
     <div class="container">
         <br />
         <div class="titleMark"><span class="pageTitle">Dashboard Admin</span></div>
@@ -60,13 +60,13 @@
                  </div> <!--Fin col 2 tickets-->
                  
                  <div class="col-sm-12 col-md-4">
-                    <router-link to="/userView" class="page-link">
+                    <router-link to="/usersView" class="page-link">
                     <div class="bloque-usuarios">
                         <div class="row">
                             <div class="col">
                                 <div class="siluelta_card_peq">
                                     <img alt="Imagen tickets" class="icono" src="../assets/ico/userBlack.png" width="65">
-                                    <router-link to="/userView" class="page-link">
+                                    <router-link to="/usersView" class="page-link">
                                         <p class="title">Usuarios</p>
                                     </router-link>
                                 </div>
@@ -93,14 +93,14 @@
                     </router-link>
                 </div><!--Fin col 2 usuarios-->
                 <div class="col-sm-12 col-md-4">
-                    <router-link to="/userView" class="page-link">
+                    <router-link to="/usersView" class="page-link">
                     <div class="bloque-tecnicos">
                         <div class="row">
                             <div class="col">
                                 <div class="siluelta_card_peq">
                                     <img alt="Imagen tickets" class="icono" src="../assets/ico/reparar.png"
                                         width="65">
-                                    <router-link to="/userView" class="page-link">
+                                    <router-link to="/usersView" class="page-link">
                                         <p class="title">Técnicos</p>
                                     </router-link>
                                 </div>
@@ -138,7 +138,7 @@
 import NavBar2 from '@/components/NavBar2.vue'
 import Footer from '@/components/Footer.vue'
 
-import { reactive, onMounted, onBeforeMount, onUpdated, computed } from "vue";
+import { reactive, onMounted, onBeforeMount, onUpdated } from "vue";
 import { db } from "../utils/FirebaseConfig.js"
 import { collection, getDocs } from "firebase/firestore";
 import Chart from 'chart.js/auto';
@@ -146,6 +146,7 @@ import { useDataStore } from '../store/datosUser.js'
 
 let users = reactive([]);
 let tickets = reactive([]);
+//let user = reactive([]);
 const store = useDataStore();
 
 let contadores = reactive([
@@ -155,7 +156,8 @@ let contadores = reactive([
         usersDisconnect: 0,
         usersAdmin: 0,
         usersDocente: 0,
-        usersServicios: 0
+        usersServicios: 0,
+        usersAvatar: '',
     },
     {
         ticketsNum: 0,
@@ -177,21 +179,24 @@ let contadores = reactive([
 //     }
 // ]);
 
-let currenUser = computed(() => {
-   return store.getEmail;
-})
+
+function temporizadorDeRetraso() {
+   setTimeout(pintaGrafica, 1000);
+}
+
 onMounted(() => {
-    pintaGrafica();
+   
 });
 
 onUpdated(() => {
-  
+    
    
 });
 
 
 onBeforeMount(()=>{
-    getListados();  
+    getListados(); 
+    temporizadorDeRetraso(); 
 })
 async function getListados() {
     const querySnapshotUsers = await getDocs(collection(db, "users"));
@@ -204,13 +209,15 @@ async function getListados() {
         let userTecnico = users.filter(user => user.rol == 'Técnico')
         let tecnicoAsignado = users.filter(user => user.assignment == true)
         let tecnicoNoAsignado = users.filter(user => user.assignment == false)
+  
         contadores[0].usersNum = users.length;
         contadores[0].usersActive = activesUsers.length;
         contadores[0].usersDisconnect = disconnectUsers.length;
-
+        contadores[0].usersAvatar = users.imgUser;
         contadores[2].usersTecnico = userTecnico.length
         contadores[2].userAssignment = tecnicoAsignado.length;
         contadores[2].userUnAssignment = tecnicoNoAsignado.length
+        
     });
 
     querySnapshotTickets.forEach((doc) => {
@@ -224,14 +231,18 @@ async function getListados() {
         contadores[1].ticketsEnd = ticketEnd.length
         contadores[1].ticketsActive = ticketActive.length
         contadores[1].ticketsWait = ticketWait.length
-        // arrayGraficoResumen.ticketsNum = tickets.length;
     });
     localStorage.tickets = JSON.stringify(contadores[1]);
     localStorage.usuarios = JSON.stringify(contadores[0]);
+    let mail = store.datosUser.email;
+    console.log(mail);
+   
+   
+   
     
 }
 const pintaGrafica = () => {
- 
+
     const ctx = document.getElementById("grafica");
     const labels = ['Nº Tickets Total', 'Activos', 'En Espera', 'En proceso', 'Resuelto']
 

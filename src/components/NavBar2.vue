@@ -9,14 +9,14 @@
               <span class="line line3"></span>
             </div>  
           <div class="logo">
-            <span class="profile-image img"><span class="currenUser">{{ userCurren }} </span><img src="../assets/img/Profile.jpg" width="40"/></span>
-            <router-link to="/"><img src="../assets/ico/exitWhite.png" width="25"/></router-link>
+            <span class="profile-image img"><span class="currenUser">{{ userCurrenEmail }} </span><img src="../assets/img/Profile.jpg" width="40"/></span>
+            <router-link to="/"><img src="../assets/ico/exitWhite.png" width="25" @click="exit"/></router-link>
           </div>
           <div class="menu-items">
-            <li><!--<img alt="icono dashboard" class="icono" src="../assets/ico/dashboardWhite.png" width="25">--><router-link to="/dashBoardAdmin">DashBoard Admin</router-link></li>
-            <li><!--<img alt="icono dashboard" class="icono" src="../assets/ico/dashboardWhite.png" width="25">--><router-link to="/dashBoardUser">DashBoard User</router-link></li>
+            <li v-if="userCurrenEmail == 'ablancaa@gmail.com'"><router-link to="/dashBoardAdmin">DashBoard Admin</router-link></li>
+            <li><router-link to="/dashBoardUser">DashBoard User</router-link></li>
             <li><router-link to="/ticketsView">Tickets</router-link></li>
-            <li><router-link to="/userView">Users</router-link></li>
+            <li><router-link to="/usersView">Users</router-link></li>
             <li><router-link to="/estadisticasView">Estadísticas</router-link></li>
             <li><router-link to="/about">About</router-link></li>
             <li><a href="#"></a></li>
@@ -24,8 +24,8 @@
             <li><a href="#"></a></li>
             <li><a href="#"></a></li>
             <li><a href="#"></a></li>
-            <li><span class="profile-image img"  ><img src="../assets/img/Profile.jpg" height="70" @click="exit"/></span>
-            <router-link to="/"><img src="../assets/ico/exitWhite.png" width="25"/></router-link></li>
+            <li><span class="profile-image img"><img src="../assets/img/Profile.jpg" height="70"></span>
+            <router-link to="/"><img src="../assets/ico/exitWhite.png" width="25"  @click="exit"/></router-link></li>
           </div>
         </div>
       </div>
@@ -34,23 +34,48 @@
 
 <script setup>
 import { useDataStore } from '../store/datosUser.js'
-import { ref } from 'vue';
-
+import { ref, defineProps, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 const store = useDataStore();
+const router = useRouter();
+let userCurrenEmail = ref(store.datosUser.email);
+let userCurrenAvatar = ref("");
 
 
-// let props = defineProps({
-//   currenUser: {
-//         type: String,
-//       },
-//   })
-  //console.log(props.currenUser)
-  let userCurren = ref(store.datosUser.email);
-  console.log(userCurren.value)
 
+let props = defineProps({
+   users: {
+         type: Array,
+       },
+  })
+  onMounted(() => {
+    
+  });
+  
+  console.log(props.users);
+
+  console.log(userCurrenEmail.value)
+
+ 
+    
+      //props.users[i].email
+     
+      //console.log(userCurrenAvatar);
+      
+      //console.log(store.datosUser.avatar)
+      
+      console.log(userCurrenAvatar);
+     
+
+ 
 function exit () {
-  store.datosUser.email = '';
-  location.reload();
+  store.setEmail('');
+  localStorage.removeItem("tickets");
+  localStorage.removeItem("usuarios");
+  localStorage.removeItem("usersList");
+  sessionStorage.clear();
+  router.push("/")
+
 }
 </script>
 
@@ -66,9 +91,9 @@ function exit () {
 body {
   font-family: "Poppins", sans-serif;
 }
-.currenUser{
+.currenUser {
   color: #ffffff;
-  font-size: 14px;
+  font-size: 11px;
 }
 .container {
   max-width: 1050px;

@@ -3,14 +3,15 @@
     <div class="row">
         <div class="col-sm-12 col-md-6 col-lg-6 marginTop" v-for="ticket in props.ticketList" :key="ticket.idticket">
         <div v-for="user in props.userList" :key="user.idUser" :userList="userList"></div>
-            <CardTicket :tickets="ticket" :userList="userList"/>
+            <CardTicket2 :tickets="ticket" :userList="userList"/>
         </div>
     </div><!-- Fin Row -->
 </div><!-- Fin Container -->
 </template> 
 <script setup>
 import { defineProps } from 'vue';
-import CardTicket from './CardTicket.vue';
+//import CardTicket from './CardTicket.vue';
+import CardTicket2 from './CardTicket2.vue';
 let props = defineProps({
     ticketList: {
         type: Array,

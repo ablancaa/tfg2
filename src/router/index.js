@@ -1,7 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import LoginView from '../views/LoginView.vue';
 import RegisterView from '../views/RegisterView.vue';
-import UserView from '../views/UsersView.vue';
+import UsersView from '../views/UsersView.vue';
 import UserDetail from "../views/UserDetail.vue";
 import DashBoard_Admin from '../views/DaschBoardAdminView.vue';
 import DashBoard_User from '../views/DaschBoardUserView.vue';
@@ -30,9 +30,9 @@ const routes = [
     component: DashBoard_User
   },
   {
-    path: '/userView',
-    name: 'userView',
-    component: UserView
+    path: '/usersView',
+    name: 'usersView',
+    component: UsersView
   },
   {
     path: '/userDetail/:idUser/:imgUser/name/:name/surname1/:surname1/surname2/:surname2/rol/:rol/email/:email/phone/:phone',
@@ -44,6 +44,11 @@ const routes = [
   {
     path: '/ticketsView',
     name: 'ticketsView',
+    component: TicketsView
+  },
+  {
+    path: '/ticketDetail',
+    name: 'ticketDetail/:idTicket',
     component: TicketsView
   },
   {

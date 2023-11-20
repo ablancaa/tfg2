@@ -2,7 +2,7 @@
     <NavBar2/>
   <div class="container">
     <br/>
-        <div class="titleMark"><span class="pageTitle">Tickets View</span></div>
+        <div class="titleMark"><span class="pageTitle">Ticket Detail</span></div>
         <div class="searchbar"><SearchBar v-on:search="setSearchTerm"/></div>
         <div class="header-opciones">
           <div class="row">
@@ -90,9 +90,9 @@ async function getListaTickets() {
      contadores[0].ticketsProcces = ticketProcces.length
      contadores[0].ticketsEnd = ticketEnd.length
  });
-//console.log("Num Tickets: "+contadores[0].ticketsNum)
-//console.log("Tickets Procces: "+contadores[0].ticketsProcces)
-//console.log("Tickets End: "+contadores[0].ticketsEnd)
+console.log("Num Tickets: "+contadores[0].ticketsNum)
+console.log("Tickets Procces: "+contadores[0].ticketsProcces)
+console.log("Tickets End: "+contadores[0].ticketsEnd)
 //console.log(tickets);
 }
 async function addTicket(newTicket){

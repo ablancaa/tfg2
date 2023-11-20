@@ -62,63 +62,24 @@ import { useDataStore } from '../store/datosUser.js'
         signInWithEmailAndPassword(auth, email.value, password.value)
         .then((userCredential)=> {
               const user = userCredential.user;
-              store.datosUser = user;
               console.log("Successfully registered!");
               console.log(user.email);
-              
-              store.datosUser.email = user.email;
               emails.value = user.email;    
               store.setEmail(user.email)
-              store.mostrarDatosUsuario();
-              router.push("/dashBoardAdmin")
-              //sessionStorage.email = JSON.stringify(user.email);
+              if(user.email == "ablancaa@gmail.com"){
+                router.push("/dashBoardAdmin")
+              } else {
+                router.push("/dashBoardUser")
+              }
             })
         .catch((error)=>{
               console.log(error.code);
               alert(error.message);
         })
-        
-
-        /* DISCRIMINA EL ROL USUARIO QUE SE LOGA PARA CARGAR EL DASHBOARD CORRESPONDIENTE */
-        const userDocente = users.filter(user => user.rol == 'Docente')
-        //console.log(userDocente)
-        let userD = userDocente.filter(user =>user.email == email.value)
-        //console.log(userD)
-
-        const  userTecnico = users.filter(user => user.rol == 'Técnico')
-        //console.log(userTecnico)
-        let userT = userTecnico.filter(user =>user.email == email.value)
-        console.log(userT)
-
-        const  userAdmin = users.filter(user => user.rol == 'Admin')
-        //console.log(userAdmin)
-        let userA = userAdmin.filter(user =>user.email == email.value)
-        console.log(userA)
-        
-        const  userService = users.filter(user => user.rol == 'Servicios')
-        //console.log(userService)
-        let userS = userService.filter(user =>user.email == email.value)
-        console.log(userS)
-                
-        if(userD.length == 1){
-          router.push("/dashBoardUser")
-          console.log("USER D")
-        }
-        if(userT.length == 1){
-          router.push("/dashBoardAdmin")
-          console.log("USER T")
-        }
-        if(userA.length == 1){
-          router.push("/dashBoardAdmin")
-          console.log("USER A")
-        }
-        if(userS.length == 1){
-          router.push("/dashBoardUser")
-          console.log("USER S")
-        }
       }
-    
     }
+
+    
     
     async function getListaUsuarios() {
     const querySnapshotUsers = await getDocs(collection(db, "users"));
