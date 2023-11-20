@@ -4,10 +4,8 @@
         <img class="imgUser" :src="props.user.imgUser" width="60" height="60"/>
     </div>
     <div class="flex-items">
-       
         <p class="informacion">{{ props.user.name }} {{ props.user.surname1 }} {{ props.user.surname2 }}<br/>
             <span class="email">{{ props.user.email }}</span><br/>id: {{ props.user.idUser }}</p>
-        
     </div>
     <div class="flex-items">
         <div class="flex-estado">
@@ -17,7 +15,6 @@
             </div>
             <div class="flex-item-estado">
                 <p class="estado">{{ props.user.rol }}</p>
-                
             </div>
         </div> 
     </div>
