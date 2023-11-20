@@ -3,7 +3,7 @@
   <div class="container">
     <br/>
         <div class="titleMark"><span class="pageTitle">Tickets View</span></div>
-        <div class="searchbar"><SearchBar/></div>
+        <div class="searchbar"><SearchBar v-on:search="setSearchTerm"/></div>
         <div class="header-opciones">
           <div class="row">
                 <div class="col"><button class="btn">Add Ticket</button></div>
@@ -11,7 +11,7 @@
                 <div class="col"></div>
               </div>
         </div>
-          <TicketsList :ticketList="tickets" :userList="users"/>
+          <TicketsList :ticketList="ticketsListFiltered" :userList="users"/>
   </div>
 </template>
 
@@ -20,10 +20,11 @@ import NavBar2 from '@/components/NavBar2.vue'
 import SearchBar from '@/components/SearchBar.vue'
 import TicketsList from '@/components/TicketsList.vue'
 
-import { reactive, onMounted } from "vue";
+import { reactive, onMounted, ref, computed } from "vue";
 import { db } from "../utils/FirebaseConfig.js"
 import { collection, getDocs } from "firebase/firestore";
 
+let searchTerm = ref("");
 let tickets = reactive([]);
 let users = reactive([]);
 let contadores = reactive ([ 
@@ -39,6 +40,23 @@ onMounted(() => {
     getListaUsers();
 
 });
+const ticketsListFiltered = computed(() => {
+  if (!searchTerm.value) {
+    return tickets;
+  } else if (searchTerm.value) {
+    return tickets.filter((item) => {
+      return (
+        item.title.toLowerCase().includes(searchTerm.value.toLowerCase()) ||
+        item.idUser.toLowerCase().includes(searchTerm.value.toLowerCase()) ||
+        item.idTicket.toLowerCase().includes(searchTerm.value.toLowerCase())
+      );
+    });
+  }
+  return tickets;
+});
+function setSearchTerm(search) {
+  searchTerm.value = search;
+}
 async function getListaUsers() {
  const querySnapshotUsers = await getDocs(collection(db, "users"));
   querySnapshotUsers.forEach((doc) => {
@@ -68,43 +86,7 @@ console.log("Tickets End: "+contadores[0].ticketsEnd)
 //console.log(tickets);
 }
 
-// async function getListados() {
 
-// const querySnapshotUsers = await getDocs(collection(db, "users"));
-// const querySnapshotTickets = await getDocs(collection(db, "tickets"));
-// const querySnapshotClients = await getDocs(collection(db, "clients"));
-
-// querySnapshotUsers.forEach((doc) => {
-//     users.push(doc.data());
-//     let activesUsers = users.filter(user => user.state == true)
-//     let disconnectUsers = users.filter(user => user.state == false)
-//     contadores[0].usersNum = users.length;
-//     contadores[0].usersActive = activesUsers.length;
-//     contadores[0].usersDisconnect = disconnectUsers.length;
-// });
-
-// querySnapshotTickets.forEach((doc) => {
-//     tickets.push(doc.data());
-//     let ticketProcces = tickets.filter(ticket => ticket.state == "procces")
-//     let ticketEnd = tickets.filter(ticket => ticket.state == "end")
-//     contadores[1].ticketsNum = tickets.length
-//     contadores[1].ticketsProgress = ticketProcces.length
-//     contadores[1].ticketsEnd = ticketEnd.length
-// });
-
-// querySnapshotClients.forEach((clientsList) => {
-//     clients.push(clientsList.data());
-//     let activesClients = clients.filter(client => client.state == true)
-//     let disconnectClients = clients.filter(client => client.state == false)
-//     contadores[2].clientsNum = clients.length
-//     contadores[2].clientsActive = activesClients.length;
-//     contadores[2].clientsDisconnect = disconnectClients.length;
-// });
-
-//console.log(users)
-//console.log(tickets)
-//console.log(clients) 
-//}
 
 </script>
 <script>
@@ -126,10 +108,11 @@ console.log("Tickets End: "+contadores[0].ticketsEnd)
 }
 .btn {
     margin-top: 9px;
-    margin-left: 0px;
+    margin-left: 10px;
     border-color: white;
     color: #ffffff;
     font-weight: 600;
+    width: 110px;
 }
 .titleMark{
   margin-top: 50px;
