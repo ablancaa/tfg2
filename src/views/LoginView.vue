@@ -68,10 +68,10 @@ import { useDataStore } from '../store/datosUser.js'
               
               store.datosUser.email = user.email;
               emails.value = user.email;    
-              store.asignarUsuarioActivo(user.email)
-              console.log(store.asignarUsuarioActivo(user.email))
-              // router.push("/dashBoardAdmin")
-              
+              store.setEmail(user.email)
+              store.mostrarDatosUsuario();
+              router.push("/dashBoardAdmin")
+              //sessionStorage.email = JSON.stringify(user.email);
             })
         .catch((error)=>{
               console.log(error.code);
@@ -94,11 +94,7 @@ import { useDataStore } from '../store/datosUser.js'
         //console.log(userAdmin)
         let userA = userAdmin.filter(user =>user.email == email.value)
         console.log(userA)
-        if(userA.length == 1){
-          router.push("/dashBoardAdmin")
-          console.log("USER A")
-        }
-
+        
         const  userService = users.filter(user => user.rol == 'Servicios')
         //console.log(userService)
         let userS = userService.filter(user =>user.email == email.value)

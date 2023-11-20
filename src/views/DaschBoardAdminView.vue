@@ -1,13 +1,16 @@
 <template>
-    <NavBar2 :currenUser="store.getEmail"/>
+    <NavBar2 :currenUser="currenUser"/>
     <div class="container">
         <br />
         <div class="titleMark"><span class="pageTitle">Dashboard Admin</span></div>
             <div class="row">
                 
                 <div class="col-sm-12 col-md-12">
+                    <router-link to="/estadisticasView" class="page-link">     
                     <div class="bloque-estadiscicas">
-                    <canvas id="grafica"></canvas></div> <!--Fin Bloque Estadisticas -->
+                        <canvas id="grafica"></canvas>
+                    </div> <!--Fin Bloque Estadisticas -->
+                    </router-link>
                 </div> <!--Fin col 1 estadísticas-->
                 
                 <div class="col-sm-12 col-md-4">
@@ -135,7 +138,7 @@
 import NavBar2 from '@/components/NavBar2.vue'
 import Footer from '@/components/Footer.vue'
 
-import { reactive, onMounted, onBeforeMount } from "vue";
+import { reactive, onMounted, onBeforeMount, onUpdated, computed } from "vue";
 import { db } from "../utils/FirebaseConfig.js"
 import { collection, getDocs } from "firebase/firestore";
 import Chart from 'chart.js/auto';
@@ -174,14 +177,21 @@ let contadores = reactive([
 //     }
 // ]);
 
-console.log(store.datosUser.email)
-
+let currenUser = computed(() => {
+   return store.getEmail;
+})
 onMounted(() => {
-    pintaGrafica(); 
+    pintaGrafica();
 });
 
+onUpdated(() => {
+  
+   
+});
+
+
 onBeforeMount(()=>{
-    getListados();
+    getListados();  
 })
 async function getListados() {
     const querySnapshotUsers = await getDocs(collection(db, "users"));
@@ -216,12 +226,14 @@ async function getListados() {
         contadores[1].ticketsWait = ticketWait.length
         // arrayGraficoResumen.ticketsNum = tickets.length;
     });
+    localStorage.tickets = JSON.stringify(contadores[1]);
+    localStorage.usuarios = JSON.stringify(contadores[0]);
+    
 }
 const pintaGrafica = () => {
-    // let nTickets = arrayGraficoResumen[0].ticketsNum;
-    // console.log(arrayGraficoResumen[0].ticketsNum);
+ 
     const ctx = document.getElementById("grafica");
-    const labels = ['Nº Tickets', 'En Espera', 'En proceso', 'Resuelto']
+    const labels = ['Nº Tickets Total', 'Activos', 'En Espera', 'En proceso', 'Resuelto']
 
     new Chart(ctx, {
         type: 'bar',
@@ -230,7 +242,7 @@ const pintaGrafica = () => {
             datasets: [{
                 display: false,
                 label: 'Tickets',
-                data: [8,6,7],
+                data: [9,4,6,4,5],
                 borderColor: 'black',
                 pointStyle: 'rectRounded',
                 backgroundColor: 'rgba(9, 129, 176, 0.2)',

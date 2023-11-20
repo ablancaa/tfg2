@@ -34,17 +34,17 @@
 
 <script setup>
 import { useDataStore } from '../store/datosUser.js'
-import { defineProps, ref } from 'vue';
+import { ref } from 'vue';
 
 const store = useDataStore();
 
 
-let props = defineProps({
-  currenUser: {
-        type: String,
-      },
-  })
-  console.log(props.currenUser)
+// let props = defineProps({
+//   currenUser: {
+//         type: String,
+//       },
+//   })
+  //console.log(props.currenUser)
   let userCurren = ref(store.datosUser.email);
   console.log(userCurren.value)
 

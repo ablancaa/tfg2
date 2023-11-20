@@ -18,9 +18,7 @@ export const useDataStore  = defineStore('datosUser',{
     },
 
     getters: {
-        getEmail: (datosUser) => {
-            console.log(datosUser.email)
-        }
+    
     },
 
     actions: {
@@ -29,6 +27,12 @@ export const useDataStore  = defineStore('datosUser',{
         },
         asignarUsuarioActivo(dato){
             this.datosUser.email= dato;
+        },
+        getEmail: () => {
+            return this.datosUser.email
+        },
+        setEmail(mail){
+            this.datosUser.email = mail;
         }
     }   
 })
