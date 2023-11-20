@@ -6,11 +6,15 @@
         <div class="searchbar"><SearchBar v-on:search="setSearchTerm"/></div>
         <div class="header-opciones">
           <div class="row">
-                <div class="col"><button class="btn">Add Ticket</button></div>
+                <div class="col"><button class="btn" @click="showForm">Add Ticket</button></div>
                 <div class="col"></div>
                 <div class="col"></div>
               </div>
         </div>
+        <AddTicket v-if="showModal" 
+        :userList="users"
+        @close="showModal = false" 
+        @newTicket="addTicket" />
           <TicketsList :ticketList="ticketsListFiltered" :userList="users"/>
   </div>
 </template>
@@ -19,12 +23,13 @@
 import NavBar2 from '@/components/NavBar2.vue'
 import SearchBar from '@/components/SearchBar.vue'
 import TicketsList from '@/components/TicketsList.vue'
-
+import AddTicket from "@/components/AddTicket.vue"
 import { reactive, onMounted, ref, computed } from "vue";
 import { db } from "../utils/FirebaseConfig.js"
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, addDoc } from "firebase/firestore";
 
 let searchTerm = ref("");
+
 let tickets = reactive([]);
 let users = reactive([]);
 let contadores = reactive ([ 
@@ -34,6 +39,7 @@ let contadores = reactive ([
       ticketsEnd: 0
     }
 ]);
+let showModal = ref(false);
 
 onMounted(() => {
     getListaTickets();
@@ -56,6 +62,10 @@ const ticketsListFiltered = computed(() => {
 });
 function setSearchTerm(search) {
   searchTerm.value = search;
+}
+
+function showForm(){
+  showModal.value = true;
 }
 async function getListaUsers() {
  const querySnapshotUsers = await getDocs(collection(db, "users"));
@@ -85,7 +95,32 @@ console.log("Tickets Procces: "+contadores[0].ticketsProcces)
 console.log("Tickets End: "+contadores[0].ticketsEnd)
 //console.log(tickets);
 }
+async function addTicket(newTicket){
 
+    console.log(newTicket);
+    
+    try {
+    const docRef = await addDoc(collection(db, "tickets"), {
+      idTicket: newTicket.idTicket,
+      idUser: newTicket.idUser,
+      title: newTicket.title,
+      description: newTicket.description,
+      category: newTicket.category,
+      state: newTicket.state,
+      priority: newTicket.priority,
+      technical: newTicket.technical,          
+      date: newTicket.date,
+    });
+
+    console.log("Document written with ID: ", docRef.id);
+    console.log(newTicket)
+
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+    location.reload();
+  }
+  
 
 
 </script>
