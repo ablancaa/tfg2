@@ -1,23 +1,20 @@
 <template>
     <div id="modal">
-        <div class="container rounded bg-white mb-5">
+        <div class="container rounded bg-white">
         <br/>
             <div class="titleMark"><span class="pageTitle">Add User</span></div>
     <div class="row">
-        <!-- <div class="col-md-3 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" :src="avatar"><span class="font-weight-bold">{{ name }} {{ surname1 }}</span><span class="text-black-50">{{email}}</span><span> </span></div>
-        </div>  -->
         
         <div class="col-md-12 border-right align-items-center flex-column">
-            <div class="p-3 py-5">
-                <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="p-3">
+                <div class="d-flex justify-content-between align-items-center">
                     <h4 class="text-right">Profile Settings</h4>
                 </div>
-                <div class="row mt-2">
+                <div class="row">
                     <div class="col-sm-12 col-md-12"><label class="labels">idUser</label><input type="text" class="form-control" :placeholder="id" v-model="idUser" disabled></div>
                     <div class="col-sm-12 col-md-12"><label class="labels">Name</label><input type="text" class="form-control" placeholder="first name" v-model="name"></div>
-                    <div class="col-sm-12 col-md-12"><label class="labels">Surname</label><input type="text" class="form-control" placeholder="surname1" v-model="surname1"></div>
-                    <div class="col-sm-12 col-md-12"><label class="labels">Surname</label><input type="text" class="form-control" placeholder="surname2" v-model="surname2"></div>
+                    <div class="col-sm-12 col-md-12"><label class="labels">Surname 1</label><input type="text" class="form-control" placeholder="surname1" v-model="surname1"></div>
+                    <div class="col-sm-12 col-md-12"><label class="labels">Surname 2</label><input type="text" class="form-control" placeholder="surname2" v-model="surname2"></div>
                 </div>
                 <div class="row mt-3">
                     <div class="col-md-12"><label class="labels">Avatar</label><input type="text" class="form-control" placeholder="enter Mobile phone number" v-model="avatar"></div>
@@ -151,7 +148,8 @@ body {
 }
 
 .labels {
-    font-size: 11px;
+    margin-top: 10px;
+    font-size: 18px;
     color:#000000;
 }
 
