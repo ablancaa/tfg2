@@ -5,10 +5,12 @@
         <div class="titleMark"><span class="pageTitle">Estadísticas View</span></div>
         <GraficosEstadisticas :contadores="contadores"/>
     </div>
+    <Footer/>
 </template>
 
 <script setup>
 import NavBar2 from '@/components/NavBar2.vue'
+import Footer from '@/components/Footer.vue'
 import GraficosEstadisticas from '@/components/GraficosEstadisticas.vue';
 import { reactive, onMounted  } from 'vue';
 
