@@ -73,8 +73,7 @@ let user = reactive([
         phone: route.params.phone,
         assignment: route.params.assignment,
 
-    }]
-);
+    }]);
 
 onMounted(() => {
     getListaTickets();

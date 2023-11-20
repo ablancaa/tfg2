@@ -6,6 +6,7 @@ import UserDetail from "../views/UserDetail.vue";
 import DashBoard_Admin from '../views/DaschBoardAdminView.vue';
 import DashBoard_User from '../views/DaschBoardUserView.vue';
 import TicketsView from '../views/TicketsView.vue';
+import TicketDetail from '../views/TicketDetail.vue'
 import EstadisticasView from '../views/EstadisticasView.vue';
 
 const routes = [
@@ -47,9 +48,9 @@ const routes = [
     component: TicketsView
   },
   {
-    path: '/ticketDetail',
-    name: 'ticketDetail/:idTicket',
-    component: TicketsView
+    path: '/ticketDetail/:idTicket/title/:title',
+    name: 'ticketDetail',
+    component: TicketDetail
   },
   {
     path: '/estadisticasView',

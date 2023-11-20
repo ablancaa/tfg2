@@ -1,81 +1,82 @@
+
 <template>
-    <NavBar2/>
+  <NavBar2 />
   <div class="container">
-    <br/>
-        <div class="titleMark"><span class="pageTitle">Ticket Detail</span></div>
-        <div class="searchbar"><SearchBar v-on:search="setSearchTerm"/></div>
-        <div class="header-opciones">
+      <br />
+      <div class="titleMark"><span class="pageTitle">Ticket Detail</span></div>
+      <br />     
+      <div class="col-12 col-md-4 silueta-card">
+          <div class="col">
+              <!-- <img class="imgUser" :src="route.params.imgUser" width="65" height="65" /> -->
+              <p class="iduser"></p>
+          </div>
+          <div class="">
+              <p class="nameSurname"></p>
+              <p class="email">{{ ticket[0].idTicket }}</p>
+              <p class="nameSurname">{{ ticket[0].title }} <br/></p>
+              <p class="phone"></p>
+          </div>
+          <div class="col col-md-2 item-3">
+              <button @click="deleteTicket(route.params.idTicket)" class="ico"><img src="../assets/ico/delete.png" width="20" height="20"  /></button>
+          </div>
+      </div>
+
+      <div class="container">
+      <hr />
+      <p class="ticketAsociados">Tickets Asociados:</p>
           <div class="row">
-                <div class="col"><button class="btn" @click="showForm">Add Ticket</button></div>
-                <div class="col"></div>
-                <div class="col"></div>
+              <div class="col-6" v-for=" ticket in ticketsUsuario" :key="ticket.idUser">
+              <div class="silueta-ticket">
+                 <p class="info"><strong></strong><br/>
+                 <span class="info iduser"></span><br/>
+                 <span class="info iduser"></span> </p>
               </div>
-        </div>
-        <AddTicket v-if="showModal" 
-        :userList="users"
-        @close="showModal = false" 
-        @newTicket="addTicket" />
-          <TicketsList :ticketList="ticketsListFiltered" :userList="users"/>
-  </div>
+          </div>
+          </div>
+      </div><!--fin container 2 -->
+</div>
+          
+          
+ 
+
 </template>
 
 <script setup>
+import { reactive, ref, onMounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { db, getDocs } from "../utils/FirebaseConfig.js";
+import { collection, deleteDoc, doc } from "firebase/firestore";
+
 import NavBar2 from '@/components/NavBar2.vue'
-import SearchBar from '@/components/SearchBar.vue'
-import TicketsList from '@/components/TicketsList.vue'
-import AddTicket from "@/components/AddTicket.vue"
-import { reactive, onMounted, ref, computed } from "vue";
-import { db } from "../utils/FirebaseConfig.js"
-import { collection, getDocs, addDoc } from "firebase/firestore";
 
-let searchTerm = ref("");
+const router = useRouter() //Utiliza el router.push("/")
+const route = useRoute() //recibe los parámetros del router
 
+let refUsuarioEnFirebase = ref()
+let ids = reactive([]);
 let tickets = reactive([]);
 let users = reactive([]);
-let contadores = reactive ([ 
+let ticket = reactive([
     {
-      ticketsNum: 0,
-      ticketsProcces: 0,
-      ticketsEnd: 0
-    }
-]);
-let showModal = ref(false);
+        idTicket: route.params.idTicket,
+        title: route.params.title,
 
+    }]);
 onMounted(() => {
     getListaTickets();
     getListaUsers();
 
 });
-const ticketsListFiltered = computed(() => {
-  if (!searchTerm.value) {
-    return tickets;
-  } else if (searchTerm.value) {
-    return tickets.filter((item) => {
-      return (
-        item.title.toLowerCase().includes(searchTerm.value.toLowerCase()) ||
-        item.idUser.toLowerCase().includes(searchTerm.value.toLowerCase()) ||
-        item.idTicket.toLowerCase().includes(searchTerm.value.toLowerCase())
-      );
-    });
-  }
-  return tickets;
-});
-function setSearchTerm(search) {
-  searchTerm.value = search;
-}
 
-function showForm(){
-  showModal.value = true;
-}
 async function getListaUsers() {
  const querySnapshotUsers = await getDocs(collection(db, "users"));
   querySnapshotUsers.forEach((doc) => {
     users.push(doc.data());
-    let activesUsers = users.filter(user => user.state == true)
-    let disconnectUsers = users.filter(user => user.state == false)
-    contadores[0].usersNum = users.length;
-    contadores[0].usersActive = activesUsers.length;
-    contadores[0].usersDisconnect = disconnectUsers.length;
+    // let activesUsers = users.filter(user => user.state == true)
+    // let disconnectUsers = users.filter(user => user.state == false)
+    // contadores[0].usersNum = users.length;
+    // contadores[0].usersActive = activesUsers.length;
+    // contadores[0].usersDisconnect = disconnectUsers.length;
   });
   //console.log(users);
 }
@@ -84,43 +85,38 @@ async function getListaTickets() {
     const querySnapshotTickets = await getDocs(collection(db, "tickets"));
     querySnapshotTickets.forEach((doc) => {
      tickets.push(doc.data());
-     let ticketProcces = tickets.filter(ticket => ticket.state == "procces")
-     let ticketEnd = tickets.filter(ticket => ticket.state == "end")
-     contadores[0].ticketsNum = tickets.length
-     contadores[0].ticketsProcces = ticketProcces.length
-     contadores[0].ticketsEnd = ticketEnd.length
+    //  let ticketProcces = tickets.filter(ticket => ticket.state == "procces")
+    //  let ticketEnd = tickets.filter(ticket => ticket.state == "end")
+    //  contadores[0].ticketsNum = tickets.length
+    //  contadores[0].ticketsProcces = ticketProcces.length
+    //  contadores[0].ticketsEnd = ticketEnd.length
  });
-console.log("Num Tickets: "+contadores[0].ticketsNum)
-console.log("Tickets Procces: "+contadores[0].ticketsProcces)
-console.log("Tickets End: "+contadores[0].ticketsEnd)
+//console.log("Num Tickets: "+contadores[0].ticketsNum)
+//console.log("Tickets Procces: "+contadores[0].ticketsProcces)
+//console.log("Tickets End: "+contadores[0].ticketsEnd)
 //console.log(tickets);
 }
-async function addTicket(newTicket){
 
-    console.log(newTicket);
-    
-    try {
-    const docRef = await addDoc(collection(db, "tickets"), {
-      idTicket: newTicket.idTicket,
-      idUser: newTicket.idUser,
-      title: newTicket.title,
-      description: newTicket.description,
-      category: newTicket.category,
-      state: newTicket.state,
-      priority: newTicket.priority,
-      technical: newTicket.technical,          
-      date: newTicket.date,
+  async function deleteTicket(idTicket) {
+    console.log(idTicket)
+    const querySnapshotClients = await getDocs(collection(db, "users"));
+    querySnapshotClients.forEach((doc) => {
+        ids.push(doc.id);
+        users.push(doc.data());
     });
 
-    console.log("Document written with ID: ", docRef.id);
-    console.log(newTicket)
-
-    } catch (e) {
-      console.error("Error adding document: ", e);
+    for (let i = 0; i < tickets.length; i++) {
+        if (idTicket == tickets[i].idTicket) {
+            //console.log(ids[i])
+            //console.log(users[i].idUser)
+            refUsuarioEnFirebase.value = ids[i]
+            //console.log(refUsuarioEnFirebase.value)
+        }
     }
-    location.reload();
-  }
-  
+
+    await deleteDoc(doc(db, "tickets", refUsuarioEnFirebase.value));
+    await router.push("/ticketsView")
+}
 
 
 </script>

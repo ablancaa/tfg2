@@ -6,16 +6,15 @@
     <div class="row">
         <div class="col">
             <div class="nticket">
-                <h6>Nº Ticket</h6><p>{{ props.tickets.idTicket}}</p>
+                <h5>Nº Ticket</h5><p class="idTicket">{{ props.tickets.idTicket}}</p>
             </div>   
         </div>
         <div class="col">
-        <div class="estados">
-            <span><p class="estados-items"><strong>Prioridad:</strong>{{ props.tickets.priority }}</p></span>
-            <span><p class="estados-items"><strong>Estado:</strong> {{ props.tickets.state }}</p></span>
-            <span><p class="estados-items"><strong>Categoría: </strong>{{ props.tickets.category }}</p></span>
-        </div>
-            
+            <div class="estados">
+                <span><p class="estados-items"><strong>Prioridad:</strong>{{ props.tickets.priority }}</p></span>
+                <span><p class="estados-items"><strong>Estado:</strong> {{ props.tickets.state }}</p></span>
+                <span><p class="estados-items"><strong>Categoría: </strong>{{ props.tickets.category }}</p></span>
+            </div>
         </div>
     </div>
     <hr/>
@@ -24,7 +23,7 @@
             <div class="item-usuario"> 
                 <div v-for="user in props.userList" :key="user.idUser">      
                     <div v-if="props.tickets.idUser == user.idUser">
-                        <h8><strong>Usuario: </strong></h8>
+                        <p class="title-user"><strong>Usuario: </strong></p>
                         <img :src="user.imgUser" width="40" height="40" class="imgUser"/>
                         <p class="nombre">{{ user.name }} {{ user.surname1 }} {{ user.surname2 }}<!-- <br/><strong>Rol: </strong>{{ user.rol }--></p>
                     </div>
@@ -35,11 +34,16 @@
             <div class="item-tecnico"> 
                 <div v-for="user in props.userList" :key="user.idUser">
                     <div v-if="user.rol == 'Técnico' && user.idUser == props.tickets.technical[0]">
-                        <h8><strong>Técnico: </strong> </h8>
+                        <p class="title-user"><strong>Técnico: </strong> </p>
                         <img :src="user.imgUser" width="40" height="40" v-if="props.tickets.technical[0] === user.idUser" class="imgUser"/>
                         <p class="nombre">{{ user.name }} {{ user.surname1 }} {{ user.surname2 }}</p>
                     </div>
                 </div><!-- Fin bucle -->
+            </div>
+        </div>
+        <div class="col">
+            <div class="notifys">
+                <p class="nNotify ico"><img src="../assets/ico/notificacion.png" width="35" height="35"/></p><p class="nNotify">6</p>
             </div>
         </div>
     </div><!-- Fin Row -->
@@ -68,8 +72,6 @@ const props = defineProps({
 .silueta-card {
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: start;
-    align-items: start;
     margin-top: 10px;
     border: 1px solid;
     border-radius: 10px;
@@ -81,22 +83,38 @@ const props = defineProps({
     background-color: beige; 
     border-radius: 10px 0px 0px 10px;
 }
+
 .nticket{
     width: 100%;
     margin-top: -20px;
     font-size: 16px;
-    background-color: rgb(219, 254, 243);
+    background-color: rgb(231, 252, 245);
     border-radius: 0px 10px 10px 0px;
+}
+.idTicket{
+    font-weight: 500;
+    margin-top: -1px;
+}
+.title-user{
+    font-size: 12px;
+    margin-bottom: 2px;
 }
 .estados-items {
     margin-bottom: -2px;
     font-size: 13px;
-
 }
-.notify {
-    font-size: 35px;
+.notifys {
+    display: flex;
+    flex-direction: column;
+}
+.nNotify {
+    margin-top: -10px;
+ 
+    margin-top: -5px;
+    font-size: 25px;
     width: auto;
 }
+
 
 .nombre {
     font-size: 12px;
@@ -113,6 +131,7 @@ hr {
     height: 2px;
     background-color: black;
     box-shadow: 2px 2px rgba(120, 120, 120, .25);
+    margin-top: -5px;
 }
 .imgUser {
     border-radius: 50%;
