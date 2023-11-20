@@ -95,7 +95,7 @@
                         <div class="row">
                             <div class="col">
                                 <div class="siluelta_card_peq">
-                                    <img alt="Imagen tickets" class="icono" src="../assets/ico/userBlack.png"
+                                    <img alt="Imagen tickets" class="icono" src="../assets/ico/reparar.png"
                                         width="65">
                                     <router-link to="/userView" class="page-link">
                                         <p class="title">Técnicos</p>
