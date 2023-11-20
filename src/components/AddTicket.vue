@@ -4,18 +4,14 @@
         <br/>
             <div class="titleMark"><span class="pageTitle">Add Ticket</span></div>
     <div class="row">
-        <!-- <div class="col-md-3 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" :src="avatar"><span class="font-weight-bold">{{ name }} {{ surname1 }}</span><span class="text-black-50">{{email}}</span><span> </span></div>
-        </div>  -->
-        
-        <div class="col-md-12 border-right align-items-center flex-column">
-            <div class="p-3 py-5">
-                <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="col-sm-12 col-md-12 border-right align-items-center flex-column">
+            <div class="p-3">
+                <div class="d-flex justify-content-between align-items-center">
                     <h4 class="text-right">Profile Settings</h4>
                 </div>
-                <div class="row mt-2">
-                    <div class="col-sm-12 col-md-12"><label class="labels">idTicket</label><input type="text" class="form-control" :placeholder="id" v-model="idTicket" disabled></div>
-                    <div class="col-sm-12 col-md-12"><label class="labels">idUser</label><input type="text" class="form-control" :placeholder="idUser" v-model="idUser" disabled></div>
+                <div class="row">
+                    <div class="col-6"><label class="labels">idTicket</label><input type="text" class="form-control" :placeholder="id" v-model="idTicket" disabled></div>
+                    <div class="col-6"><label class="labels">idUser</label><input type="text" class="form-control" :placeholder="idUser" v-model="idUser" disabled></div>
                     <div class="col-sm-12 col-md-12"><label class="labels">Date</label><input type="date" class="form-control" placeholder="Date" v-model="date"></div>
                     <div class="col-sm-12 col-md-12"><label class="labels">Title</label><input type="text" class="form-control" placeholder="Title" v-model="title"></div>
                     <div class="col-md-12"><label class="labels">Categoría</label>
@@ -29,10 +25,7 @@
                     </div>
                     <div class="col-sm-12 col-md-12"><label class="labels">Descripción</label><textarea type="texarea" class="form-control" placeholder="Descripción" v-model="descripcion"></textarea> </div>
                 </div>
-                <div class="row mt-3">
-                    <!-- <div class="col-md-12"><label class="labels">Avatar</label><input type="text" class="form-control" placeholder="enter Mobile phone number" v-model="avatar"></div>-->
-                    <!-- <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text" class="form-control" placeholder="enter Mobile phone number" v-model="phone"></div> -->
-                    
+                <div class="row mt-3">                   
                     <div class="col-md-12"><label class="labels">Estado</label>
                         <select class="form-control" v-model="state">
                             <option disabled value="">Seleccione un Estado</option>
@@ -59,28 +52,10 @@
                             </option>
                         </select>
                     </div>
-                    <!-- <div class="col-md-12"><label class="labels">Address Line 1</label><input type="text" class="form-control" placeholder="enter address line 1" v-model="adress"></div> -->
-                    <!-- <div class="col-md-12"><label class="labels">Address Line 2</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div> -->
-                    <!-- <div class="col-md-12"><label class="labels">Postcode</label><input type="text" class="form-control" placeholder="Postcode" value=""></div>-->
-                    <!-- <div class="col-md-12"><label class="labels">State</label><input type="text" class="form-control" placeholder="State" value=""></div> -->
-                    <!-- <div class="col-md-12"><label class="labels">Area</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div> -->
-                    <!-- <div class="col-md-12"><label class="labels">Email ID</label><input type="text" class="form-control" placeholder="enter email" v-model="email"></div> -->
-                    <!-- <div class="col-md-12"><label class="labels">idClient</label><input type="text" class="form-control" :placeholder="id" v-model="idClient" disabled></div> -->
                 </div>
-                <!-- <div class="row mt-3">
-                    <div class="col-md-6"><label class="labels">Country</label><input type="text" class="form-control" placeholder="country" value=""></div>
-                    <div class="col-md-6"><label class="labels">State/Region</label><input type="text" class="form-control" value="" placeholder="state"></div>
-                </div> -->
                 <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button" @click="newTicket">Save Ticket</button> <button @click="emit('close')" class="btn btn-primary profile-button">Cerrar</button></div>
             </div>
         </div>
-        <!-- <div class="col-md-4">
-            <div class="p-3 py-5">
-                <div class="d-flex justify-content-between align-items-center experience"><span>Edit Experience</span><span class="border px-3 p-1 add-experience"><i class="fa fa-plus"></i>&nbsp;Experience</span></div><br>
-                <div class="col-md-12"><label class="labels">Experience in Designing</label><input type="text" class="form-control" placeholder="experience" value=""></div> <br>
-                <div class="col-md-12"><label class="labels">Additional Details</label><input type="text" class="form-control" placeholder="additional details" value=""></div>
-            </div>
-        </div> -->
     </div>
 </div>
 </div>
@@ -111,7 +86,7 @@ let newTick = reactive({})
 
     const newTicket = () => {
         if(title.value == ''){
-            alert("Titulo no introducido");
+            alert("Título no introducido");
         } else {
             newTick = ({
                 idTicket: idTicket.value,
@@ -184,8 +159,10 @@ body {
 }
 
 .labels {
-    font-size: 11px;
+    margin-top: 10px;
+    font-size: 16px;
     color:#000000;
+    font-weight: 600;
 }
 
 .add-experience:hover {
