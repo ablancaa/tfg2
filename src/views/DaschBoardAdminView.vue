@@ -5,14 +5,21 @@
         <div class="titleMark"><span class="pageTitle">Dashboard Admin</span></div>
             <div class="row">
                 
-                <div class="col-sm-12 col-md-12">
+                <div class="col-sm-12 col-md-6">
                     <router-link to="/estadisticasView" class="page-link">     
                     <div class="bloque-estadiscicas">
                         <canvas id="grafica"></canvas>
                     </div> <!--Fin Bloque Estadisticas -->
                     </router-link>
                 </div> <!--Fin col 1 estadísticas-->
-                
+                <div class="col-sm-12 col-md-6">
+                    <router-link to="/estadisticasView" class="page-link">     
+                    <div class="bloque-estadiscicas">
+                        <canvas id="grafica2"></canvas>
+                    </div> <!--Fin Bloque Estadisticas -->
+                    
+                    </router-link>
+                </div> <!--Fin col 1 estadísticas-->
                 <div class="col-sm-12 col-md-4">
                     <router-link to="/ticketsView" class="page-link"> 
                     <div class="bloque-tickets">
@@ -146,7 +153,14 @@ import { useDataStore } from '../store/datosUser.js'
 
 let users = reactive([]);
 let tickets = reactive([]);
-//let user = reactive([]);
+let user = reactive([
+    {
+        idUser: '',
+        name:'',
+        email:'',
+        avatar:'',
+    }
+]);
 const store = useDataStore();
 
 let contadores = reactive([
@@ -185,7 +199,10 @@ function temporizadorDeRetraso() {
 }
 
 onMounted(() => {
-   
+    getListados(); 
+    temporizadorDeRetraso();
+    
+    
 });
 
 onUpdated(() => {
@@ -195,8 +212,10 @@ onUpdated(() => {
 
 
 onBeforeMount(()=>{
-    getListados(); 
-    temporizadorDeRetraso(); 
+    
+    // getListados(); 
+    // temporizadorDeRetraso();
+    // datosUsuarioLogado();
 })
 async function getListados() {
     const querySnapshotUsers = await getDocs(collection(db, "users"));
@@ -217,7 +236,9 @@ async function getListados() {
         contadores[2].usersTecnico = userTecnico.length
         contadores[2].userAssignment = tecnicoAsignado.length;
         contadores[2].userUnAssignment = tecnicoNoAsignado.length
+        //console.log(users);
         
+       
     });
 
     querySnapshotTickets.forEach((doc) => {
@@ -234,17 +255,17 @@ async function getListados() {
     });
     localStorage.tickets = JSON.stringify(contadores[1]);
     localStorage.usuarios = JSON.stringify(contadores[0]);
-    let mail = store.datosUser.email;
-    console.log(mail);
-   
-   
-   
+    localStorage.setItem("usersList", JSON.stringify(users));
+    datosUsuarioLogado(users);
     
 }
+
 const pintaGrafica = () => {
 
     const ctx = document.getElementById("grafica");
+    const ctx2 = document.getElementById("grafica2");
     const labels = ['Nº Tickets Total', 'Activos', 'En Espera', 'En proceso', 'Resuelto']
+    const labels2 = ['Total Usuarios', 'On-Line', 'Off-Line']
 
     new Chart(ctx, {
         type: 'bar',
@@ -253,7 +274,7 @@ const pintaGrafica = () => {
             datasets: [{
                 display: false,
                 label: 'Tickets',
-                data: [9,4,6,4,5],
+                data: [contadores[1].ticketsNum, contadores[1].ticketsActive, contadores[1].ticketsWait, contadores[1].ticketsProgress, contadores[1].ticketsEnd],
                 borderColor: 'black',
                 pointStyle: 'rectRounded',
                 backgroundColor: 'rgba(9, 129, 176, 0.2)',
@@ -268,6 +289,49 @@ const pintaGrafica = () => {
             }
         }
     });
+    new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels: labels2,
+            datasets: [{
+                display: false,
+                label: 'Usuarios',
+                data: [contadores[0].usersNum, contadores[0].usersActive, contadores[0].usersDisconnect],
+                borderColor: 'black',
+                pointStyle: 'rectRounded',
+                backgroundColor: 'rgba(9, 129, 176, 0.2)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+
+const datosUsuarioLogado = (lista) => {
+    user.email = store.datosUser.email;
+    let ticketsUsu = lista.filter(usu => usu.email == store.datosUser.email)
+        console.log(store.datosUser.email)
+        console.log(ticketsUsu);
+        for (let i=0; i <  ticketsUsu.length; i++){
+            console.log(ticketsUsu[i])
+            user.push(ticketsUsu[i])
+        }
+    // for (let i=0; i < lista.length; i++){
+    //     const item = lista[i]
+    //     console.log(item.email)
+    //     console.log(user.email)
+    //     if(item.email == user.email){
+    //         console.log("Hola 2")
+    //     }
+     
+    // }
+    
 }
 
 </script>
