@@ -14,6 +14,7 @@
                 <span><p class="estados-items"><strong>Prioridad:</strong>{{ props.tickets.priority }}</p></span>
                 <span><p class="estados-items"><strong>Estado:</strong> {{ props.tickets.state }}</p></span>
                 <span><p class="estados-items"><strong>Categoría: </strong>{{ props.tickets.category }}</p></span>
+                <span><p class="estados-items"><strong>Date: </strong>{{ props.tickets.date }}</p></span>
             </div>
         </div>
     </div>
@@ -100,7 +101,7 @@ const props = defineProps({
     margin-bottom: 2px;
 }
 .estados-items {
-    margin-bottom: -2px;
+    margin-bottom: 1px;
     font-size: 13px;
 }
 .notifys {
@@ -131,7 +132,7 @@ hr {
     height: 2px;
     background-color: black;
     box-shadow: 2px 2px rgba(120, 120, 120, .25);
-    margin-top: -5px;
+    margin-top: 5px;
 }
 .imgUser {
     border-radius: 50%;
