@@ -42,7 +42,7 @@ import { useDataStore } from '../store/datosUser.js'
   
   let loginNoOk = ref(false);
   let users = reactive([]);
-  let emails = ref();
+
   const auth = getAuth();
   const router = useRouter();
   const email = ref("");
@@ -62,10 +62,11 @@ import { useDataStore } from '../store/datosUser.js'
         signInWithEmailAndPassword(auth, email.value, password.value)
         .then((userCredential)=> {
               const user = userCredential.user;
-              console.log("Successfully registered!");
-              console.log(user.email);
-              emails.value = user.email;    
-              store.setEmail(user.email)
+              console.log("Successfully registered!");   
+              store.setEmail(user.email);
+        
+              console.log(store.datosUser.email)
+      
               if(user.email == "ablancaa@gmail.com"){
                 router.push("/dashBoardAdmin")
               } else {
@@ -81,15 +82,12 @@ import { useDataStore } from '../store/datosUser.js'
 
     
     
-    async function getListaUsuarios() {
+    const getListaUsuarios = async() => {
     const querySnapshotUsers = await getDocs(collection(db, "users"));
-    
     querySnapshotUsers.forEach((doc) => {
     users.push(doc.data());
-    //let userTecnico = users.filter(user => user.rol == 'Técnico')
-    //console.log(userTecnico)
     });
-    sessionStorage.setItem("usersList", JSON.stringify(users));
+    //localStorage.setItem("usersList", JSON.stringify(users));
 }
 </script>
 

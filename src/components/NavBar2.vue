@@ -34,25 +34,25 @@
 
 <script setup>
 import { useDataStore } from '../store/datosUser.js'
-import { ref, defineProps, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 const store = useDataStore();
 const router = useRouter();
 let userCurrenEmail = ref(store.datosUser.email);
-let userCurrenAvatar = ref("");
+//let userCurrenAvatar = ref("");
 
 
 
-let props = defineProps({
-   users: {
-         type: Array,
-       },
-  })
+// let props = defineProps({
+//    users: {
+//          type: Array,
+//        },
+//   })
   onMounted(() => {
     
   });
   
-  console.log(props.users);
+  //console.log(props.users);
 
   console.log(userCurrenEmail.value)
 
@@ -64,7 +64,7 @@ let props = defineProps({
       
       //console.log(store.datosUser.avatar)
       
-      console.log(userCurrenAvatar);
+      //console.log(userCurrenAvatar);
      
 
  
