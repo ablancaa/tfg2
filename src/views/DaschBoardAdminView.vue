@@ -221,7 +221,6 @@ async function getListados() {
         contadores[2].usersTecnico = userTecnico.length
         contadores[2].userAssignment = tecnicoAsignado.length;
         contadores[2].userUnAssignment = tecnicoNoAsignado.length
-        //console.log(users);
     });
 
     querySnapshotTickets.forEach((doc) => {
