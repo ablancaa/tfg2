@@ -1,5 +1,5 @@
 <template>
-    <NavBar2 :users="users"/>
+    <NavBar2 :currenUser="currenUser"/>
     <div class="container">
         <br />
         <div class="titleMark"><span class="pageTitle">Dashboard Admin</span></div>
@@ -145,7 +145,7 @@
 import NavBar2 from '@/components/NavBar2.vue'
 import Footer from '@/components/Footer.vue'
 
-import { reactive, onMounted, onBeforeMount, onUpdated } from "vue";
+import { reactive, onMounted, onUpdated, onBeforeUnmount } from "vue";
 import { db } from "../utils/FirebaseConfig.js"
 import { collection, getDocs } from "firebase/firestore";
 import Chart from 'chart.js/auto';
@@ -153,14 +153,8 @@ import { useDataStore } from '../store/datosUser.js'
 
 let users = reactive([]);
 let tickets = reactive([]);
-let user = reactive([
-    {
-        idUser: '',
-        name:'',
-        email:'',
-        avatar:'',
-    }
-]);
+let currenUser = reactive([]);
+
 const store = useDataStore();
 
 let contadores = reactive([
@@ -171,7 +165,6 @@ let contadores = reactive([
         usersAdmin: 0,
         usersDocente: 0,
         usersServicios: 0,
-        usersAvatar: '',
     },
     {
         ticketsNum: 0,
@@ -187,13 +180,6 @@ let contadores = reactive([
     }
 ])
 
-// let arrayGraficoResumen = reactive([
-//     {
-//     ticketsNum: 0,
-//     }
-// ]);
-
-
 function temporizadorDeRetraso() {
    setTimeout(pintaGrafica, 1000);
 }
@@ -201,21 +187,15 @@ function temporizadorDeRetraso() {
 onMounted(() => {
     getListados(); 
     temporizadorDeRetraso();
-    
-    
 });
 
 onUpdated(() => {
-    
-   
+      
 });
 
 
-onBeforeMount(()=>{
-    
-    // getListados(); 
-    // temporizadorDeRetraso();
-    // datosUsuarioLogado();
+onBeforeUnmount(()=>{
+
 })
 async function getListados() {
     const querySnapshotUsers = await getDocs(collection(db, "users"));
@@ -237,8 +217,6 @@ async function getListados() {
         contadores[2].userAssignment = tecnicoAsignado.length;
         contadores[2].userUnAssignment = tecnicoNoAsignado.length
         //console.log(users);
-        
-       
     });
 
     querySnapshotTickets.forEach((doc) => {
@@ -256,7 +234,8 @@ async function getListados() {
     localStorage.tickets = JSON.stringify(contadores[1]);
     localStorage.usuarios = JSON.stringify(contadores[0]);
     localStorage.setItem("usersList", JSON.stringify(users));
-    datosUsuarioLogado(users);
+    datosUsuarioLogado(users)
+    
     
 }
 
@@ -314,33 +293,35 @@ const pintaGrafica = () => {
 }
 
 const datosUsuarioLogado = (lista) => {
-    user.email = store.datosUser.email;
-    let ticketsUsu = lista.filter(usu => usu.email == store.datosUser.email)
-        console.log(store.datosUser.email)
-        console.log(ticketsUsu);
-        for (let i=0; i <  ticketsUsu.length; i++){
-            console.log(ticketsUsu[i])
-            user.push(ticketsUsu[i])
-        }
-    // for (let i=0; i < lista.length; i++){
-    //     const item = lista[i]
-    //     console.log(item.email)
-    //     console.log(user.email)
-    //     if(item.email == user.email){
-    //         console.log("Hola 2")
-    //     }
-     
-    // }
+    let mail = emailUsuario();
+    store.setUsersList(lista);  
+    const result = lista.filter((item) => item.email === mail);
+
+    console.log(result)
+    currenUser.push(result[0]);
     
+    //console.log(currenUser[0].email)
+    
+    store.setEmail(currenUser[0].email);
+    store.setAvatar(currenUser[0].imgUser);
+    store.datosUser.idUser = currenUser[0].idUser;
+    store.datosUser.name = currenUser[0].name;
+    store.datosUser.surname1 = currenUser[0].surname1;
+    store.datosUser.surname2 = currenUser[0].surname2;
+    store.datosUser.rol = currenUser[0].rol;
+    store.datosUser.phone = currenUser[0].phone;
+    localStorage.setItem("currenUser", JSON.stringify(currenUser));
+    let perfil = JSON.parse(localStorage.getItem('currenUser'))
+    console.log(perfil)
+    store.datosUser.email = perfil[0].email
 }
-
+function emailUsuario() {
+    console.log(store.datosUser.email)
+    return store.datosUser.email
+}
 </script>
 
-<script>
-export default {
-    name: 'Dashboard-Admin'
-}
-</script>
+
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');

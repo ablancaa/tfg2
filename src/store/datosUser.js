@@ -12,11 +12,17 @@ export const useDataStore  = defineStore('datosUser',{
     state: () => {
         return {
             datosUser: [{
-                name: '',
-                email: '',
+                idUser: '',
                 avatar: '',
-                idUser: ''
-            }]
+                name: '',
+                surname1:'',
+                surname2:'',
+                email: '',
+                rol: '',
+                phone: '',
+                state: false,               
+            }],
+            userList: {},
         }
     },
 
@@ -42,6 +48,12 @@ export const useDataStore  = defineStore('datosUser',{
         },
         setName(name) {
             this.datosUser.name = name;
-        }
+        },
+        setUsersList(lista){
+            this.userList=lista
+        },
+        getUsersList: () => {
+            return this.userList;
+        },
     }   
 })

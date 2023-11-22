@@ -62,14 +62,18 @@
 </template>
 <script setup>
 import{ ref, reactive, defineEmits, defineProps } from 'vue'
+import { useDataStore } from '../store/datosUser.js'
+//import { useRouter } from 'vue-router'
 
+//const router = useRouter() //Utiliza el router.push("/")
+const store = useDataStore();
 const emit = defineEmits(['newTicket','close'])
 const props = defineProps({
         userList: {
             type: Object,
         },    
     })
-let idUser = ref("U00001");
+let idUser = ref(store.datosUser.idUser);
 let idTicket = ref(generarIdUnico());
 let title = ref("");
 let priority = ref("");
@@ -102,6 +106,8 @@ let newTick = reactive({})
         }
         emit('newTicket', newTick);
         console.log(newTick);
+        //router.push("/ticketsView")
+        
     }
 
     function generarIdUnico () { 

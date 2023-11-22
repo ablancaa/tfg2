@@ -99,7 +99,7 @@ async function getListaTickets() {
 
   async function deleteTicket(idTicket) {
     console.log(idTicket)
-    const querySnapshotClients = await getDocs(collection(db, "users"));
+    const querySnapshotClients = await getDocs(collection(db, "tickets"));
     querySnapshotClients.forEach((doc) => {
         ids.push(doc.id);
         users.push(doc.data());

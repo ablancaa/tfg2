@@ -1,5 +1,5 @@
 <template>
-    <NavBar2/>
+    <NavBar2 :currenUser="currenUser"/>
   <div class="container">
     <br/>
         <div class="titleMark"><span class="pageTitle">Tickets View</span></div>
@@ -27,8 +27,22 @@ import AddTicket from "@/components/AddTicket.vue"
 import { reactive, onMounted, ref, computed } from "vue";
 import { db } from "../utils/FirebaseConfig.js"
 import { collection, getDocs, addDoc } from "firebase/firestore";
+import { useDataStore } from '../store/datosUser.js'
+import { useRouter } from 'vue-router'
 
+const router = useRouter() //Utiliza el router.push("/")
+
+const store = useDataStore();
 let searchTerm = ref("");
+
+let currenUser = reactive([{
+    email: store.datosUser.email,
+    idUser: store.datosUser.idUser,
+    avatar: store.datosUser.avatar
+}
+]);
+
+
 
 let tickets = reactive([]);
 let users = reactive([]);
@@ -44,6 +58,11 @@ let showModal = ref(false);
 onMounted(() => {
     getListaTickets();
     getListaUsers();
+    let perfil = JSON.parse(localStorage.getItem('currenUser'))
+    store.datosUser.email = perfil[0].email;
+    store.datosUser.avatar = perfil[0].imgUser;
+    store.datosUser.idUser = perfil[0].idUser;
+    console.log("Ticket ")
 
 });
 const ticketsListFiltered = computed(() => {
@@ -118,7 +137,9 @@ async function addTicket(newTicket){
     } catch (e) {
       console.error("Error adding document: ", e);
     }
-    location.reload();
+    
+    router.push("/ticketsView")
+    showModal.value = false;
   }
   
 

@@ -1,6 +1,5 @@
 <template>
-<NavBar2/>
-
+<NavBar2 :currenUser="currenUser"/>
 <div class="container">
     <br/>
     <div class="cabecera">
@@ -60,8 +59,17 @@
 //import NavBar from '@/components/NavBar.vue'
 import NavBar2 from '@/components/NavBar2.vue'
 import Footer from '@/components/Footer.vue'
+import { useDataStore } from '../store/datosUser.js'
+import { db } from "../utils/FirebaseConfig.js"
+import { collection, getDocs } from "firebase/firestore";
+import { reactive, onMounted } from 'vue'
 
-import { reactive } from 'vue'
+let currenUser = reactive([]);
+
+const store = useDataStore();
+
+let users = reactive([]);
+let tickets = reactive([]);
 let contadores = reactive([
     {
         usersNum: 0,
@@ -86,6 +94,79 @@ let contadores = reactive([
 ])
     localStorage.tickets = JSON.stringify(contadores[1]);
     localStorage.usuarios = JSON.stringify(contadores[0]);
+    
+    onMounted(()=>{
+        // datosUsuarioLogado(users);
+        getListados()
+    })
+
+    async function getListados() {
+    const querySnapshotUsers = await getDocs(collection(db, "users"));
+    const querySnapshotTickets = await getDocs(collection(db, "tickets"));
+
+    querySnapshotUsers.forEach((doc) => {
+        users.push(doc.data());
+        let activesUsers = users.filter(user => user.state == true)
+        let disconnectUsers = users.filter(user => user.state == false)
+        let userTecnico = users.filter(user => user.rol == 'Técnico')
+        let tecnicoAsignado = users.filter(user => user.assignment == true)
+        let tecnicoNoAsignado = users.filter(user => user.assignment == false)
+  
+        contadores[0].usersNum = users.length;
+        contadores[0].usersActive = activesUsers.length;
+        contadores[0].usersDisconnect = disconnectUsers.length;
+        contadores[0].usersAvatar = users.imgUser;
+        contadores[2].usersTecnico = userTecnico.length
+        contadores[2].userAssignment = tecnicoAsignado.length;
+        contadores[2].userUnAssignment = tecnicoNoAsignado.length
+        //console.log(users);
+       
+    });
+
+    querySnapshotTickets.forEach((doc) => {
+        tickets.push(doc.data());
+        let ticketProcces = tickets.filter(ticket => ticket.state == "procces")
+        let ticketEnd = tickets.filter(ticket => ticket.state == "end")
+        let ticketActive = tickets.filter(ticket => ticket.state == "active")
+        let ticketWait = tickets.filter(ticket => ticket.state == "wait")
+        contadores[1].ticketsNum = tickets.length
+        contadores[1].ticketsProgress = ticketProcces.length
+        contadores[1].ticketsEnd = ticketEnd.length
+        contadores[1].ticketsActive = ticketActive.length
+        contadores[1].ticketsWait = ticketWait.length
+    });
+    localStorage.tickets = JSON.stringify(contadores[1]);
+    localStorage.usuarios = JSON.stringify(contadores[0]);
+    localStorage.setItem("usersList", JSON.stringify(users));
+    
+    datosUsuarioLogado(users)
+    
+}
+    const datosUsuarioLogado = (lista) => {
+    console.log(lista)
+    let mail = emailUsuario();
+    store.setUsersList(lista);  
+    const result = lista.filter((item) => item.email === mail);
+    console.log(result[0])
+    currenUser.push(result[0]);
+    
+    console.log(currenUser[0].idUser)
+    
+    store.setEmail(currenUser[0].email)
+    store.setAvatar(currenUser[0].imgUser) 
+    store.setidUser(currenUser[0].idUser)
+    store.setName(currenUser[0].name)
+    // store.datosUser.name = currenUser.name
+    // store.datosUser.surname1 = currenUser[0].surname1
+    // store.datosUser.surname2 = currenUser[0].surname2
+    // store.datosUser.rol = currenUser[0].rol
+    // store.datosUser.phone = currenUser[0].phone
+    localStorage.setItem("currenUser", JSON.stringify(currenUser));
+}
+function emailUsuario() {
+    console.log(store.datosUser.email)
+    return store.datosUser.email
+}
 
 </script>
 
