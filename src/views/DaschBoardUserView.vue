@@ -4,6 +4,7 @@
     <br/>
     <div class="cabecera">
         <div class="titleMark"><span class="pageTitle">Dashboard User</span></div>
+        <router-link to="/ticketsView" class="page-link"> 
         <div class="bloque-estadiscicas-usuario">
             <div>
                 <h1><img alt="Imagen tickets" src="../assets/ico/logoTicketBlack.png" width="70"> Mis Tickets</h1>
@@ -18,7 +19,7 @@
                         <div class="col">25</div>
                     </div>
             </div>
-        </div>
+        </div></router-link>
     </div><!-- fin Cabecera -->
     <div class="row">
         <div class="col-xs-12 col-md-12 col-lg-12 contenFlex">

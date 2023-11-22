@@ -24,7 +24,7 @@ import NavBar2 from '@/components/NavBar2.vue'
 import SearchBar from '@/components/SearchBar.vue'
 import TicketsList from '@/components/TicketsList.vue'
 import AddTicket from "@/components/AddTicket.vue"
-import { reactive, onMounted, ref, computed } from "vue";
+import { reactive, onMounted, ref, computed, onUpdated } from "vue";
 import { db } from "../utils/FirebaseConfig.js"
 import { collection, getDocs, addDoc } from "firebase/firestore";
 import { useDataStore } from '../store/datosUser.js'
@@ -54,6 +54,9 @@ let contadores = reactive ([
     }
 ]);
 let showModal = ref(false);
+onUpdated(() => {
+  getListaTickets();
+})
 
 onMounted(() => {
     getListaTickets();
@@ -65,6 +68,7 @@ onMounted(() => {
     console.log("Ticket ")
 
 });
+
 const ticketsListFiltered = computed(() => {
   if (!searchTerm.value) {
     return tickets;

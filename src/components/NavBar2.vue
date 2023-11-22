@@ -9,7 +9,7 @@
               <span class="line line3"></span>
             </div>  
           <div class="logo">
-            <span class="profile-image img"><span class="currenUser">{{ userCurrenEmail }} | {{ userCurrenName }}</span><img :src='userCurrenAvatar' width="40"/></span>
+            <span class="profile-image img"><span class="currenUser">{{ userCurrenEmail }} <!--|{{ userCurrenName }}--></span><img :src='userCurrenAvatar' width="40"/></span>
             <router-link to="/"><img src="../assets/ico/exitWhite.png" width="25" @click="exit"/></router-link>
           </div>
           <div class="menu-items">
@@ -24,7 +24,7 @@
             <li><a href="#"></a></li>
             <li><a href="#"></a></li>
             <li><a href="#"></a></li>
-            <li><span class="profile-image img"><img :src='userCurrenAvatar' width="70"/>{{ userCurrenName }}</span>
+            <li><span class="profile-image img"><img :src='userCurrenAvatar' width="70"/> <!-- {{ userCurrenName }} --></span>
             <router-link to="/"><img src="../assets/ico/exitWhite.png" width="25"  @click="exit"/></router-link></li>
           </div>
         </div>
@@ -48,7 +48,7 @@ const router = useRouter();
  let userCurrenEmail = ref(store.datosUser.email);
  let userCurrenAvatar = ref(store.datosUser.avatar)
  let userCurrenIdUser = ref(store.datosUser.idUser)
- let userCurrenName = ref(store.datosUser.name)
+ //let userCurrenName = ref(store.datosUser.name)
 
 // let userCurrenEmail = ref(perfil.email);
 // let userCurrenAvatar = ref(perfil.imgUser)
@@ -97,6 +97,7 @@ const router = useRouter();
  
 function exit () {
   store.setEmail('');
+  store.setName('');
   localStorage.removeItem("tickets");
   localStorage.removeItem("usuarios");
   localStorage.removeItem("usersList");
