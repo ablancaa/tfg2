@@ -9,7 +9,7 @@
               <span class="line line3"></span>
             </div>  
           <div class="logo">
-            <span class="profile-image img"><span class="currenUser">{{ userCurrenEmail }} </span><img src="../assets/img/Profile.jpg" width="40"/></span>
+            <span class="profile-image img"><span class="currenUser">{{ userCurrenEmail }} | {{ userCurrenName }}</span><img :src='userCurrenAvatar' width="40"/></span>
             <router-link to="/"><img src="../assets/ico/exitWhite.png" width="25" @click="exit"/></router-link>
           </div>
           <div class="menu-items">
@@ -24,7 +24,7 @@
             <li><a href="#"></a></li>
             <li><a href="#"></a></li>
             <li><a href="#"></a></li>
-            <li><span class="profile-image img"><img src="../assets/img/Profile.jpg" height="70"></span>
+            <li><span class="profile-image img"><img :src='userCurrenAvatar' width="70"/>{{ userCurrenName }}</span>
             <router-link to="/"><img src="../assets/ico/exitWhite.png" width="25"  @click="exit"/></router-link></li>
           </div>
         </div>
@@ -34,27 +34,54 @@
 
 <script setup>
 import { useDataStore } from '../store/datosUser.js'
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onBeforeMount } from 'vue';
 import { useRouter } from 'vue-router';
+
 const store = useDataStore();
 const router = useRouter();
-let userCurrenEmail = ref(store.datosUser.email);
+//let perfil = JSON.parse(localStorage.getItem('currenUser'))
+
+//  console.log(perfil[0].name)
+//  console.log(perfil[0].idUser)
+//  console.log(perfil[0].imgUser)
+//  console.log(perfil[0].email)
+ let userCurrenEmail = ref(store.datosUser.email);
+ let userCurrenAvatar = ref(store.datosUser.avatar)
+ let userCurrenIdUser = ref(store.datosUser.idUser)
+ let userCurrenName = ref(store.datosUser.name)
+
+// let userCurrenEmail = ref(perfil.email);
+// let userCurrenAvatar = ref(perfil.imgUser)
+// let userCurrenIdUser = ref(perfil.idUser)
+// let userCurrenName = ref(perfil.name)
+// let currenUser = reactive[{
+//   email: store.datosUser.email,
+//   avatar: store.datosUser.avatar
+//   }]
 //let userCurrenAvatar = ref("");
 
 
 
-// let props = defineProps({
-//    users: {
-//          type: Array,
-//        },
-//   })
+//  let props = defineProps({
+//   currenUser: {
+//           type: Object,
+//         },
+//  })
   onMounted(() => {
-    
+    // console.log(props.currenUser)
   });
+
+
+  onBeforeMount(()=>{
+   // console.log(props.currenUser)
+  })
   
   //console.log(props.users);
 
   console.log(userCurrenEmail.value)
+  console.log(userCurrenAvatar.value)
+  console.log(userCurrenIdUser.value)
+  // console.log(props.currenUser[0])
 
  
     
@@ -73,7 +100,9 @@ function exit () {
   localStorage.removeItem("tickets");
   localStorage.removeItem("usuarios");
   localStorage.removeItem("usersList");
+  localStorage.removeItem("currenUser");
   sessionStorage.clear();
+  localStorage.clear();
   router.push("/")
 
 }
