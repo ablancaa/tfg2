@@ -172,6 +172,11 @@ let contadores = reactive([
         ticketsEnd: 0,
         ticketsActive: 0,
         ticketsWait: 0,
+        ticketSofware: 0,
+        ticketHardware: 0,
+        ticketAsistencia: 0,
+        ticketServicios: 0,
+
     },
     {
         usersTecnico: 0,
@@ -181,7 +186,7 @@ let contadores = reactive([
 ])
 
 function temporizadorDeRetraso() {
-   setTimeout(pintaGrafica, 1000);
+   setTimeout(pintaGraficas, 1000);
 }
 
 onMounted(() => {
@@ -225,11 +230,19 @@ async function getListados() {
         let ticketEnd = tickets.filter(ticket => ticket.state == "end")
         let ticketActive = tickets.filter(ticket => ticket.state == "active")
         let ticketWait = tickets.filter(ticket => ticket.state == "wait")
+        let ticketSofware = tickets.filter(ticket => ticket.state == "Software")
+        let ticketHardware = tickets.filter(ticket => ticket.state == "Hardware")
+        let ticketAsistencia = tickets.filter(ticket => ticket.state == "Asistencia")
+        let ticketServicios = tickets.filter(ticket => ticket.state == "Servicios")
         contadores[1].ticketsNum = tickets.length
         contadores[1].ticketsProgress = ticketProcces.length
         contadores[1].ticketsEnd = ticketEnd.length
         contadores[1].ticketsActive = ticketActive.length
         contadores[1].ticketsWait = ticketWait.length
+        contadores[1].ticketSofware = ticketSofware.length
+        contadores[1].ticketHardware = ticketHardware.length
+        contadores[1].ticketAsistencia = ticketAsistencia.length
+        contadores[1].ticketServicios = ticketServicios.length
     });
     localStorage.tickets = JSON.stringify(contadores[1]);
     localStorage.usuarios = JSON.stringify(contadores[0]);
@@ -239,12 +252,12 @@ async function getListados() {
     
 }
 
-const pintaGrafica = () => {
+const pintaGraficas = () => {
 
     const ctx = document.getElementById("grafica");
     const ctx2 = document.getElementById("grafica2");
     const labels = ['Nº Tickets Total', 'Activos', 'En Espera', 'En proceso', 'Resuelto']
-    const labels2 = ['Total Usuarios', 'On-Line', 'Off-Line']
+    const labels2 = ['Software', 'Hardware', 'Asistencia', 'Servicios']
 
     new Chart(ctx, {
         type: 'bar',
@@ -274,8 +287,8 @@ const pintaGrafica = () => {
             labels: labels2,
             datasets: [{
                 display: false,
-                label: 'Usuarios',
-                data: [contadores[0].usersNum, contadores[0].usersActive, contadores[0].usersDisconnect],
+                label: 'Categorías',
+                data: [contadores[1].ticketSofware, contadores[1].ticketHardware, contadores[1].ticketAsistencia, contadores[1].ticketServicios],
                 borderColor: 'black',
                 pointStyle: 'rectRounded',
                 backgroundColor: 'rgba(9, 129, 176, 0.2)',
