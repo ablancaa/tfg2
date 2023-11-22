@@ -230,10 +230,10 @@ async function getListados() {
         let ticketEnd = tickets.filter(ticket => ticket.state == "end")
         let ticketActive = tickets.filter(ticket => ticket.state == "active")
         let ticketWait = tickets.filter(ticket => ticket.state == "wait")
-        let ticketSofware = tickets.filter(ticket => ticket.state == "Software")
-        let ticketHardware = tickets.filter(ticket => ticket.state == "Hardware")
-        let ticketAsistencia = tickets.filter(ticket => ticket.state == "Asistencia")
-        let ticketServicios = tickets.filter(ticket => ticket.state == "Servicios")
+        let ticketSofware = tickets.filter(ticket => ticket.category == "Software")
+        let ticketHardware = tickets.filter(ticket => ticket.category == "Hardware")
+        let ticketAsistencia = tickets.filter(ticket => ticket.category == "Asistencia")
+        let ticketServicios = tickets.filter(ticket => ticket.category == "Servicios")
         contadores[1].ticketsNum = tickets.length
         contadores[1].ticketsProgress = ticketProcces.length
         contadores[1].ticketsEnd = ticketEnd.length
