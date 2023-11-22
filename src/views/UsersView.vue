@@ -32,9 +32,12 @@ import AddUser from "@/components/AddUser.vue"
 import { reactive, onMounted, ref, computed } from "vue";
 import { db, getDocs } from "../utils/FirebaseConfig.js"
 import { collection, addDoc, deleteDoc, doc } from "firebase/firestore";
+import { useDataStore } from '../store/datosUser.js'
+import router from '@/router';
+//import { useRouter } from 'vue-router'
 
-
-
+//const router = useRouter() //Utiliza el router.push("/")
+const store = useDataStore();
 let searchTerm = ref("");
 let users = reactive([]);
 let tickets = reactive([]);
@@ -49,6 +52,10 @@ let showModal = ref(false);
 onMounted(() => {
     getListaUsuarios();
     getListaTickets();
+    let perfil = JSON.parse(localStorage.getItem('currenUser'))
+    store.datosUser.email = perfil[0].email;
+    store.datosUser.avatar = perfil[0].imgUser;
+    store.datosUser.idUser = perfil[0].idUser;
   });
 
 const usersListFiltered = computed(() => {
@@ -111,7 +118,7 @@ async function addUser(newUser){
     });
     
     console.log("Document written with ID: ", docRef.id);
-    console.log(newUser)
+    console.log(newUser);
 
     } catch (e) {
       console.error("Error adding document: ", e);
@@ -135,12 +142,13 @@ async function addUser(newUser){
 
     console.log("Document written with ID: ", docRef.id);
     console.log(newUser)
-
     } catch (e) {
       console.error("Error adding document: ", e);
     }
   }
-  location.reload();
+  router.push("/usersView");
+  showModal.value = false;
+  
 }
 
 async function deleteClient(idUser) {
@@ -155,7 +163,9 @@ async function deleteClient(idUser) {
   }
   });
   await deleteDoc(doc(db, "users",refUsuarioEnFirebase));
-  location.reload();
+  location.reload("/usersView");
+  showModal.value = false;
+  
 }
 
 // async function getListados() {

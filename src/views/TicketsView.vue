@@ -28,9 +28,10 @@ import { reactive, onMounted, ref, computed, onUpdated } from "vue";
 import { db } from "../utils/FirebaseConfig.js"
 import { collection, getDocs, addDoc } from "firebase/firestore";
 import { useDataStore } from '../store/datosUser.js'
-import { useRouter } from 'vue-router'
+import router from '@/router';
+//import { useRouter } from 'vue-router'
 
-const router = useRouter() //Utiliza el router.push("/")
+//const router = useRouter() //Utiliza el router.push("/")
 
 const store = useDataStore();
 let searchTerm = ref("");
@@ -55,7 +56,7 @@ let contadores = reactive ([
 ]);
 let showModal = ref(false);
 onUpdated(() => {
-  getListaTickets();
+  //getListaTickets();
 })
 
 onMounted(() => {
@@ -141,8 +142,8 @@ async function addTicket(newTicket){
     } catch (e) {
       console.error("Error adding document: ", e);
     }
-    
     router.push("/ticketsView")
+    //location.reload("/ticketsView")
     showModal.value = false;
   }
   
