@@ -26,12 +26,14 @@
         <p class="ticketAsociados">Tickets Asociados:</p>
             <div class="row">
                 <div class="col-6" v-for=" ticket in ticketsUsuario" :key="ticket.idUser">
-                <div class="silueta-ticket">
-                   <p class="info"><strong>{{ ticket.idTicket }}</strong><br/>
-                   <span class="info iduser">{{ ticket.title }}</span><br/>
-                   <span class="info iduser">{{ ticket.state }}</span> </p>
+                    <router-link :to="{ name: 'ticketDetail', params:  { idTicket: ticket.idTicket, title: ticket.title }}" class="page-link">  
+                    <div class="silueta-ticket">
+                        <p class="info"><strong>{{ ticket.idTicket }}</strong><br/>
+                        <span class="info iduser">{{ ticket.title }}</span><br/>
+                        <span class="info iduser">{{ ticket.state }}</span> </p>
+                    </div>
+                    </router-link>
                 </div>
-            </div>
             </div>
         </div><!--fin container 2 -->
 </div>
