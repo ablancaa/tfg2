@@ -78,7 +78,10 @@ const ticketsListFiltered = computed(() => {
       return (
         item.title.toLowerCase().includes(searchTerm.value.toLowerCase()) ||
         item.idUser.toLowerCase().includes(searchTerm.value.toLowerCase()) ||
-        item.idTicket.toLowerCase().includes(searchTerm.value.toLowerCase())
+        item.idTicket.toLowerCase().includes(searchTerm.value.toLowerCase()) ||
+        item.state.toLowerCase().includes(searchTerm.value.toLowerCase()) ||
+        item.category.toLowerCase().includes(searchTerm.value.toLowerCase()) ||
+        item.priority.toLowerCase().includes(searchTerm.value.toLowerCase())
       );
     });
   }
