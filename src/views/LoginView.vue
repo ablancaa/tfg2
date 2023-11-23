@@ -54,6 +54,7 @@ import { useDataStore } from '../store/datosUser.js'
   });
 
     const login = async () => {
+     
       if(email.value == '' || password.value == '') {
         alert("Usuario o Password vacio");
         loginNoOk.value = true;
@@ -64,14 +65,22 @@ import { useDataStore } from '../store/datosUser.js'
               const user = userCredential.user;
               console.log("Successfully registered!");   
               store.setEmail(user.email);
-        
-              console.log(store.datosUser.email)
-      
               if(user.email == "ablancaa@gmail.com"){
                 router.push("/dashBoardAdmin")
               } else {
                 router.push("/dashBoardUser")
               }
+              //console.log(store.datosUser.email)
+              let usu = users.filter((usu) => usu.email == store.datosUser.email)
+              //console.log(usu)
+              
+              store.setAvatar(usu[0].imgUser);
+              store.setidUser(usu[0].idUser);
+              store.setName(usu[0].name);
+              store.setSurname1(usu[0].surname1);
+              store.setSurname2(usu[0].surname2);
+              store.setRol(usu[0].rol);
+              store.setPhone(usu[0].phone);
             })
         .catch((error)=>{
               console.log(error.code);
@@ -87,6 +96,7 @@ import { useDataStore } from '../store/datosUser.js'
     querySnapshotUsers.forEach((doc) => {
     users.push(doc.data());
     });
+ 
     //localStorage.setItem("usersList", JSON.stringify(users));
 }
 </script>
