@@ -13,11 +13,11 @@
             <router-link to="/"><img src="../assets/ico/exitWhite.png" width="25" @click="exit"/></router-link>
           </div>
           <div class="menu-items">
-            <li v-if="userCurrenEmail == 'ablancaa@gmail.com'"><router-link to="/dashBoardAdmin">DashBoard Admin</router-link></li>
+            <li v-if="userCurrenRol == 'Admin'"><router-link to="/dashBoardAdmin">DashBoard Admin</router-link></li>
             <li><router-link to="/dashBoardUser">DashBoard User</router-link></li>
             <li><router-link to="/ticketsView">Tickets</router-link></li>
-            <li><router-link to="/usersView">Users</router-link></li>
-            <li><router-link to="/estadisticasView">Estadísticas</router-link></li>
+            <li v-if="userCurrenRol == 'Admin'"><router-link to="/usersView">Users</router-link></li>
+            <li v-if="userCurrenRol == 'Admin'"><router-link to="/estadisticasView">Estadísticas</router-link></li>
             <li><router-link to="/about">About</router-link></li>
             <li><a href="#"></a></li>
             <li><a href="#"></a></li>
@@ -39,61 +39,20 @@ import { useRouter } from 'vue-router';
 
 const store = useDataStore();
 const router = useRouter();
-//let perfil = JSON.parse(localStorage.getItem('currenUser'))
 
-//  console.log(perfil[0].name)
-//  console.log(perfil[0].idUser)
-//  console.log(perfil[0].imgUser)
-//  console.log(perfil[0].email)
  let userCurrenEmail = ref(store.datosUser.email);
  let userCurrenAvatar = ref(store.datosUser.avatar)
  let userCurrenIdUser = ref(store.datosUser.idUser)
- //let userCurrenName = ref(store.datosUser.name)
+ let userCurrenRol = ref(store.datosUser.rol)
 
-// let userCurrenEmail = ref(perfil.email);
-// let userCurrenAvatar = ref(perfil.imgUser)
-// let userCurrenIdUser = ref(perfil.idUser)
-// let userCurrenName = ref(perfil.name)
-// let currenUser = reactive[{
-//   email: store.datosUser.email,
-//   avatar: store.datosUser.avatar
-//   }]
-//let userCurrenAvatar = ref("");
+  onMounted(() => {});
 
-
-
-//  let props = defineProps({
-//   currenUser: {
-//           type: Object,
-//         },
-//  })
-  onMounted(() => {
-    // console.log(props.currenUser)
-  });
-
-
-  onBeforeMount(()=>{
-   // console.log(props.currenUser)
-  })
+  onBeforeMount(()=>{})
   
-  //console.log(props.users);
-
-  console.log(userCurrenEmail.value)
-  console.log(userCurrenAvatar.value)
-  console.log(userCurrenIdUser.value)
-  // console.log(props.currenUser[0])
-
- 
-    
-      //props.users[i].email
-     
-      //console.log(userCurrenAvatar);
-      
-      //console.log(store.datosUser.avatar)
-      
-      //console.log(userCurrenAvatar);
-     
-
+  console.log("Email: "+userCurrenEmail.value)
+  console.log("Avatar: "+userCurrenAvatar.value)
+  console.log("IdUser: "+userCurrenIdUser.value)
+  console.log("Rol: "+userCurrenRol.value)
  
 function exit () {
   store.setEmail('');
