@@ -49,6 +49,18 @@ export const useDataStore  = defineStore('datosUser',{
         setName(name) {
             this.datosUser.name = name;
         },
+        setSurname1(surname1) {
+            this.datosUser.surname1 = surname1;
+        },
+        setSurname2(surname2) {
+            this.datosUser.surname2 = surname2;
+        },
+        setRol(rol) {
+            this.datosUser.rol = rol;
+        },
+        setPhone(phone) {
+            this.datosUser.phone = phone;
+        },
         setUsersList(lista){
             this.userList=lista
         },
