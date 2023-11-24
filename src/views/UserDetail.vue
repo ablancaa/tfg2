@@ -7,7 +7,7 @@
         <br />     
         <div class="col-12 col-md-4 silueta-card">
             <div class="col">
-                <img class="imgUser" :src="route.params.imgUser" width="65" height="65" />
+                <img class="imgUser" :src="user[0].imgUser" width="65" height="65" />
                 <p class="iduser">{{ user[0].idUser }}</p>
             </div>
             <div class="">
@@ -17,7 +17,7 @@
                 <p class="phone">{{ user[0].phone }}</p>
             </div>
             <div class="col col-md-2 item-3">
-                <button @click="deleteUser(route.params.idUser)" class="ico"><img src="../assets/ico/delete.png" width="20" height="20"  /></button>
+                <button @click="deleteUser(route.params.idUser)" class="ico" v-if="store.datosUser.rol == 'Admin'"><img src="../assets/ico/delete.png" width="20" height="20"  /></button>
             </div>
         </div>
 
@@ -26,21 +26,30 @@
         <p class="ticketAsociados">Tickets Asociados:</p>
             <div class="row">
                 <div class="col-6" v-for=" ticket in ticketsUsuario" :key="ticket.idUser">
-                    <router-link :to="{ name: 'ticketDetail', params:  { idTicket: ticket.idTicket, title: ticket.title }}" class="page-link">  
+                    <router-link :to="{ name: 'ticketDetail',
+                         params:  { 
+                                    idTicket: ticket.idTicket,
+                                    title: ticket.title,
+                                    description: ticket.description,
+                                    category: ticket.category,
+                                    state: ticket.state,
+                                    priority: ticket.priority,
+                                    date: ticket.date,
+                                    idUser: ticket.idUser,
+                                    technical: ticket.technical[0],
+                                    page: 'UserDetail',
+                                }}" class="page-link">  
                     <div class="silueta-ticket">
                         <p class="info"><strong>{{ ticket.idTicket }}</strong><br/>
                         <span class="info iduser">{{ ticket.title }}</span><br/>
-                        <span class="info iduser">{{ ticket.state }}</span> </p>
+                        <span class="info iduser">{{ ticket.category }}</span><br/>
+                        <!-- <span class="info iduser">{{ ticket.state }}</span>--> </p> 
                     </div>
                     </router-link>
                 </div>
             </div>
         </div><!--fin container 2 -->
 </div>
-            
-            
-   
-
 </template>
 
 <script setup>
@@ -50,11 +59,13 @@ import { reactive, ref, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router'
 import { db, getDocs } from "../utils/FirebaseConfig.js"
 import { collection, deleteDoc, doc } from "firebase/firestore";
+import { useDataStore } from '../store/datosUser.js'
 
 import NavBar2 from '@/components/NavBar2.vue';
 
 const router = useRouter() //Utiliza el router.push("/")
 const route = useRoute() //recibe los parámetros del router
+const store = useDataStore();
 
 let refUsuarioEnFirebase = ref()
 let ids = reactive([]);
@@ -107,12 +118,12 @@ async function getListaTickets() {
 const querySnapshotTickets = await getDocs(collection(db, "tickets"));
 querySnapshotTickets.forEach((doc) => {
  tickets.push(doc.data());
- console.log(tickets)
+//console.log(tickets)
  
 });
  let ticketsUsu = tickets.filter(ticket => ticket.idUser == route.params.idUser)
- console.log(route.params.idUser)
- console.log(ticketsUsu);
+ //console.log(route.params.idUser)
+ //console.log(ticketsUsu);
  for (let i=0; i <  ticketsUsu.length; i++){
     console.log(ticketsUsu[i])
     ticketsUsuario.push(ticketsUsu[i])

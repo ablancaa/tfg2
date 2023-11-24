@@ -48,7 +48,7 @@ const routes = [
     component: TicketsView
   },
   {
-    path: '/ticketDetail/:idTicket/title/:title',
+    path: '/ticketDetail/:idTicket/title/:title/description/:description/category/:category/state/:state/priority/:priority/date/:date/idUser/:idUser/technical/:technical',
     name: 'ticketDetail',
     component: TicketDetail
   },

@@ -26,7 +26,7 @@
                     <div v-if="props.tickets.idUser == user.idUser">
                         <p class="title-user"><strong>Usuario: </strong></p>
                         <img :src="user.imgUser" width="40" height="40" class="imgUser"/>
-                        <p class="nombre">{{ user.name }} {{ user.surname1 }} {{ user.surname2 }}<!-- <br/><strong>Rol: </strong>{{ user.rol }--></p>
+                        <p class="nombre">{{ user.name }} {{ user.surname1 }} {{ user.surname2 }} {{ user.idUser }}<!-- <br/><strong>Rol: </strong>{{ user.rol }--></p>
                     </div>
                 </div>
             </div>

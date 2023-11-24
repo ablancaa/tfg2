@@ -22,7 +22,9 @@ export const useDataStore  = defineStore('datosUser',{
                 phone: '',
                 state: false,               
             }],
-            userList: {},
+            userList: [],
+            ticketList: [],
+            contadoresUsuario: [],
         }
     },
 

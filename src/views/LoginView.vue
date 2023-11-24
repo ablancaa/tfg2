@@ -49,10 +49,22 @@ import { useDataStore } from '../store/datosUser.js'
   const password = ref("");
   const error = ref("El usuario o el password está vacío")
   
+
   onMounted(() => {
     getListaUsuarios();
   });
-
+    // onAuthStateChanged(auth, (user) => {
+    //   //console.log(user)
+    //   if (user) {
+    //     // User is signed in, see docs for a list of available properties
+    //     // https://firebase.google.com/docs/reference/js/auth.user
+    //     //const uid = user.uid;
+    //    // console.log(uid)
+    //   } else {
+    //     // User is signed out
+    //     //console.log("NO LOGADO")
+    //   }
+    // });
     const login = async () => {
      
       if(email.value == '' || password.value == '') {
@@ -70,10 +82,8 @@ import { useDataStore } from '../store/datosUser.js'
               } else {
                 router.push("/dashBoardUser")
               }
-              //console.log(store.datosUser.email)
-              let usu = users.filter((usu) => usu.email == store.datosUser.email)
+              let usu = store.userList.filter((usu) => usu.email == store.datosUser.email)
               //console.log(usu)
-              
               store.setAvatar(usu[0].imgUser);
               store.setidUser(usu[0].idUser);
               store.setName(usu[0].name);
@@ -89,16 +99,13 @@ import { useDataStore } from '../store/datosUser.js'
       }
     }
 
-    
-    
     const getListaUsuarios = async() => {
     const querySnapshotUsers = await getDocs(collection(db, "users"));
-    querySnapshotUsers.forEach((doc) => {
-    users.push(doc.data());
-    });
- 
-    //localStorage.setItem("usersList", JSON.stringify(users));
-}
+      querySnapshotUsers.forEach((doc) => {
+        users.push(doc.data());
+        store.userList = users;
+      });
+    }
 </script>
 
 <script>

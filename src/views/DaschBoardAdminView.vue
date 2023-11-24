@@ -246,9 +246,10 @@ async function getListados() {
     localStorage.tickets = JSON.stringify(contadores[1]);
     localStorage.usuarios = JSON.stringify(contadores[0]);
     localStorage.setItem("usersList", JSON.stringify(users));
+    store.userList = users;
+    store.ticketList = tickets;
+    console.log(store.ticketList)
     datosUsuarioLogado(users)
-    
-    
 }
 
 const pintaGraficas = () => {
