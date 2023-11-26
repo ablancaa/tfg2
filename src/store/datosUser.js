@@ -29,7 +29,9 @@ export const useDataStore  = defineStore('datosUser',{
     },
 
     getters: {
-    
+    getEmail: (state) => {
+            return state.datosUser.email
+        },
     },
 
     actions: {
