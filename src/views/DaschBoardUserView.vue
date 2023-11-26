@@ -227,11 +227,11 @@ function emailUsuario() {
 }
 async function getListaTicketsDelUsuario() {
 
- let ticketsUsu = tickets.filter(ticket => ticket.idUser == store.datosUser.idUser)
- let ticketProcces = tickets.filter(ticket => ticket.state == "procces" && ticket.idUser == store.datosUser.idUser)
- let ticketActive = tickets.filter(ticket => ticket.state == "active" && ticket.idUser == store.datosUser.idUser)
- let ticketWait = tickets.filter(ticket => ticket.state == "wait" && ticket.idUser == store.datosUser.idUser)
- let ticketEnd = tickets.filter(ticket => ticket.state == "end" && ticket.idUser == store.datosUser.idUser)
+ let ticketsUsu = tickets.filter(ticket => ticket.idUser == tickets.idUser)
+ let ticketProcces = tickets.filter(ticket => ticket.state == "procces" && ticket.idUser == tickets.idUser)
+ let ticketActive = tickets.filter(ticket => ticket.state == "active" && ticket.idUser == tickets.idUser)
+ let ticketWait = tickets.filter(ticket => ticket.state == "wait" && ticket.idUser == tickets.idUser)
+ let ticketEnd = tickets.filter(ticket => ticket.state == "end" && ticket.idUser == tickets.idUser)
 
  console.log(ticketProcces)
  //console.log(ticketsUsu);
