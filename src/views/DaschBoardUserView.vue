@@ -230,7 +230,7 @@ function emailUsuario() {
 }
 async function getListaTicketsDelUsuario() {
 
- let ticketsUsu = tickets.filter(ticket => ticket.idUser == tickets.idUser)
+ let ticketsUsu = tickets.filter(ticket => ticket.idUser == store.datosUser.idUser)
  let ticketProcces = tickets.filter(ticket => ticket.state == "procces" && ticket.idUser == store.datosUser.idUser)
  let ticketActive = tickets.filter(ticket => ticket.state == "active" && ticket.idUser == store.datosUser.idUser)
  let ticketWait = tickets.filter(ticket => ticket.state == "wait" && ticket.idUser == store.datosUser.idUser)
