@@ -5,7 +5,7 @@
       <div class="titleMark"><span class="pageTitle">Ticket Nº: <span class="nticket">{{ ticket[0].idTicket }}</span></span></div>   
       <div class="col-12 col-md-4">
          <div class="col" v-for="user in users" :key="user.idUser">
-           
+            
             <div class="silueta-card" v-if="ticket[0].idUser == user.idUser">
                 <div class="flex-items">
                     <img class="imgUser" :src="user.imgUser" width="60" height="60"/>
@@ -26,24 +26,58 @@
                     </div> 
                 </div>
             </div> <!-- silueta-card  -->
-            
-         </div> 
-      
-         
-          
-      </div>
+         </div>    
+        </div>
       <div class="container">
         <div class="row silueta-card">
            <div class="col">
-              <p class="phone"><strong>Prioridad:</strong>{{ ticket[0].priority }}</p>
+                <div class="flex-container">
+                    <div class="flex-item">
+                        <strong>Prioridad:</strong>
+                    </div>
+                    <div class="flex-item">
+                        <img src="../assets/ico/importante.png" v-if="route.params.priority == 'Importante'" width="50" height="50"> 
+                    </div>
+                    <div class="flex-item">
+                        <p class="phone">{{ ticket[0].priority }}</p>
+                        
+                    </div>
+                </div>
           </div>
           <div class="col">
-            <p class="email"><strong>Asignado:</strong>{{ ticket[0].technical }}</p>
-            <img :src="users.imgUser" v-if="ticket[0].technical == users.idUser">
+            <div class="flex-container">
+                    <div class="flex-item">
+                        <strong>Estado:</strong>
+                    </div>
+                    <div class="flex-item">
+                        <img src="../assets/ico/procesando.png" v-if="route.params.state == 'wait'" width="50" height="50">
+                        <img src="../assets/ico/proceso.png" v-if="route.params.state == 'procces'" width="50" height="50"> 
+                        <img src="../assets/ico/active.png" v-if="route.params.state == 'active'" width="50" height="50">
+                        <img src="../assets/ico/end.png" v-if="route.params.state == 'end'" width="50" height="50"> 
+                        
+                    </div>
+                    <div class="flex-item">
+                        <p class="nameSurname"> {{ ticket[0].state }}</p>
+                    </div>
+                </div>
+            
           </div>
-          <div class="col">
-            <p class="nameSurname"><strong>Estado:</strong> {{ ticket[0].state }}</p>
-          </div>
+            <div class="col">
+                <div class="flex-container">
+                        <div class="flex-item">
+                            <strong>Asignado:</strong>
+                        </div>
+                        <div class="flex-item" v-for="avatar in users" :key="avatar.idUser">
+                            <img :src="avatar.imgUser" v-if="ticket[0].technical == avatar.idUser" width="50" height="50" class="imgUser"> 
+                        </div>
+                        <div class="flex-item">
+                            <!-- <p class="nameSurname">{{ ticket[0].technical }}</p> -->
+                            <span v-for="technic in users" :key="technic.idUser">
+                                <span v-if="technic.idUser == ticket[0].technical" class="technicDates">{{ technic.name }} {{ technic.surname1 }}</span>
+                            </span>
+                        </div>
+                    </div>
+            </div>
           </div>
       <hr />
           <div class="row">
@@ -105,8 +139,6 @@ let ticket = reactive([
 onMounted(() => {
     getListaTickets();
     getListaUsers();
-    console.log(route.params.imgUser)
-
 });
 
 async function getListaUsers() {
@@ -119,7 +151,7 @@ async function getListaUsers() {
 //     // contadores[0].usersActive = activesUsers.length;
 //     // contadores[0].usersDisconnect = disconnectUsers.length;
   });
-  //console.log(users);
+  console.log(users);
   
   //console.log(users)
 }
@@ -261,7 +293,9 @@ async function getListaTickets() {
     font-size: 17px;
     font-weight: 700;
 }
-
+.technicDates{
+    font-size: 12px;
+}
 .email{
     font-size: 16px;
     font-weight: 400;
@@ -278,9 +312,11 @@ async function getListaTickets() {
     /* background-color: rgb(255, 0, 217); */
 }
 .imgUser{
-
+    border-radius: 50%;
+    border: 2px solid rgb(2, 30, 132);
+    margin: 0px 10px 0px 5px;
 }
-img {
+.imgIcos {
     border-radius: 50%;
     border: 2px solid rgb(2, 30, 132);
     margin: 0px 10px 0px 5px;
@@ -302,5 +338,44 @@ img {
     border-radius: 50%;
     background: rgb(228, 22, 22);
 }
+
+.flex-container {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    -webkit-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-align-content: space-around;
+    align-content: space-around;
+    -webkit-align-items: center;
+    align-items: center;
+    }
+.flex-item:nth-child(1) {
+    -webkit-order: 0;
+    order: 0;
+    -webkit-flex: 0 1 auto;
+    flex: 0 1 auto;
+    -webkit-align-self: auto;
+    align-self: auto;
+    }
+.flex-item:nth-child(2) {
+    -webkit-order: 0;
+    order: 0;
+    -webkit-flex: 0 1 auto;
+    flex: 0 1 auto;
+    -webkit-align-self: auto;
+    align-self: auto;
+    }
+.flex-item:nth-child(3) {
+    -webkit-order: 0;
+    order: 0;
+    -webkit-flex: 0 1 auto;
+    flex: 0 1 auto;
+    -webkit-align-self: auto;
+    align-self: auto;
+    }
 
 </style>
