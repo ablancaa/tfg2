@@ -38,9 +38,6 @@ export const useDataStore  = defineStore('datosUser',{
         mostrarDatosUsuario(){
            console.log(this.datosUser.email);
         },
-        getEmail: () => {
-            return this.datosUser.email
-        },
         setEmail(mail) {
             this.datosUser.email = mail;
         },
