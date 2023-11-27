@@ -5,7 +5,7 @@
     </div>
     <div class="flex-items">
         <p class="informacion">{{ props.user.name }} {{ props.user.surname1 }} {{ props.user.surname2 }}<br/>
-            <span class="email">{{ props.user.email }}</span><br/>id: {{ props.user.idUser }}</p>
+            <span class="email">{{ props.user.email }}</span><br/><!--id: {{ props.user.idUser }}--></p>
     </div>
     <div class="flex-items">
         <div class="flex-estado">
