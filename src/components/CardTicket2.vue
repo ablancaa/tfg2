@@ -26,7 +26,7 @@
                     <div v-if="props.tickets.idUser == user.idUser">
                         <p class="title-user"><strong>Usuario: </strong></p>
                         <img :src="user.imgUser" width="40" height="40" class="imgUser"/>
-                        <p class="nombre">{{ user.name }} {{ user.surname1 }} {{ user.surname2 }} {{ user.idUser }}<!-- <br/><strong>Rol: </strong>{{ user.rol }--></p>
+                        <p class="nombre">{{ user.name }} {{ user.surname1 }}  <!-- <br/><strong>Rol: </strong>{{ user.rol } {{ user.idUser }}{{ user.surname2 }}--></p>
                     </div>
                 </div>
             </div>
@@ -37,7 +37,7 @@
                     <div v-if="user.rol == 'Técnico' && user.idUser == props.tickets.technical[0]">
                         <p class="title-user"><strong>Técnico: </strong> </p>
                         <img :src="user.imgUser" width="40" height="40" v-if="props.tickets.technical[0] === user.idUser" class="imgUser"/>
-                        <p class="nombre">{{ user.name }} {{ user.surname1 }} {{ user.surname2 }}</p>
+                        <p class="nombre">{{ user.name }} {{ user.surname1 }} </p><!--{{ user.surname2 }}-->
                     </div>
                 </div><!-- Fin bucle -->
             </div>
