@@ -15,12 +15,15 @@
                         <div class="col">
                             <!-- <strong>Nº Tickets totales:</strong> 
                             <span class="num-contador"><span class="cuadrado-numerador">{{ ticketsUsuario.length }}</span></span><br/> -->
+                            <strong>Activos:</strong> 
+                            <span class="num-contador"><span class="circulo-verde">{{ contadorUsuario[0].ticketsUserActive }}</span></span><br/>
                             <strong>En Espera: </strong> 
                             <span class="num-contador"><span class="circulo-verde">{{ contadorUsuario[0].ticketsUserWait  }}</span></span><br/>
                             <strong>En proceso:</strong> 
                             <span class="num-contador"><span class="circulo-verde">{{ contadorUsuario[0].ticketsUserProcces }}</span></span><br/>
                             <strong>Finalizados:</strong> 
-                            <span class="num-contador"><span class="circulo-verde">{{ contadorUsuario[0].ticketsUserEnd }}</span></span>
+                            <span class="num-contador"><span class="circulo-verde">{{ contadorUsuario[0].ticketsUserEnd }}</span></span><br/>
+                            
                         </div>
                         <div class="col">
                             <img src="../assets/ico/notificacion.png" width="40" height="40" class="ico"/>
@@ -51,7 +54,7 @@
     <div class="row">
         <div class="col-xs-12 col-md-12 col-lg-12 contenFlex">
             <hr />
-            <div class="historico"><span class="pageTitle">Historico</span></div>
+            <div class="historico"><span class="pageTitle">Histórico</span></div>
             <div class="bloque-tickets">
             <div class="row">
                 <div class="col-12" v-for=" ticket in ticketsUsuario" :key="ticket.idUser">
@@ -233,7 +236,10 @@ async function getListaTicketsDelUsuario() {
  let ticketWait = tickets.filter(ticket => ticket.state == "wait" && ticket.idUser == store.datosUser.idUser)
  let ticketEnd = tickets.filter(ticket => ticket.state == "end" && ticket.idUser == store.datosUser.idUser)
 
- console.log(ticketProcces)
+ console.log(ticketProcces.length)
+ console.log(ticketActive.length)
+ console.log(ticketWait.length)
+ console.log(ticketEnd.length)
  //console.log(ticketsUsu);
 
  for (let i=0; i <  ticketsUsu.length; i++){
@@ -253,6 +259,7 @@ async function getListaTicketsDelUsuario() {
     }
     //console.log(ticketsUsu[i])
     ticketsUsuario.push(ticketsUsu[i])
+    console.log(ticketsUsuario)
  }
  
  
@@ -282,7 +289,7 @@ async function getListaTicketsDelUsuario() {
 }
 .silueta-ticket {
     
-     margin-top: 10px;
+     margin-top: 5px;
      margin-bottom: 10px;
      border-radius: 10px;
      box-shadow: -5px 6px 4px 0px rgba(0, 0, 0, 0.25);
