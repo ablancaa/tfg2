@@ -10,11 +10,20 @@
                     <h4 class="text-right">Profile Settings</h4>
                 </div>
                 <div class="row">
-                    <div class="col-6"><label class="labels">idTicket</label><input type="text" class="form-control" :placeholder="id" v-model="idTicket" disabled></div>
-                    <div class="col-6"><label class="labels">idUser</label><input type="text" class="form-control" :placeholder="idUser" v-model="idUser" disabled></div>
-                    <div class="col-sm-12 col-md-12"><label class="labels">Date</label><input type="date" class="form-control" placeholder="Date" v-model="date"></div>
-                    <div class="col-sm-12 col-md-12"><label class="labels">Title</label><input type="text" class="form-control" placeholder="Title" v-model="title"></div>
-                    <div class="col-md-12"><label class="labels">Categoría</label>
+                    <div class="col-6">
+                        <label class="labels">idTicket</label><input type="text" class="form-control" :placeholder="id" v-model="idTicket" disabled>
+                    </div>
+                    <div class="col-6">
+                        <label class="labels">idUser</label><input type="text" class="form-control" :placeholder="idUser" v-model="idUser" disabled>
+                    </div>
+                    <div class="col-sm-12 col-md-12">
+                        <label class="labels">Date</label><input type="date" class="form-control" placeholder="Date" v-model="date">
+                    </div>
+                    <div class="col-sm-12 col-md-12">
+                        <label class="labels">Title</label><input type="text" class="form-control" placeholder="Title" v-model="title">
+                    </div>
+                    <div class="col-md-12">
+                        <label class="labels">Categoría</label>
                         <select class="form-control" v-model="category">
                             <option disabled value="">Seleccione una categoría</option>
                             <option>Hardware</option>
@@ -23,10 +32,14 @@
                             <option>Servicios</option>
                         </select>
                     </div>
-                    <div class="col-sm-12 col-md-12"><label class="labels">Descripción</label><textarea type="texarea" class="form-control" placeholder="Descripción" v-model="descripcion"></textarea> </div>
+                    <div class="col-sm-12 col-md-12">
+                        <label class="labels">Descripción</label>
+                        <textarea type="texarea" class="form-control" placeholder="Descripción" v-model="descripcion"></textarea>
+                    </div>
                 </div>
                 <div class="row mt-3">                   
-                    <div class="col-md-12"><label class="labels">Estado</label>
+                    <div class="col-md-12">
+                        <label class="labels">Estado</label>
                         <select class="form-control" v-model="state">
                             <option disabled value="">Seleccione un Estado</option>
                             <option>wait</option>
@@ -35,7 +48,8 @@
                             <option>end</option>
                         </select>
                     </div>
-                    <div class="col-md-12"><label class="labels">Prioridad</label>
+                    <div class="col-md-12">
+                        <label class="labels">Prioridad</label>
                         <select class="form-control" v-model="priority">
                             <option disabled value="">Seleccione una Prioridad</option>
                             <option>Normal</option>
@@ -44,10 +58,11 @@
                             <option>Importante</option>
                         </select>
                     </div>
-                    <div class="col-md-12"><label class="labels">Técnico Asignado</label>
+                    <div class="col-md-12">
+                        <label class="labels">Técnico Asignado</label>
                         <select class="form-control" v-model="technical">
                             <option disabled value="">Seleccione un Técnico</option>
-                            <option v-for="user in props.userList" :key="user.id">
+                            <option v-for="user in props.userList" :key="user.idUser">
                                 {{ user.idUser }}
                             </option>
                         </select>
@@ -61,7 +76,7 @@
 </div>
 </template>
 <script setup>
-import{ ref, reactive, defineEmits, defineProps } from 'vue'
+import{ ref, reactive, defineEmits, defineProps, onMounted } from 'vue'
 import { useDataStore } from '../store/datosUser.js'
 //import { useRouter } from 'vue-router'
 
@@ -82,11 +97,11 @@ let descripcion = ref("");
 let state = ref("");
 let date = ref("");
 let technical = ref("")
+let tec = reactive([])
 
 
 
-
-let newTick = reactive({})
+let newTick = reactive({});
 
     const newTicket = () => {
         if(title.value == ''){
@@ -105,14 +120,39 @@ let newTick = reactive({})
             });
         }
         emit('newTicket', newTick);
-        console.log(newTick);
-        //router.push("/ticketsView")
-        
+        console.log(newTick);       
     }
 
+    onMounted(() => {
+       tec.push(tecnicos());
+        
+    });
+    const tecnicos = () => {
+        let listaTecnicos = reactive([])
+            for(let i=0; i < props.userList.length; i++){
+            console.log(props.userList[i].rol)
+            if(props.userList[i].rol === 'Técnico'){
+                
+                tec = 
+                        { idUser: props.userList[i].idUser,
+                        name:props.userList[i].name,
+                        surname1: props.userList[i].surname1,
+                        surname2: props.userList[i].surname2
+
+                        }
+                        listaTecnicos.push(tec)
+       
+            }
+        }
+        console.log(tec)
+        console.log(listaTecnicos)
+        return listaTecnicos;
+        
+        }
     function generarIdUnico () { 
         return Math.random().toString(30).substring(2);           
     }
+
 </script>
 <style scoped>
 #modal {
