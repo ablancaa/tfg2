@@ -22,6 +22,7 @@
     </div>
     <UsersList :usersList="usersListFiltered" :ticketList="tickets" 
         @deleteClientId="deleteClient"/>
+        <Footer/>
 </template>
 
 <script setup>
@@ -29,6 +30,7 @@ import NavBar2 from '@/components/NavBar2.vue'
 import SearchBar from '@/components/SearchBar.vue'
 import UsersList from '@/components/UsersList.vue'
 import AddUser from "@/components/AddUser.vue"
+import Footer from '@/components/Footer.vue'
 import { reactive, onMounted, ref, computed } from "vue";
 import { db, getDocs } from "../utils/FirebaseConfig.js"
 import { collection, addDoc, deleteDoc, doc } from "firebase/firestore";
