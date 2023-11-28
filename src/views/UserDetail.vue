@@ -50,6 +50,7 @@
             </div>
         </div><!--fin container 2 -->
 </div>
+<Footer/>
 </template>
 
 <script setup>
@@ -62,6 +63,7 @@ import { collection, deleteDoc, doc } from "firebase/firestore";
 import { useDataStore } from '../store/datosUser.js'
 
 import NavBar2 from '@/components/NavBar2.vue';
+import Footer from '@/components/Footer.vue';
 
 const router = useRouter() //Utiliza el router.push("/")
 const route = useRoute() //recibe los parámetros del router
