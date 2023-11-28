@@ -46,7 +46,7 @@
                     </div>
                     <div class="col-md-12"><label class="labels">Técnico Asignado</label>
                         <select class="form-control" v-model="technical">
-                            <option disabled value="">Seleccione un Estado</option>
+                            <option disabled value="">Seleccione un Técnico</option>
                             <option v-for="user in props.userList" :key="user.id">
                                 {{ user.idUser }}
                             </option>
