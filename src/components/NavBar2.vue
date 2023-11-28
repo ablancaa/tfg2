@@ -23,8 +23,7 @@
             <li><a href="#"></a></li>
             <li><a href="#"></a></li>
             <li><a href="#"></a></li>
-            <li><a href="#"></a></li>
-            <li><span class="profile-image img"><img :src='userCurrenAvatar' width="70"/> <!-- {{ userCurrenName }} --></span>
+            <li><span class="profile-image "><img :src='userCurrenAvatar' width="55"/> <!-- {{ userCurrenName }} --></span>
             <router-link to="/"><img src="../assets/ico/exitWhite.png" width="25"  @click="exit"/></router-link></li>
           </div>
         </div>
@@ -45,7 +44,12 @@ const router = useRouter();
  let userCurrenIdUser = ref(store.datosUser.idUser)
  let userCurrenRol = ref(store.datosUser.rol)
 
-  onMounted(() => {});
+  onMounted(() => {
+    userCurrenEmail = ref(store.datosUser.email);
+    userCurrenAvatar = ref(store.datosUser.avatar)
+    userCurrenIdUser = ref(store.datosUser.idUser)
+    userCurrenRol = ref(store.datosUser.rol)
+  });
 
   onBeforeMount(()=>{})
   
@@ -102,7 +106,6 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 62px;
 }
 
 .navbar .menu-items {
@@ -235,7 +238,7 @@ body {
 .profile-image img {
     border-radius: 40%;
     border: 2px solid #ffffff;
-    margin: 0px 15px 5px 5px;
+    margin: 0px 15px 0px 5px;
 }
 
 .icono{

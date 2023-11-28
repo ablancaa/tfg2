@@ -28,7 +28,7 @@ import { reactive, onMounted, ref, computed, onUpdated } from "vue";
 import { db } from "../utils/FirebaseConfig.js"
 import { collection, getDocs, addDoc } from "firebase/firestore";
 import { useDataStore } from '../store/datosUser.js'
-import router from '@/router';
+//import router from '@/router';
 //import { useRouter } from 'vue-router'
 
 //const router = useRouter() //Utiliza el router.push("/")
@@ -55,6 +55,7 @@ let contadores = reactive ([
     }
 ]);
 let showModal = ref(false);
+
 onUpdated(() => {
   //getListaTickets();
 })
@@ -66,7 +67,7 @@ onMounted(() => {
     store.datosUser.email = perfil[0].email;
     store.datosUser.avatar = perfil[0].imgUser;
     store.datosUser.idUser = perfil[0].idUser;
-    console.log("Ticket ")
+    //console.log("Ticket ")
 
 });
 
@@ -127,7 +128,9 @@ async function addTicket(newTicket){
     console.log(newTicket);
     
     try {
+     
     const docRef = await addDoc(collection(db, "tickets"), {
+      //idTicket: newTicket.idTicket,
       idTicket: newTicket.idTicket,
       idUser: newTicket.idUser,
       title: newTicket.title,
@@ -137,6 +140,10 @@ async function addTicket(newTicket){
       priority: newTicket.priority,
       technical: newTicket.technical,          
       date: newTicket.date,
+      comments: {
+        email: 'no asignado',
+        comment:'sin comentario'
+      }
     });
 
     console.log("Document written with ID: ", docRef.id);
@@ -145,8 +152,8 @@ async function addTicket(newTicket){
     } catch (e) {
       console.error("Error adding document: ", e);
     }
-    router.push("/ticketsView")
-    //location.reload("/ticketsView")
+    //router.push("/ticketsView")
+    location.reload("/ticketsView")
     showModal.value = false;
   }
   

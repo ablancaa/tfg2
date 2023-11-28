@@ -36,8 +36,8 @@
                                     priority: ticket.priority,
                                     date: ticket.date,
                                     idUser: ticket.idUser,
+                                    comments: JSON.stringify(ticket.comments),
                                     technical: ticket.technical[0],
-                                    page: 'UserDetail',
                                 }}" class="page-link">  
                     <div class="silueta-ticket">
                         <p class="info"><strong>{{ ticket.idTicket }}</strong><br/>
@@ -118,13 +118,14 @@ async function getListaTickets() {
 const querySnapshotTickets = await getDocs(collection(db, "tickets"));
 querySnapshotTickets.forEach((doc) => {
  tickets.push(doc.data());
-//console.log(tickets)
+console.log(tickets)
  
 });
  let ticketsUsu = tickets.filter(ticket => ticket.idUser == route.params.idUser)
- //console.log(route.params.idUser)
- //console.log(ticketsUsu);
+ console.log(route.params.idUser)
+ console.log(ticketsUsu);
  for (let i=0; i <  ticketsUsu.length; i++){
+
     console.log(ticketsUsu[i])
     ticketsUsuario.push(ticketsUsu[i])
  }

@@ -8,6 +8,7 @@ import DashBoard_User from '../views/DaschBoardUserView.vue';
 import TicketsView from '../views/TicketsView.vue';
 import TicketDetail from '../views/TicketDetail.vue'
 import EstadisticasView from '../views/EstadisticasView.vue';
+import PageNotFound from '@/components/PageNotFound.vue'
 
 const routes = [
   {
@@ -48,7 +49,7 @@ const routes = [
     component: TicketsView
   },
   {
-    path: '/ticketDetail/:idTicket/title/:title/description/:description/category/:category/state/:state/priority/:priority/date/:date/idUser/:idUser/technical/:technical',
+    path: '/ticketDetail/:idTicket/title/:title/description/:description/category/:category/state/:state/priority/:priority/date/:date/idUser/:idUser/technical/:technical/comments/:comments',
     name: 'ticketDetail',
     component: TicketDetail
   },
@@ -56,6 +57,11 @@ const routes = [
     path: '/estadisticasView',
     name: 'estadisticasView',
     component: EstadisticasView
+  },
+  {
+    path: '/:PageNotFound(.*)*',
+    name: 'PageNotFound',
+    component: PageNotFound
   }, 
   {
     path: '/about',

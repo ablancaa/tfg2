@@ -11,6 +11,7 @@
                    priority: ticket.priority, 
                    date: ticket.date, 
                    idUser: ticket.idUser,
+                   comments:  JSON.stringify(ticket.comments),
                    technical: ticket.technical[0], //Es un array que puede contener más de un técnico
                  }}" class="page-link">
             <CardTicket2 :tickets="ticket" :userList="userList" @deleteTicket="deleteTicket"/>

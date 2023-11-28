@@ -7,7 +7,6 @@
 //ACTION (Métodos)
 
 import { defineStore } from 'pinia'
-
 export const useDataStore  = defineStore('datosUser',{
     state: () => {
         return {
@@ -25,9 +24,16 @@ export const useDataStore  = defineStore('datosUser',{
             userList: [],
             ticketList: [],
             contadoresUsuario: [],
+            
         }
+        
     },
-
+    persist: {
+        paths: ['datosUser.idUser', 
+                'datosUser.email', 
+                'datosUser.avatar', 
+                'datosUser.rol'],
+    },
     getters: {
     getEmail: (state) => {
             return state.datosUser.email

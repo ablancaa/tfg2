@@ -5,7 +5,6 @@
       <div class="titleMark"><span class="pageTitle">Ticket Nº: <span class="nticket">{{ ticket[0].idTicket }}</span></span></div>   
       <div class="col-12 col-md-4">
          <div class="col" v-for="user in users" :key="user.idUser">
-            
             <div class="silueta-card" v-if="ticket[0].idUser == user.idUser">
                 <div class="flex-items">
                     <img class="imgUser" :src="user.imgUser" width="60" height="60"/>
@@ -36,11 +35,16 @@
                         <strong>Prioridad:</strong>
                     </div>
                     <div class="flex-item">
-                        <img src="../assets/ico/importante.png" v-if="route.params.priority == 'Importante'" width="50" height="50"> 
+                        <img src="../assets/ico/importante.png" v-if="route.params.priority == 'Importante'" width="50" height="50">
+                        <img src="../assets/ico/normal.png" v-if="route.params.priority == 'Normal'" width="50" height="50">
+                        <img src="../assets/ico/critico.png" v-if="route.params.priority == 'Crítico'" width="50" height="50">
+                        <img src="../assets/ico/urgente.png" v-if="route.params.priority == 'Urgente'" width="50" height="50"> 
                     </div>
                     <div class="flex-item">
-                        <p class="phone">{{ ticket[0].priority }}</p>
-                        
+                        <p v-if="route.params.priority == 'Importante'">{{ ticket[0].priority }}</p>
+                        <p v-if="route.params.priority == 'Normal'">{{ ticket[0].priority }}</p>
+                        <p v-if="route.params.priority == 'Urgente'">{{ ticket[0].priority }}</p>
+                        <p v-if="route.params.priority == 'Crítico'">{{ ticket[0].priority }}</p>
                     </div>
                 </div>
           </div>
@@ -54,13 +58,14 @@
                         <img src="../assets/ico/proceso.png" v-if="route.params.state == 'procces'" width="50" height="50"> 
                         <img src="../assets/ico/active.png" v-if="route.params.state == 'active'" width="50" height="50">
                         <img src="../assets/ico/end.png" v-if="route.params.state == 'end'" width="50" height="50"> 
-                        
                     </div>
                     <div class="flex-item">
-                        <p class="nameSurname"> {{ ticket[0].state }}</p>
+                        <p v-if="route.params.state == 'end'"> {{ ticket[0].state }} </p>
+                        <p v-if="route.params.state == 'active'"> {{ ticket[0].state }} </p>
+                        <p v-if="route.params.state == 'wait'"> {{ ticket[0].state }} </p>
+                        <p v-if="route.params.state == 'procces'"> {{ ticket[0].state }} </p>
                     </div>
-                </div>
-            
+            </div>
           </div>
             <div class="col">
                 <div class="flex-container">
@@ -70,11 +75,8 @@
                         <div class="flex-item" v-for="avatar in users" :key="avatar.idUser">
                             <img :src="avatar.imgUser" v-if="ticket[0].technical == avatar.idUser" width="50" height="50" class="imgUser"> 
                         </div>
-                        <div class="flex-item">
-                            <!-- <p class="nameSurname">{{ ticket[0].technical }}</p> -->
-                            <span v-for="technic in users" :key="technic.idUser">
-                                <span v-if="technic.idUser == ticket[0].technical" class="technicDates">{{ technic.name }} {{ technic.surname1 }}</span>
-                            </span>
+                        <div class="flex-item" v-for="technic in users" :key="technic.idUser">
+                                <p v-if="technic.idUser == ticket[0].technical" class="technicDates">{{ technic.name }} {{ technic.surname1 }}</p>
                         </div>
                     </div>
             </div>
@@ -82,35 +84,59 @@
       <hr />
           <div class="row">
             <div class="col">
-                 <span class="info iduser">{{ ticket[0].title }}</span><br/>
-                 <span class="info iduser">{{ ticket[0].description }}</span>
-              
+                <p class="titleTicket">Categoría: {{ ticket[0].category }}</p>
+                 <p class="description">
+                    <span class="titleTicket">{{ ticket[0].title }}</span>
+                 {{ ticket[0].description }}</p>
+                 <span v-for="comentario in tickets" :key="comentario">
+                    <p v-for="comen in comentario.comments" :key="comen">
+                        <span v-if="comentario.idTicket == route.params.idTicket"> 
+                        {{ comen.email }}<br/>
+                        {{ comen.comment }}
+                        </span>
+                    </p>
+                    <!-- <p>{{ ticket[0].comments[0].comment }}</p> -->
+                 </span>
+                 <p class="comment"><button @click="showForm()"><img src="../assets/ico/agregar.png" width="30" height="30"></button></p>
           </div>
           </div>
           <div class="col col-md-2 item-3">
-              <span v-if="store.datosUser.rol == 'Admin'"><button @click="deleteTicket(route.params.idTicket)" class="ico"><img src="../assets/ico/delete.png" width="20" height="20"  /></button></span>
+            <span v-if="store.datosUser.rol == 'Admin'">
+                <button @click="deleteTicket(route.params.idTicket)" class="ico"><img src="../assets/ico/delete.png" width="30" height="30"  /></button>
+            </span>
           </div>
+          <AddComment
+          v-if="showModal" 
+            @close="showModal = false" 
+            @newComment="addComment"/>
       </div><!--fin container 2 -->
-</div>
+</div> 
 </template>
 
 <script setup>
 import { reactive, ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
-import { db, getDocs } from "../utils/FirebaseConfig.js";
-import { collection, deleteDoc, doc } from "firebase/firestore";
+import { db } from "../utils/FirebaseConfig.js";
+import { collection, deleteDoc, getDocs, doc, updateDoc } from "firebase/firestore";
 import { useDataStore } from '../store/datosUser.js'
 import NavBar2 from '@/components/NavBar2.vue'
 import router from '@/router';
+import AddComment from '@/components/AddComment.vue'
+import {  } from 'firebase/database';
+
 
 const store = useDataStore();// Accede al store de la apliacion 
 //const router = useRouter() //Utiliza el router.push("/")
 const route = useRoute() //recibe los parámetros del router
-
 let refUsuarioEnFirebase = ref()
 let ids = reactive([]);
 let tickets = reactive([]);
 let users = reactive([]);
+let comments= reactive([])
+
+let showModal = ref(false);
+comments.push(JSON.parse((route.params.comments)))
+
 let ticket = reactive([
     {
         idTicket: route.params.idTicket,
@@ -122,6 +148,7 @@ let ticket = reactive([
         date: route.params.date,
         idUser: route.params.idUser,
         technical: route.params.technical,
+        comments: comments,
     }]);
     // let user2 = reactive([
     // {
@@ -140,7 +167,9 @@ onMounted(() => {
     getListaTickets();
     getListaUsers();
 });
-
+function showForm(){
+  showModal.value = true;
+}
 async function getListaUsers() {
   const querySnapshotUsers = await getDocs(collection(db, "users"));
    querySnapshotUsers.forEach((doc) => {
@@ -156,22 +185,11 @@ async function getListaUsers() {
   //console.log(users)
 }
 async function getListaTickets() {
+    const querySnapshotTickets = await getDocs(collection(db, "tickets"));
+        querySnapshotTickets.forEach((doc) => {
+        tickets.push(doc.data());
+    });
 
-     const querySnapshotTickets = await getDocs(collection(db, "tickets"));
-     querySnapshotTickets.forEach((doc) => {
-     tickets.push(doc.data());
-    //tickets.push(store.ticketList);
-    //console.log(tickets)
-    //  let ticketProcces = tickets.filter(ticket => ticket.state == "procces")
-    //  let ticketEnd = tickets.filter(ticket => ticket.state == "end")
-    //  contadores[0].ticketsNum = tickets.length
-    //  contadores[0].ticketsProcces = ticketProcces.length
-    //  contadores[0].ticketsEnd = ticketEnd.length
- });
-//console.log("Num Tickets: "+contadores[0].ticketsNum)
-//console.log("Tickets Procces: "+contadores[0].ticketsProcces)
-//console.log("Tickets End: "+contadores[0].ticketsEnd)
-//console.log(tickets);
 }
 
   async function deleteTicket(idTicket) {
@@ -194,7 +212,51 @@ async function getListaTickets() {
     await deleteDoc(doc(db, "tickets", refUsuarioEnFirebase.value));
     router.push("/ticketsView")
 }
+const  addComment = async (newComment) => {
+  
+    console.log(newComment)
+    const querySnapshotTickets = await getDocs(collection(db, "tickets"));
+    querySnapshotTickets.forEach((doc) => {
+        ids.push(doc.id);
+        console.log(doc.id)
+        console.log(tickets)
+        //users.push(doc.data());
+    });
+    
+     for (let i = 0; i < tickets.length; i++) {
+        console.log(tickets[i].idTicket)
+         if (route.params.idTicket == tickets[i].idTicket) {
+             console.log(ids[i])
+             //console.log(users[i].idUser)
+             refUsuarioEnFirebase.value = ids[i]
+            console.log(refUsuarioEnFirebase.value)
+        }
+     }
+     let com = reactive([
+        {
+            email: newComment.email,
+            comment: newComment.description
+        }
+    ])
+     const comentariosRef = doc(db, "tickets", refUsuarioEnFirebase.value);
+        // Set the "capital" field of the city 'DC'
+        await updateDoc(comentariosRef, {
+        comments: com        
+        });
+    console.log(refUsuarioEnFirebase.value)
+    //const ticketsRef = db.collection('tickets');
+    
+    //doc(refUsuarioEnFirebase).update({com})
 
+    // const comment = doc(db, 'tickets', refUsuarioEnFirebase.value);
+        
+
+    
+    
+    console.log(com)
+    location.reload("/ticketDetail")
+    //router.push("/ticketsView")
+}
 
 </script>
 <script>
@@ -242,7 +304,23 @@ async function getListaTickets() {
     font-size: 25px;
     font-weight: 700; 
 }
+.titleTicket{
+    background-color: #ffffff;
+    display: flex;
+    font-weight: 700;
+    justify-content: start;
+    border-bottom: 2px solid;
 
+    }
+.description {
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 10px;
+    text-align: left;
+}
+.comment {
+    text-align: right;
+}
 
 /* TARJETA DE USUARIO */
 .silueta-card {
@@ -275,10 +353,6 @@ async function getListaTickets() {
 .flex-estado {
   display: flex;
   flex-direction: column;
-  flex-wrap: nowrap;
-  justify-content: normal;
-  align-items: normal;
-  align-content: normal;
   width: 60px;
 }
 
@@ -294,7 +368,7 @@ async function getListaTickets() {
     font-weight: 700;
 }
 .technicDates{
-    font-size: 12px;
+    font-size: 13px;
 }
 .email{
     font-size: 16px;
@@ -312,11 +386,6 @@ async function getListaTickets() {
     /* background-color: rgb(255, 0, 217); */
 }
 .imgUser{
-    border-radius: 50%;
-    border: 2px solid rgb(2, 30, 132);
-    margin: 0px 10px 0px 5px;
-}
-.imgIcos {
     border-radius: 50%;
     border: 2px solid rgb(2, 30, 132);
     margin: 0px 10px 0px 5px;
@@ -339,43 +408,6 @@ async function getListaTickets() {
     background: rgb(228, 22, 22);
 }
 
-.flex-container {
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-direction: column;
-    flex-direction: column;
-    -webkit-flex-wrap: nowrap;
-    flex-wrap: nowrap;
-    -webkit-justify-content: center;
-    justify-content: center;
-    -webkit-align-content: space-around;
-    align-content: space-around;
-    -webkit-align-items: center;
-    align-items: center;
-    }
-.flex-item:nth-child(1) {
-    -webkit-order: 0;
-    order: 0;
-    -webkit-flex: 0 1 auto;
-    flex: 0 1 auto;
-    -webkit-align-self: auto;
-    align-self: auto;
-    }
-.flex-item:nth-child(2) {
-    -webkit-order: 0;
-    order: 0;
-    -webkit-flex: 0 1 auto;
-    flex: 0 1 auto;
-    -webkit-align-self: auto;
-    align-self: auto;
-    }
-.flex-item:nth-child(3) {
-    -webkit-order: 0;
-    order: 0;
-    -webkit-flex: 0 1 auto;
-    flex: 0 1 auto;
-    -webkit-align-self: auto;
-    align-self: auto;
-    }
+
 
 </style>

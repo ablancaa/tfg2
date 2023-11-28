@@ -68,13 +68,14 @@
                                     priority: ticket.priority,
                                     date: ticket.date,
                                     idUser: ticket.idUser,
+                                    comments:  JSON.stringify(ticket.comments),
                                     technical: ticket.technical[0],
                                 }}" class="page-link">  
                     <div class="silueta-ticket" v-if="ticket.state == 'end'">
                         <p class="info"><strong>{{ ticket.idTicket }}</strong><br/>
-                        <span class="info iduser">{{ ticket.title }}</span><br/>
-                        <span class="info iduser">{{ ticket.state }}</span> <br/>
-                        <span class="info iduser">{{ ticket.date}}</span></p>
+                        <span class="title ">{{ ticket.title }}</span><br/>
+                        <span class="info ">{{ ticket.state }}</span> <br/>
+                        <span class="info ">{{ ticket.date}}</span></p>
                     </div>
                     </router-link>
                 </div>
@@ -96,7 +97,7 @@ import Footer from '@/components/Footer.vue'
 import { useDataStore } from '../store/datosUser.js'
 import { db } from "../utils/FirebaseConfig.js"
 import { collection, getDocs } from "firebase/firestore";
-import { reactive, onMounted } from 'vue'
+import { reactive, onMounted, onBeforeMount } from 'vue'
 //import {  useRoute } from 'vue-router'
 //const router = useRouter() //Utiliza el router.push("/")
 //const route = useRoute() //recibe los parámetros del router
@@ -104,7 +105,7 @@ import { reactive, onMounted } from 'vue'
 let currenUser = reactive([]);
 
 const store = useDataStore();
-
+//let perfil = JSON.parse(localStorage.getItem('currenUser'))
 
 let users = reactive([]);
 let ticketsUsuario = reactive([]);
@@ -155,15 +156,23 @@ let contadores = reactive([
 
     localStorage.tickets = JSON.stringify(contadores[1]);
     localStorage.usuarios = JSON.stringify(contadores[0]);
-    
+    onBeforeMount(() => {
+        //getListados();
+        //datosUsuarioLogado()
+    }),
     onMounted(()=>{
         getListados();
         temporizadorDeRetraso();
+  
+        // watchEffect(() => console.log(currenUser.email))
+        // watchEffect(() => console.log(currenUser.idUser))
+        
     })
-
+   
 
     function temporizadorDeRetraso() {
     setTimeout(getListaTicketsDelUsuario, 1000);
+       
     }
 
     async function getListados() {
@@ -204,24 +213,25 @@ let contadores = reactive([
     localStorage.tickets = JSON.stringify(contadores[1]);
     localStorage.usuarios = JSON.stringify(contadores[0]);
     localStorage.setItem("usersList", JSON.stringify(users));
-    
+
     datosUsuarioLogado()
     
 }
 
     const datosUsuarioLogado = () => {
     let mail = emailUsuario();
-    store.setUsersList(store.userList);  
-    const result = store.userList.filter((item) => item.email === mail);
-    console.log(result[0])
-    currenUser.push(result[0]);
-    store.setidUser(currenUser[0].idUser)
-    store.setAvatar(currenUser[0].imgUser)
-    store.setEmail(currenUser[0].email)
-    store.setName(currenUser[0].name)
-    store.setRol(currenUser[0].rol)
-    store.setPhone(currenUser[0].phone)
-   
+    //store.setUsersList(store.userList);
+    
+        const result = users.filter((item) => item.email === mail);
+        console.log(result[0])
+        currenUser.push(result[0]);
+        store.setidUser(currenUser[0].idUser)
+        store.setAvatar(currenUser[0].imgUser)
+        store.setEmail(currenUser[0].email)
+        store.setName(currenUser[0].name)
+        store.setRol(currenUser[0].rol)
+        store.setPhone(currenUser[0].phone)
+ 
     localStorage.setItem("currenUser", JSON.stringify(currenUser));
 }
 function emailUsuario() {
@@ -236,16 +246,16 @@ async function getListaTicketsDelUsuario() {
  let ticketWait = tickets.filter(ticket => ticket.state == "wait" && ticket.idUser == store.datosUser.idUser)
  let ticketEnd = tickets.filter(ticket => ticket.state == "end" && ticket.idUser == store.datosUser.idUser)
 
- console.log(ticketProcces.length)
- console.log(ticketActive.length)
- console.log(ticketWait.length)
- console.log(ticketEnd.length)
- //console.log(ticketsUsu);
+  console.log(ticketProcces.length)
+  console.log(ticketActive.length)
+  console.log(ticketWait.length)
+  console.log(ticketEnd.length)
+  console.log(ticketsUsu);
 
  for (let i=0; i <  ticketsUsu.length; i++){
     if(ticketsUsu[i].idUser == store.datosUser.idUser){
         // if(ticketsUsu[i].state == "procces"){
-            console.log(i)
+            //console.log(i)
             //contadorUsuario[0].ticketsUserNum = ticketsUsu.length;
             contadores[1].ticketsProgress = i;
             
@@ -332,6 +342,9 @@ async function getListaTicketsDelUsuario() {
     background-color: rgb(255, 255, 255);
     border-radius: 10px;
 }
+.title{
+    font-size: 16px;
+}
 .num-contador {
     width: 30px;
     height: 30px;
@@ -371,5 +384,9 @@ async function getListaTicketsDelUsuario() {
     font-size: 18px;
     color: #FFF;
 }
-
+.info{
+    padding: 15px;
+    text-align: left;
+    font-size: 12px;
+}
 </style>

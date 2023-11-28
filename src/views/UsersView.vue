@@ -33,7 +33,7 @@ import { reactive, onMounted, ref, computed } from "vue";
 import { db, getDocs } from "../utils/FirebaseConfig.js"
 import { collection, addDoc, deleteDoc, doc } from "firebase/firestore";
 import { useDataStore } from '../store/datosUser.js'
-import router from '@/router';
+//import router from '@/router';
 //import { useRouter } from 'vue-router'
 
 //const router = useRouter() //Utiliza el router.push("/")
@@ -146,7 +146,8 @@ async function addUser(newUser){
       console.error("Error adding document: ", e);
     }
   }
-  router.push("/usersView");
+  location.reload("/usersView")
+  //router.push("/usersView");
   showModal.value = false;
   
 }
