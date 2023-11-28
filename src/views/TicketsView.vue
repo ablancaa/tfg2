@@ -16,7 +16,9 @@
         @close="showModal = false" 
         @newTicket="addTicket" />
           <TicketsList :ticketList="ticketsListFiltered" :userList="users"/>
+          
   </div>
+  <Footer/>
 </template>
 
 <script setup>
@@ -24,6 +26,7 @@ import NavBar2 from '@/components/NavBar2.vue'
 import SearchBar from '@/components/SearchBar.vue'
 import TicketsList from '@/components/TicketsList.vue'
 import AddTicket from "@/components/AddTicket.vue"
+import Footer from '@/components/Footer.vue'
 import { reactive, onMounted, ref, computed, onUpdated } from "vue";
 import { db } from "../utils/FirebaseConfig.js"
 import { collection, getDocs, addDoc } from "firebase/firestore";
