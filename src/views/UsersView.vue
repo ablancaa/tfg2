@@ -199,7 +199,6 @@ console.log("Tickets End: "+contadores[0].ticketsEnd)
     height: 100%;
 }
 
-
 .titleMark{
     margin-top: 50px;
     border-radius: 10px;
@@ -237,7 +236,6 @@ console.log("Tickets End: "+contadores[0].ticketsEnd)
     background: rgb(67, 228, 22);
     color: black;
 }
-
 .circulo-rojo {
     width: 20px;
     height: 20px;
@@ -246,17 +244,14 @@ console.log("Tickets End: "+contadores[0].ticketsEnd)
     border-radius: 50%;
     background: rgb(228, 22, 22);
 }
-
 .estado-online{
     margin-top: 3px;
     margin-left: 0px;
     width: 65px;
 }
-
 .estado-offline{
     margin-top: -13px;
     margin-left: 0px;
     width: 65px;
 }
-
 </style>
