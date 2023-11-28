@@ -1,4 +1,3 @@
-
 <template>
     <NavBar2 />
     <div class="container">
@@ -20,7 +19,6 @@
                 <button @click="deleteUser(route.params.idUser)" class="ico" v-if="store.datosUser.rol == 'Admin'"><img src="../assets/ico/delete.png" width="20" height="20"  /></button>
             </div>
         </div>
-
         <div class="container">
         <hr />
         <p class="ticketAsociados">Tickets Asociados:</p>
@@ -54,8 +52,6 @@
 </template>
 
 <script setup>
-//import { collection, query, where } from "firebase/firestore";
-//import { db } from "../utils/FirebaseConfig.js"
 import { reactive, ref, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router'
 import { db, getDocs } from "../utils/FirebaseConfig.js"
@@ -74,7 +70,6 @@ let ids = reactive([]);
 let users = reactive([]);
 let tickets = reactive([]);
 let ticketsUsuario = reactive([]);
-
 
 let user = reactive([
     {
@@ -118,12 +113,12 @@ async function deleteUser(idUser) {
 async function getListaTickets() {
 
 const querySnapshotTickets = await getDocs(collection(db, "tickets"));
-querySnapshotTickets.forEach((doc) => {
- tickets.push(doc.data());
-console.log(tickets)
- 
+    querySnapshotTickets.forEach((doc) => {
+    tickets.push(doc.data());
+    console.log(tickets)
 });
- let ticketsUsu = tickets.filter(ticket => ticket.idUser == route.params.idUser)
+
+let ticketsUsu = tickets.filter(ticket => ticket.idUser == route.params.idUser)
  console.log(route.params.idUser)
  console.log(ticketsUsu);
  for (let i=0; i <  ticketsUsu.length; i++){
@@ -131,9 +126,6 @@ console.log(tickets)
     console.log(ticketsUsu[i])
     ticketsUsuario.push(ticketsUsu[i])
  }
- 
- 
-
 }
 </script>
 
