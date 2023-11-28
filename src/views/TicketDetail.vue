@@ -96,15 +96,15 @@
                             <p>{{ comen.comment }}</p>
                         </span>
                     </span>
-                    <!-- <p>{{ ticket[0].comments[0].comment }}</p> -->
                  </span>
                 </div>
-                 <p class=""><button @click="showForm()"><img src="../assets/ico/agregar.png" width="30" height="30"></button></p>
+                <br/>
+                 <p class="ico"><button @click="showForm()"><img src="../assets/ico/agregar.png" width="30" height="30"></button></p>
           </div>
           </div>
           <div class="col col-md-2 item-3">
-            <span v-if="store.datosUser.rol == 'Admin'">
-                <button @click="deleteTicket(route.params.idTicket)" class="ico"><img src="../assets/ico/delete.png" width="30" height="30"  /></button>
+            <span v-if="store.datosUser.rol == 'Admin'" >
+                <button @click="deleteTicket(route.params.idTicket)" ><img src="../assets/ico/delete.png" width="30" height="30"  /></button>
             </span>
           </div>
           <AddComment
@@ -201,31 +201,29 @@ const  addComment = async (newComment) => {
     const querySnapshotTickets = await getDocs(collection(db, "tickets"));
     querySnapshotTickets.forEach((doc) => {
         ids.push(doc.id);
-        console.log(doc.id)
-        console.log(tickets)
-        //users.push(doc.data());
+        //console.log(doc.id)
+        //console.log(tickets)
     });
     let comentariosAnteriores = reactive([])
      for (let i = 0; i < tickets.length; i++) {
         console.log(tickets[i].idTicket)
          if (route.params.idTicket == tickets[i].idTicket) {
-            console.log(ids[i])
-            console.log(tickets[i].comments)
+            //console.log(ids[i])
+            //console.log(tickets[i].comments)
             comentariosAnteriores.push(tickets[i].comments)
-            console.log(tickets[i].comments)
+            //console.log(tickets[i].comments)
             refTicketEnFirebase.value = ids[i]
-            console.log(refTicketEnFirebase.value)
+            //console.log(refTicketEnFirebase.value)
         }
      }
 
      let com = reactive([
-      
         {
             email: newComment.email,
             comment: newComment.description
         }
-    ])
-    comentariosAnteriores.push(com)
+    ]);
+    comentariosAnteriores.push(com);
      const comentariosRef = doc(db, "tickets", refTicketEnFirebase.value);
         await updateDoc(comentariosRef, {
         comments: com        
@@ -303,12 +301,15 @@ const  addComment = async (newComment) => {
     text-align: left;
     padding: 10px;
 }
+.ico {
+    text-align: right;
+}
 
 /* TARJETA DE USUARIO */
 .silueta-card {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
+
     justify-content: space-around;
     align-items: center;
     margin-top: 10px;

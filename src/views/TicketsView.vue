@@ -46,8 +46,6 @@ let currenUser = reactive([{
 }
 ]);
 
-
-
 let tickets = reactive([]);
 let users = reactive([]);
 let contadores = reactive ([ 
@@ -91,6 +89,7 @@ const ticketsListFiltered = computed(() => {
   }
   return tickets;
 });
+
 function setSearchTerm(search) {
   searchTerm.value = search;
 }
@@ -98,6 +97,7 @@ function setSearchTerm(search) {
 function showForm(){
   showModal.value = true;
 }
+
 async function getListaUsers() {
  const querySnapshotUsers = await getDocs(collection(db, "users"));
   querySnapshotUsers.forEach((doc) => {
@@ -110,25 +110,21 @@ async function getListaUsers() {
   });
   //console.log(users);
 }
-async function getListaTickets() {
 
+async function getListaTickets() {
     const querySnapshotTickets = await getDocs(collection(db, "tickets"));
     querySnapshotTickets.forEach((doc) => {
-     tickets.push(doc.data());
-     let ticketProcces = tickets.filter(ticket => ticket.state == "procces")
-     let ticketEnd = tickets.filter(ticket => ticket.state == "end")
-     contadores[0].ticketsNum = tickets.length
-     contadores[0].ticketsProcces = ticketProcces.length
-     contadores[0].ticketsEnd = ticketEnd.length
- });
-//console.log("Num Tickets: "+contadores[0].ticketsNum)
-//console.log("Tickets Procces: "+contadores[0].ticketsProcces)
-//console.log("Tickets End: "+contadores[0].ticketsEnd)
-//console.log(tickets);
+      tickets.push(doc.data());
+      let ticketProcces = tickets.filter(ticket => ticket.state == "procces")
+      let ticketEnd = tickets.filter(ticket => ticket.state == "end")
+      contadores[0].ticketsNum = tickets.length
+      contadores[0].ticketsProcces = ticketProcces.length
+      contadores[0].ticketsEnd = ticketEnd.length
+    });
 }
 async function addTicket(newTicket){
 
-    console.log(newTicket);
+    //console.log(newTicket);
     
     try {
      
@@ -143,10 +139,10 @@ async function addTicket(newTicket){
       priority: newTicket.priority,
       technical: newTicket.technical,          
       date: newTicket.date,
-      comments: {
+      comments: [{
         email: 'no asignado',
         comment:'sin comentario'
-      }
+      }]
     });
 
     console.log("Document written with ID: ", docRef.id);
