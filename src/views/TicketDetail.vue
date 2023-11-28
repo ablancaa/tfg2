@@ -88,16 +88,18 @@
                  <p class="description">
                     <span class="titleTicket">{{ ticket[0].title }}</span>
                  {{ ticket[0].description }}</p>
+                 <div class="comment">
                  <span v-for="comentario in tickets" :key="comentario">
-                    <p v-for="comen in comentario.comments" :key="comen">
-                        <span v-if="comentario.idTicket == route.params.idTicket"> 
-                        {{ comen.email }}<br/>
-                        {{ comen.comment }}
+                    <span v-for="comen in comentario.comments" :key="comen">
+                        <span v-if="comentario.idTicket == route.params.idTicket" > 
+                           <p class="titleTicket">{{ comen.email }}</p>
+                            <p>{{ comen.comment }}</p>
                         </span>
-                    </p>
+                    </span>
                     <!-- <p>{{ ticket[0].comments[0].comment }}</p> -->
                  </span>
-                 <p class="comment"><button @click="showForm()"><img src="../assets/ico/agregar.png" width="30" height="30"></button></p>
+                </div>
+                 <p class=""><button @click="showForm()"><img src="../assets/ico/agregar.png" width="30" height="30"></button></p>
           </div>
           </div>
           <div class="col col-md-2 item-3">
@@ -128,7 +130,7 @@ import {  } from 'firebase/database';
 const store = useDataStore();// Accede al store de la apliacion 
 //const router = useRouter() //Utiliza el router.push("/")
 const route = useRoute() //recibe los parámetros del router
-let refUsuarioEnFirebase = ref()
+let refTicketEnFirebase = ref()
 let ids = reactive([]);
 let tickets = reactive([]);
 let users = reactive([]);
@@ -150,19 +152,7 @@ let ticket = reactive([
         technical: route.params.technical,
         comments: comments,
     }]);
-    // let user2 = reactive([
-    // {
-    //     idUser: route.params.idUser,
-    //     imgUser: route.params.imgUser,
-    //     name: route.params.name,
-    //     surname1: route.params.surname1,
-    //     surname2: route.params.surname2,
-    //     rol: route.params.rol,
-    //     email: route.params.email,
-    //     phone: route.params.phone,
-    //     assignment: route.params.assignment,
-
-    // }]);
+    
 onMounted(() => {
     getListaTickets();
     getListaUsers();
@@ -174,22 +164,15 @@ async function getListaUsers() {
   const querySnapshotUsers = await getDocs(collection(db, "users"));
    querySnapshotUsers.forEach((doc) => {
      users.push(doc.data());
-//     // let activesUsers = users.filter(user => user.state == true)
-//     // let disconnectUsers = users.filter(user => user.state == false)
-//     // contadores[0].usersNum = users.length;
-//     // contadores[0].usersActive = activesUsers.length;
-//     // contadores[0].usersDisconnect = disconnectUsers.length;
+
   });
   console.log(users);
-  
-  //console.log(users)
 }
 async function getListaTickets() {
     const querySnapshotTickets = await getDocs(collection(db, "tickets"));
         querySnapshotTickets.forEach((doc) => {
         tickets.push(doc.data());
     });
-
 }
 
   async function deleteTicket(idTicket) {
@@ -204,12 +187,12 @@ async function getListaTickets() {
         if (idTicket == tickets[i].idTicket) {
             //console.log(ids[i])
             //console.log(users[i].idUser)
-            refUsuarioEnFirebase.value = ids[i]
+            refTicketEnFirebase.value = ids[i]
             //console.log(refUsuarioEnFirebase.value)
         }
     }
-    console.log(refUsuarioEnFirebase.value)
-    await deleteDoc(doc(db, "tickets", refUsuarioEnFirebase.value));
+    console.log(refTicketEnFirebase.value)
+    await deleteDoc(doc(db, "tickets", refTicketEnFirebase.value));
     router.push("/ticketsView")
 }
 const  addComment = async (newComment) => {
@@ -222,38 +205,34 @@ const  addComment = async (newComment) => {
         console.log(tickets)
         //users.push(doc.data());
     });
-    
+    let comentariosAnteriores = reactive([])
      for (let i = 0; i < tickets.length; i++) {
         console.log(tickets[i].idTicket)
          if (route.params.idTicket == tickets[i].idTicket) {
-             console.log(ids[i])
-             //console.log(users[i].idUser)
-             refUsuarioEnFirebase.value = ids[i]
-            console.log(refUsuarioEnFirebase.value)
+            console.log(ids[i])
+            console.log(tickets[i].comments)
+            comentariosAnteriores.push(tickets[i].comments)
+            console.log(tickets[i].comments)
+            refTicketEnFirebase.value = ids[i]
+            console.log(refTicketEnFirebase.value)
         }
      }
+
      let com = reactive([
+      
         {
             email: newComment.email,
             comment: newComment.description
         }
     ])
-     const comentariosRef = doc(db, "tickets", refUsuarioEnFirebase.value);
-        // Set the "capital" field of the city 'DC'
+    comentariosAnteriores.push(com)
+     const comentariosRef = doc(db, "tickets", refTicketEnFirebase.value);
         await updateDoc(comentariosRef, {
         comments: com        
         });
-    console.log(refUsuarioEnFirebase.value)
-    //const ticketsRef = db.collection('tickets');
-    
-    //doc(refUsuarioEnFirebase).update({com})
+    console.log(refTicketEnFirebase.value)
 
-    // const comment = doc(db, 'tickets', refUsuarioEnFirebase.value);
-        
-
-    
-    
-    console.log(com)
+    console.log(comentariosAnteriores)
     location.reload("/ticketDetail")
     //router.push("/ticketsView")
 }
@@ -319,7 +298,10 @@ const  addComment = async (newComment) => {
     text-align: left;
 }
 .comment {
-    text-align: right;
+    border: 1px solid;
+    border-radius: 10px;
+    text-align: left;
+    padding: 10px;
 }
 
 /* TARJETA DE USUARIO */
