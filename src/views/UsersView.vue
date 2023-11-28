@@ -90,8 +90,8 @@ async function getListaUsuarios() {
         contadores[0].usersNum = users.length;
         contadores[0].usersActive = activesUsers.length;
         contadores[0].usersDisconnect = disconnectUsers.length;
-   
     });
+
     sessionStorage.setItem("usersList", JSON.stringify(users));
 }
 
@@ -104,6 +104,7 @@ async function addUser(newUser){
     console.log(newUser);
   if(newUser.rol === 'Técnico') {
     assignment.value = false;
+   
     try {
       const docRef = await addDoc(collection(db, "users"), {
       idUser: newUser.idUser,
@@ -129,7 +130,6 @@ async function addUser(newUser){
     
     try {
     const docRef = await addDoc(collection(db, "users"), {
-    
       idUser: newUser.idUser,
       imgUser: newUser.avatar,
       name: newUser.name,
@@ -149,9 +149,7 @@ async function addUser(newUser){
     }
   }
   location.reload("/usersView")
-  //router.push("/usersView");
   showModal.value = false;
-  
 }
 
 async function deleteClient(idUser) {
@@ -160,54 +158,17 @@ async function deleteClient(idUser) {
   const querySnapshotClients = await getDocs(collection(db, "users"));
   querySnapshotClients.forEach((doc) => {
     users.push(doc.data());
-
-  if(doc.data().idUser == idUser){
-    refUsuarioEnFirebase = doc.id;
-  }
+    if(doc.data().idUser == idUser){
+      refUsuarioEnFirebase = doc.id;
+    }
   });
+  
   await deleteDoc(doc(db, "users",refUsuarioEnFirebase));
   location.reload("/usersView");
   showModal.value = false;
   
 }
 
-// async function getListados() {
-
-// const querySnapshotUsers = await getDocs(collection(db, "users"));
-// const querySnapshotTickets = await getDocs(collection(db, "tickets"));
-// const querySnapshotClients = await getDocs(collection(db, "clients"));
-
-// querySnapshotUsers.forEach((doc) => {
-//     users.push(doc.data());
-//     let activesUsers = users.filter(user => user.state == true)
-//     let disconnectUsers = users.filter(user => user.state == false)
-//     contadores[0].usersNum = users.length;
-//     contadores[0].usersActive = activesUsers.length;
-//     contadores[0].usersDisconnect = disconnectUsers.length;
-// });
-
-// querySnapshotTickets.forEach((doc) => {
-//     tickets.push(doc.data());
-//     let ticketProcces = tickets.filter(ticket => ticket.state == "procces")
-//     let ticketEnd = tickets.filter(ticket => ticket.state == "end")
-//     contadores[1].ticketsNum = tickets.length
-//     contadores[1].ticketsProgress = ticketProcces.length
-//     contadores[1].ticketsEnd = ticketEnd.length
-// });
-
-// querySnapshotClients.forEach((clientsList) => {
-//     clients.push(clientsList.data());
-//     let activesClients = clients.filter(client => client.state == true)
-//     let disconnectClients = clients.filter(client => client.state == false)
-//     contadores[2].clientsNum = clients.length
-//     contadores[2].clientsActive = activesClients.length;
-//     contadores[2].clientsDisconnect = disconnectClients.length;
-// });
-
-//console.log(users)
-//console.log(tickets)
-//console.log(clients) 
-//}
 async function getListaTickets() {
 
 const querySnapshotTickets = await getDocs(collection(db, "tickets"));
@@ -225,11 +186,13 @@ console.log("Tickets End: "+contadores[0].ticketsEnd)
 //console.log(tickets);
 }
 </script>
+
 <script>
     export default {
         name:'Users-View'
     }
 </script>
+
 <style scoped>
 .container {
     width: 100%;
