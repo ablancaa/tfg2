@@ -121,6 +121,7 @@
             @newComment="addComment"/>
       </div><!--fin container 2 -->
 </div> 
+<Footer/>
 </template>
 
 <script setup>
@@ -133,6 +134,7 @@ import NavBar2 from '@/components/NavBar2.vue'
 import router from '@/router';
 import AddComment from '@/components/AddComment.vue'
 import {  } from 'firebase/database';
+import Footer from '@/components/Footer.vue';
 //import arrayUnion from 'array-union';
 
 const store = useDataStore();// Accede al store de la apliacion 
