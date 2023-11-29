@@ -5,7 +5,7 @@
             <div class="titleMark"><span class="pageTitle">Add Ticket</span></div>
     <div class="row">
         <div class="col-sm-12 col-md-12 border-right align-items-center flex-column">
-            <div class="p-3">
+            <div class="">
                 <div class="d-flex justify-content-between align-items-center">
                     <h4 class="text-right">Profile Settings</h4>
                 </div>
