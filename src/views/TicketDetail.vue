@@ -73,8 +73,10 @@
                             <strong>Asignado:</strong>
                         </div>
                         <div class="flex-item">
-                            <img src="../assets/ico/noAsignado.png" v-if="ticket[0].technical == 'Sin Asignar'" width="50" height="50" class="">
-                            <p v-if="ticket[0].technical == 'Sin Asignar'" class="technicDates">No Asignado</p> 
+                            <span @click="showAssingment()">
+                                <img src="../assets/ico/noAsignado.png" v-if="ticket[0].technical == 'Sin Asignar'" width="50" height="50" class="">
+                                <p v-if="ticket[0].technical == 'Sin Asignar'" class="technicDates">No Asignado</p> 
+                            </span>
                         </div>
                         <div class="flex-item" v-for="avatar in users" :key="avatar.idUser">
                             <img :src="avatar.imgUser" v-if="ticket[0].technical == avatar.idUser" width="50" height="50" class="imgUser"> 
@@ -119,7 +121,15 @@
           v-if="showModal" 
             @close="showModal = false" 
             @newComment="addComment"/>
+           
+        
       </div><!--fin container 2 -->
+      <div>
+        <AssingmentTechnic
+        v-if="showAssingmentModal" 
+            @close="showAssingmentModal = false" 
+            :userList="users"/>
+      </div>
 </div> 
 <Footer/>
 </template>
@@ -135,6 +145,7 @@ import router from '@/router';
 import AddComment from '@/components/AddComment.vue'
 import {  } from 'firebase/database';
 import Footer from '@/components/Footer.vue';
+import AssingmentTechnic from '@/components/AssingmentTechnic.vue';
 //import arrayUnion from 'array-union';
 
 const store = useDataStore();// Accede al store de la apliacion 
@@ -147,6 +158,9 @@ let users = reactive([]);
 let comments= reactive([])
 
 let showModal = ref(false);
+let showAssingmentModal = ref(false);
+
+
 comments.push(JSON.parse((route.params.comments)))
 
 let ticket = reactive([
@@ -170,6 +184,11 @@ onMounted(() => {
 function showForm(){
   showModal.value = true;
 }
+function showAssingment(){
+    showAssingmentModal.value = true;
+}
+
+
 async function getListaUsers() {
   const querySnapshotUsers = await getDocs(collection(db, "users"));
    querySnapshotUsers.forEach((doc) => {
