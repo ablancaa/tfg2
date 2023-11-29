@@ -35,10 +35,11 @@ import { useDataStore } from '../store/datosUser.js'
 //import { useRouter } from 'vue-router'
 
 //const router = useRouter() //Utiliza el router.push("/")
-
+const tiempoTranscurrido = Date.now();
+const hoy = new Date(tiempoTranscurrido);
 const store = useDataStore();
-let searchTerm = ref("");
 
+let searchTerm = ref("");
 let currenUser = reactive([{
     email: store.datosUser.email,
     idUser: store.datosUser.idUser,
@@ -127,7 +128,8 @@ async function addTicket(newTicket){
     //console.log(newTicket);
     
     try {
-     
+      
+
     const docRef = await addDoc(collection(db, "tickets"), {
       //idTicket: newTicket.idTicket,
       idTicket: newTicket.idTicket,
@@ -140,8 +142,9 @@ async function addTicket(newTicket){
       technical: newTicket.technical,          
       date: newTicket.date,
       comments: [{
-        email: 'no asignado',
-        comment:'sin comentario'
+        email: 'No Asignado a técnico',
+        comment:"El ticket ha sido guardado correctamente, lo antes posible se le asignará un técnico para su resolución",
+        date: hoy.toLocaleDateString()
       }]
     });
 
