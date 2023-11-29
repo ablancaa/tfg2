@@ -8,16 +8,15 @@
                 <div class="col-sm-12 col-md-6">
                     <router-link to="/estadisticasView" class="page-link">     
                     <div class="bloque-estadiscicas">
-                        <canvas id="grafica"></canvas>
+                        <canvas id="graficaTicket"></canvas>
                     </div> <!--Fin Bloque Estadisticas -->
                     </router-link>
                 </div> <!--Fin col 1 estadísticas-->
                 <div class="col-sm-12 col-md-6">
                     <router-link to="/estadisticasView" class="page-link">     
                     <div class="bloque-estadiscicas">
-                        <canvas id="grafica2"></canvas>
+                        <canvas id="graficaCategorias"></canvas>
                     </div> <!--Fin Bloque Estadisticas -->
-                    
                     </router-link>
                 </div> <!--Fin col 1 estadísticas-->
                 <div class="col-sm-12 col-md-4">
@@ -151,12 +150,11 @@ import { collection, getDocs } from "firebase/firestore";
 import Chart from 'chart.js/auto';
 import { useDataStore } from '../store/datosUser.js'
 
+const store = useDataStore();
+
 let users = reactive([]);
 let tickets = reactive([]);
 let currenUser = reactive([]);
-
-const store = useDataStore();
-
 let contadores = reactive([
     {
         usersNum: 0,
@@ -185,7 +183,7 @@ let contadores = reactive([
     }
 ])
 
-function temporizadorDeRetraso() {
+const temporizadorDeRetraso = ()=> {
    setTimeout(pintaGraficas, 1000);
 }
 
@@ -202,7 +200,7 @@ onUpdated(() => {
 onBeforeUnmount(()=>{
 
 })
-async function getListados() {
+ const getListados = async () => {
     const querySnapshotUsers = await getDocs(collection(db, "users"));
     const querySnapshotTickets = await getDocs(collection(db, "tickets"));
 
@@ -249,13 +247,14 @@ async function getListados() {
     store.userList = users;
     store.ticketList = tickets;
     console.log(store.ticketList)
+    
     datosUsuarioLogado(users)
 }
 
 const pintaGraficas = () => {
 
-    const ctx = document.getElementById("grafica");
-    const ctx2 = document.getElementById("grafica2");
+    const ctx = document.getElementById("graficaTicket");
+    const ctx2 = document.getElementById("graficaCategorias");
     const labels = ['Nº Tickets Total', 'Activos', 'En Espera', 'En proceso', 'Resuelto']
     const labels2 = ['Software', 'Hardware', 'Asistencia', 'Servicios']
 
@@ -311,24 +310,23 @@ const datosUsuarioLogado = (lista) => {
     const result = lista.filter((item) => item.email === mail);
 
     console.log(result)
+    
     currenUser.push(result[0]);
-    
-    //console.log(currenUser[0].email)
-    
+
     store.setEmail(currenUser[0].email);
     store.setAvatar(currenUser[0].imgUser);
-    store.datosUser.idUser = currenUser[0].idUser;
-    store.datosUser.name = currenUser[0].name;
-    store.datosUser.surname1 = currenUser[0].surname1;
-    store.datosUser.surname2 = currenUser[0].surname2;
-    store.datosUser.rol = currenUser[0].rol;
-    store.datosUser.phone = currenUser[0].phone;
+    store.setidUser(currenUser[0].idUser);
+    store.setName(currenUser[0].name);
+    store.setSurname1(currenUser[0].surname1);
+    store.setSurname2(currenUser[0].surname2);
+    store.setRol(currenUser[0].rol);
+    store.setPhone(currenUser[0].phone);
+   
     localStorage.setItem("currenUser", JSON.stringify(currenUser));
     let perfil = JSON.parse(localStorage.getItem('currenUser'))
     console.log(perfil)
-    store.datosUser.email = perfil[0].email
 }
-function emailUsuario() {
+const emailUsuario = () => {
     console.log(store.datosUser.email)
     return store.datosUser.email
 }
