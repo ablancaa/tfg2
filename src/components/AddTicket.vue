@@ -17,7 +17,7 @@
                         <label class="labels">idUser</label><input type="text" class="form-control" :placeholder="idUser" v-model="idUser" disabled>
                     </div>
                     <div class="col-sm-12 col-md-12">
-                        <label class="labels">Date</label><input type="date" class="form-control" placeholder="Date" v-model="date">
+                        <label class="labels">Date</label><input type="text" class="form-control" :placeholder="date" v-model="date" disabled>
                     </div>
                     <div class="col-sm-12 col-md-12">
                         <label class="labels">Title</label><input type="text" class="form-control" placeholder="Title" v-model="title">
@@ -38,7 +38,7 @@
                     </div>
                 </div>
                 <div class="row mt-3">                   
-                    <div class="col-md-12">
+                    <!-- <div class="col-md-12">
                         <label class="labels">Estado</label>
                         <select class="form-control" v-model="state">
                             <option disabled value="">Seleccione un Estado</option>
@@ -47,7 +47,7 @@
                             <option>active</option>
                             <option>end</option>
                         </select>
-                    </div>
+                    </div> -->
                     <div class="col-md-12">
                         <label class="labels">Prioridad</label>
                         <select class="form-control" v-model="priority">
@@ -58,7 +58,7 @@
                             <option>Importante</option>
                         </select>
                     </div>
-                    <div class="col-md-12">
+                    <!-- <div class="col-md-12">
                         <label class="labels">Técnico Asignado</label>
                         <select class="form-control" v-model="technical">
                             <option disabled value="">Seleccione un Técnico</option>
@@ -66,7 +66,7 @@
                                 {{ user.idUser }}
                             </option>
                         </select>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button" @click="newTicket">Save Ticket</button> <button @click="emit('close')" class="btn btn-primary profile-button">Cerrar</button></div>
             </div>
@@ -81,6 +81,10 @@ import { useDataStore } from '../store/datosUser.js'
 //import { useRouter } from 'vue-router'
 
 //const router = useRouter() //Utiliza el router.push("/")
+const tiempoTranscurrido = Date.now();
+const hoy = new Date(tiempoTranscurrido);
+hoy.toLocaleDateString();
+
 const store = useDataStore();
 const emit = defineEmits(['newTicket','close'])
 const props = defineProps({
@@ -94,9 +98,9 @@ let title = ref("");
 let priority = ref("");
 let category = ref("");
 let descripcion = ref("");
-let state = ref("");
-let date = ref("");
-let technical = ref("")
+let state = ref("wait");
+let date = ref(hoy.toLocaleDateString());
+let technical = ref("Sin Asignar")
 let tec = reactive([])
 
 
