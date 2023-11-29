@@ -72,6 +72,10 @@
                         <div class="flex-item">
                             <strong>Asignado:</strong>
                         </div>
+                        <div class="flex-item">
+                            <img src="../assets/ico/noAsignado.png" v-if="ticket[0].technical == 'Sin Asignar'" width="50" height="50" class="">
+                            <p v-if="ticket[0].technical == 'Sin Asignar'" class="technicDates">No Asignado</p> 
+                        </div>
                         <div class="flex-item" v-for="avatar in users" :key="avatar.idUser">
                             <img :src="avatar.imgUser" v-if="ticket[0].technical == avatar.idUser" width="50" height="50" class="imgUser"> 
                         </div>
@@ -84,19 +88,23 @@
       <hr />
           <div class="row">
             <div class="col">
-                <p class="titleTicket">Categoría: {{ ticket[0].category }}</p>
+                <p class="titleTicket">Categoría: {{ ticket[0].category }} | Fecha: {{ ticket[0].date }}</p>
                  <p class="description">
-                    <span class="titleTicket">{{ ticket[0].title }}</span>
+                    <span class="titleTicket">Title: {{ ticket[0].title }}</span>
+                    <span><strong>Description</strong></span><br>
                  {{ ticket[0].description }}</p>
+                 
+                 
                  <div class="comment">
-                 <span v-for="comentario in tickets" :key="comentario">
-                    <span v-for="comen in comentario.comments" :key="comen">
+                 <div v-for="comentario in tickets" :key="comentario">
+                    <div v-for="comen in comentario.comments" :key="comen">
                         <span v-if="comentario.idTicket == route.params.idTicket" > 
-                           <p class="titleTicket">{{ comen.email }}</p>
+                           <p class="titleTicket">{{ comen.email }} | {{ comen.date }}</p>
                             <p>{{ comen.comment }}</p>
+                           <div class="btnComment"> <button @click="deleteComment()"><img src="../assets/ico/delete.png" width="15" height="15"  /></button></div>
                         </span>
-                    </span>
-                 </span>
+                    </div>
+                 </div>
                 </div>
                 <br/>
                  <p class="ico"><button @click="showForm()"><img src="../assets/ico/agregar.png" width="30" height="30"></button></p>
@@ -125,7 +133,7 @@ import NavBar2 from '@/components/NavBar2.vue'
 import router from '@/router';
 import AddComment from '@/components/AddComment.vue'
 import {  } from 'firebase/database';
-
+//import arrayUnion from 'array-union';
 
 const store = useDataStore();// Accede al store de la apliacion 
 //const router = useRouter() //Utiliza el router.push("/")
@@ -196,43 +204,49 @@ async function getListaTickets() {
     router.push("/ticketsView")
 }
 const  addComment = async (newComment) => {
-  
-    console.log(newComment)
+
+    //Lista de id de cada ticket en Firebase
     const querySnapshotTickets = await getDocs(collection(db, "tickets"));
     querySnapshotTickets.forEach((doc) => {
         ids.push(doc.id);
-        //console.log(doc.id)
-        //console.log(tickets)
     });
+
+    //Bucle para buscar los comentarios del ticket elegido
     let comentariosAnteriores = reactive([])
      for (let i = 0; i < tickets.length; i++) {
         console.log(tickets[i].idTicket)
          if (route.params.idTicket == tickets[i].idTicket) {
-            //console.log(ids[i])
-            //console.log(tickets[i].comments)
-            comentariosAnteriores.push(tickets[i].comments)
-            //console.log(tickets[i].comments)
+            comentariosAnteriores.push(...tickets[i].comments)
             refTicketEnFirebase.value = ids[i]
-            //console.log(refTicketEnFirebase.value)
         }
      }
 
+     //Nuevo comentario para introducir en el ticket
      let com = reactive([
         {
             email: newComment.email,
-            comment: newComment.description
-        }
+            comment: newComment.description,
+            date: newComment.date
+        },
     ]);
-    comentariosAnteriores.push(com);
-     const comentariosRef = doc(db, "tickets", refTicketEnFirebase.value);
-        await updateDoc(comentariosRef, {
-        comments: com        
-        });
-    console.log(refTicketEnFirebase.value)
 
+    //Comentarios anteriores más el nuevo al final
+    comentariosAnteriores.push(...com);
+
+    //Actualización de campo comentarios del ticket
+    const comentariosRef = doc(db, "tickets", refTicketEnFirebase.value);
+        await updateDoc(comentariosRef,{
+        comments: comentariosAnteriores,     
+        });
+
+    console.log(refTicketEnFirebase.value)
     console.log(comentariosAnteriores)
     location.reload("/ticketDetail")
     //router.push("/ticketsView")
+}
+
+const deleteComment = () => {
+    alert("Borrar Mensaje")
 }
 
 </script>
@@ -252,6 +266,9 @@ const  addComment = async (newComment) => {
     height: 55px;
     width: 100%;
     background-color: rgb(0, 0, 0);
+}
+.btnComment {
+    text-align: right;
 }
 .btn {
     margin-top: 9px;

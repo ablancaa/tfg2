@@ -40,6 +40,11 @@
                         <p class="nombre">{{ user.name }} {{ user.surname1 }} </p><!--{{ user.surname2 }}-->
                     </div>
                 </div><!-- Fin bucle -->
+                <div v-if="props.tickets.technical[0] == 'Sin Asignar'">
+                    <p class="title-user"><strong>Técnico: </strong></p>
+                        <img src="../assets/ico/noAsignado.png" width="50" height="50" v-if="props.tickets.technical[0] === 'Sin Asignar'" class="">
+                        <p class="nombre">No Asignado </p>
+                    </div>
             </div>
         </div>
         <div class="col">

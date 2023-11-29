@@ -63,29 +63,15 @@
 <script setup>
 import{ ref, reactive, defineEmits } from 'vue'
 import { useDataStore } from '../store/datosUser.js'
-//import { useRouter } from 'vue-router'
 
-//const router = useRouter() //Utiliza el router.push("/")
 const store = useDataStore();
 const emit = defineEmits(['newComment','close'])
-// const props = defineProps({
-//         userList: {
-//             type: Object,
-//         },    
-//     })
-//let idUser = ref(store.datosUser.idUser);
+const tiempoTranscurrido = Date.now();
+const hoy = new Date(tiempoTranscurrido);
+
 let email = ref(store.datosUser.email);
-// let idTicket = ref(generarIdUnico());
-//let title = ref("");
-//let priority = ref("");
-//let category = ref("");
 let descripcion = ref("");
-//let state = ref("");
-//let date = ref();
-//let technical = ref("")
-
-
-
+let date = ref(hoy.toLocaleDateString());
 let newCom = reactive({})
 
     const newComment = () => {
@@ -95,19 +81,14 @@ let newCom = reactive({})
             newCom = ({    
                 description: descripcion.value,
                 email: email.value,
-                //date: date.value,
+                date: date.value,
             });
         }
         emit('newComment', newCom);
         console.log(newCom);
-        //router.push("/ticketsView")
-        
     }
-
-    // function generarIdUnico () { 
-    //     return Math.random().toString(30).substring(2);           
-    // }
 </script>
+
 <style scoped>
 #modal {
   background: rgba(0, 0, 0, 0.4);
@@ -122,15 +103,9 @@ let newCom = reactive({})
   overflow-y: scroll;
 }
 
-body {
-    background: rgb(99, 39, 120);
-    color: #000000;
-
-}
-
 .form-control:focus {
     box-shadow: none;
-    border-color: #BA68C8
+    border-color: #0f0a10
 }
 
 .profile-button {
