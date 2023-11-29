@@ -25,14 +25,17 @@ export const useDataStore  = defineStore('datosUser',{
             ticketList: [],
             contadoresUsuario: [],
             
-        }
-        
+        } 
     },
     persist: {
         paths: ['datosUser.idUser', 
                 'datosUser.email', 
                 'datosUser.avatar', 
-                'datosUser.rol'],
+                'datosUser.rol',
+                'datosUser.name',
+                'datosUser.surname1',
+                'datosUser.surname2',
+            ],
     },
     getters: {
     getEmail: (state) => {
