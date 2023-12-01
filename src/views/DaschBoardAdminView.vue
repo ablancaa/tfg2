@@ -144,14 +144,17 @@
 import NavBar2 from '@/components/NavBar2.vue'
 import Footer from '@/components/Footer.vue'
 
-import { reactive, onMounted, onUpdated, onBeforeUnmount } from "vue";
+import { reactive, onMounted, onUpdated, onBeforeUnmount,ref } from "vue";
 import { db } from "../utils/FirebaseConfig.js"
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, updateDoc, doc } from "firebase/firestore";
 import Chart from 'chart.js/auto';
 import { useDataStore } from '../store/datosUser.js'
-
+//import { useRoute } from 'vue-router';
+//const route = useRoute() //recibe los parámetros del router
 const store = useDataStore();
-
+let refUserEnFirebase = ref()
+let refUserFire = ref();
+let ids = reactive([]);
 let users = reactive([]);
 let tickets = reactive([]);
 let currenUser = reactive([]);
@@ -183,13 +186,20 @@ let contadores = reactive([
     }
 ])
 
-const temporizadorDeRetraso = ()=> {
+const temporizadorDeRetrasoGraficas = ()=> {
    setTimeout(pintaGraficas, 1000);
 }
+const temporizadorDeContadores = ()=> {
+   setTimeout(getListados, 500);
+}
+
 
 onMounted(() => {
-    getListados(); 
-    temporizadorDeRetraso();
+    //getListados();
+    temporizadorDeContadores();
+    temporizadorDeRetrasoGraficas();
+    refUserEnFirebase.value = firebaseUserRef()
+   
 });
 
 onUpdated(() => {
@@ -244,11 +254,13 @@ onBeforeUnmount(()=>{
     localStorage.tickets = JSON.stringify(contadores[1]);
     localStorage.usuarios = JSON.stringify(contadores[0]);
     localStorage.setItem("usersList", JSON.stringify(users));
-    store.userList = users;
+    //store.userList = users;
     store.ticketList = tickets;
-    console.log(store.ticketList)
+    //console.log(store.ticketList)
+    //console.log(store.userList)
     
-    datosUsuarioLogado(users)
+    datosUsuarioLogado(users);
+    
 }
 
 const pintaGraficas = () => {
@@ -304,15 +316,13 @@ const pintaGraficas = () => {
     });
 }
 
-const datosUsuarioLogado = (lista) => {
-    let mail = emailUsuario();
+//Función para que los datos del usuario sean persistentes en el store
+const datosUsuarioLogado =  (lista) => {
+
     store.setUsersList(lista);  
-    const result = lista.filter((item) => item.email === mail);
-
-    console.log(result)
+    const usuario = lista.filter((item) => item.email === store.currenUser.email);
     
-    currenUser.push(result[0]);
-
+    currenUser.push(usuario[0]);
     store.setEmail(currenUser[0].email);
     store.setAvatar(currenUser[0].imgUser);
     store.setidUser(currenUser[0].idUser);
@@ -321,14 +331,31 @@ const datosUsuarioLogado = (lista) => {
     store.setSurname2(currenUser[0].surname2);
     store.setRol(currenUser[0].rol);
     store.setPhone(currenUser[0].phone);
-   
-    localStorage.setItem("currenUser", JSON.stringify(currenUser));
-    let perfil = JSON.parse(localStorage.getItem('currenUser'))
-    console.log(perfil)
+    store.setState(true);
+    store.setFirebaseRefCurrenUser(refUserEnFirebase.value)
 }
-const emailUsuario = () => {
-    console.log(store.datosUser.email)
-    return store.datosUser.email
+
+//Función para buscar el número de referencia del usuario en Firebase
+const firebaseUserRef = async () => { 
+    const querySnapshotTickets = await getDocs(collection(db, "users"));
+    querySnapshotTickets.forEach((doc) => {
+        ids.push(doc.id);
+    });
+
+    //Bucle para buscar el usuario logado y su referencia en Firebase
+    for (let i = 0; i < ids.length; i++) {
+        if (store.currenUser.idUser == store.userList[i].idUser) {
+        refUserEnFirebase.value = ids[i]
+        }
+    }
+
+    //Actualización de campo State del usuario para que marque como activo
+    const stateRef = doc(db, "users", refUserEnFirebase.value);
+      await updateDoc(stateRef,{
+        state: true,     
+    });
+    //Variable que carga el id de firebase del usuario
+    refUserFire.value = refUserEnFirebase.value
 }
 </script>
 
