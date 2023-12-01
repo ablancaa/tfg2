@@ -37,7 +37,7 @@ const routes = [
     component: UsersView
   },
   {
-    path: '/userDetail/:idUser/:imgUser/name/:name/surname1/:surname1/surname2/:surname2/rol/:rol/email/:email/phone/:phone',
+    path: '/userDetail/:idUser/:imgUser/name/:name/surname1/:surname1/surname2/:surname2/rol/:rol/email/:email/phone/:phone/state/:state',
     name: 'userDetail',
     component: UserDetail,
     props: false,
