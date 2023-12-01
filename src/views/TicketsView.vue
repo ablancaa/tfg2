@@ -1,24 +1,30 @@
 <template>
-    <NavBar2 :currenUser="currenUser"/>
-  <div class="container">
-    <br/>
-        <div class="titleMark"><span class="pageTitle">Tickets View</span></div>
-        <div class="searchbar"><SearchBar v-on:search="setSearchTerm"/></div>
-        <div class="header-opciones">
-          <div class="row">
-                <div class="col"><button class="btn" @click="showForm">Add Ticket</button></div>
-                <div class="col"></div>
-                <div class="col"></div>
-              </div>
+<NavBar2 :currenUser="currenUser"/>
+<div class="container">
+      <br/>
+      <div class="row header-fijo">
+        <div class="col">
+          <div class="titleMark"><span class="pageTitle">Tickets View</span></div>
+          <div class="searchbar"><SearchBar v-on:search="setSearchTerm"/></div>
+          <div class="header-opciones">
+            <div class="row">
+              <div class="col"><button class="btn" @click="showForm">Add Ticket</button></div>
+              <div class="col"></div>
+              <div class="col"></div>
+            </div>
+                <AddTicket v-if="showModal" 
+                :userList="users"
+                @close="showModal = false" 
+                @newTicket="addTicket" />
+          </div><!-- Fin header-opciones -->
         </div>
-        <AddTicket v-if="showModal" 
-        :userList="users"
-        @close="showModal = false" 
-        @newTicket="addTicket" />
-          <TicketsList :ticketList="ticketsListFiltered" :userList="users"/>
-          
-  </div>
-  <Footer/>
+      </div>  
+    <div class="listado"> 
+      <TicketsList :ticketList="ticketsListFiltered" :userList="users"/>
+    </div>
+</div><!-- Fin Container -->
+<Footer/>
+
 </template>
 
 <script setup>
@@ -41,9 +47,9 @@ const store = useDataStore();
 
 let searchTerm = ref("");
 let currenUser = reactive([{
-    email: store.datosUser.email,
-    idUser: store.datosUser.idUser,
-    avatar: store.datosUser.avatar
+    email: store.currenUser.email,
+    idUser: store.currenUser.idUser,
+    avatar: store.currenUser.avatar
 }
 ]);
 
@@ -65,10 +71,10 @@ onUpdated(() => {
 onMounted(() => {
     getListaTickets();
     getListaUsers();
-    let perfil = JSON.parse(localStorage.getItem('currenUser'))
-    store.datosUser.email = perfil[0].email;
-    store.datosUser.avatar = perfil[0].imgUser;
-    store.datosUser.idUser = perfil[0].idUser;
+    // let perfil = JSON.parse(localStorage.getItem('currenUser'))
+    // store.datosUser.email = perfil[0].email;
+    // store.datosUser.avatar = perfil[0].imgUser;
+    // store.datosUser.idUser = perfil[0].idUser;
     //console.log("Ticket ")
 
 });
@@ -148,8 +154,8 @@ async function addTicket(newTicket){
       }]
     });
 
-    console.log("Document written with ID: ", docRef.id);
-    console.log(newTicket)
+    //console.log("Document written with ID: ", docRef.id);
+    //console.log(newTicket)
 
     } catch (e) {
       console.error("Error adding document: ", e);
@@ -169,8 +175,17 @@ async function addTicket(newTicket){
 </script>
 <style scoped>
 .container {
-  width: 100%;
-  height: 100%;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.header-fijo {
+  min-width: 100%;
+  position: fixed;
+  height: auto;
+  width: auto;
+  z-index: 3;
+  background-color: #ffffff;
 }
 .header-opciones{
     margin-top: 10px;
@@ -178,6 +193,9 @@ async function addTicket(newTicket){
     height: 55px;
     width: 100%;
     background-color: rgb(0, 0, 0);
+}
+.listado{
+  margin-top: 240px;
 }
 .btn {
     margin-top: 9px;
@@ -191,7 +209,7 @@ async function addTicket(newTicket){
   margin-top: 50px;
   border-radius: 10px;
   height: 55px;
-  width: 100%;
+  /* width: 100%; */
   background-color: rgb(0, 0, 0);
   
 }
@@ -201,5 +219,4 @@ async function addTicket(newTicket){
   font-size: 38px;
   font-weight: 700;
 }
-
 </style>
