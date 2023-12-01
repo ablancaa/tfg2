@@ -34,7 +34,7 @@ import { defineProps } from 'vue';
         },    
     })
    // console.log(props.ticket)
-   // console.log(props.user)
+    //console.log(props.user)
 </script>
 
 <style scoped>
