@@ -36,8 +36,8 @@ let props = defineProps({
   const deleteTicket = () =>{
   emit("deleteUser", deleteTicket)
  }
-console.log(props.userList)
-console.log(props.ticketList)
+//console.log(props.userList)
+//console.log(props.ticketList)
 </script>
   
 <style scoped>
