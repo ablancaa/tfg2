@@ -69,7 +69,7 @@ const emit = defineEmits(['newComment','close'])
 const tiempoTranscurrido = Date.now();
 const hoy = new Date(tiempoTranscurrido);
 
-let email = ref(store.datosUser.email);
+let email = ref(store.currenUser.email);
 let descripcion = ref("");
 let date = ref(hoy.toLocaleDateString());
 let newCom = reactive({})

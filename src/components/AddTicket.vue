@@ -11,7 +11,7 @@
                 </div>
                 <div class="row">
                     <div class="col-6">
-                        <label class="labels">idTicket</label><input type="text" class="form-control" :placeholder="id" v-model="idTicket" disabled>
+                        <label class="labels">idTicket</label><input type="text" class="form-control" :placeholder="idTicket" v-model="idTicket" disabled>
                     </div>
                     <div class="col-6">
                         <label class="labels">idUser</label><input type="text" class="form-control" :placeholder="idUser" v-model="idUser" disabled>
@@ -92,7 +92,7 @@ const props = defineProps({
             type: Object,
         },    
     })
-let idUser = ref(store.datosUser.idUser);
+let idUser = ref(store.currenUser.idUser);
 let idTicket = ref(generarIdUnico());
 let title = ref("");
 let priority = ref("");
@@ -124,7 +124,7 @@ let newTick = reactive({});
             });
         }
         emit('newTicket', newTick);
-        console.log(newTick);       
+        //console.log(newTick);       
     }
 
     onMounted(() => {
@@ -134,7 +134,7 @@ let newTick = reactive({});
     const tecnicos = () => {
         let listaTecnicos = reactive([])
             for(let i=0; i < props.userList.length; i++){
-            console.log(props.userList[i].rol)
+            //console.log(props.userList[i].rol)
             if(props.userList[i].rol === 'Técnico'){
                 
                 tec = 
@@ -148,8 +148,8 @@ let newTick = reactive({});
        
             }
         }
-        console.log(tec)
-        console.log(listaTecnicos)
+        //console.log(tec)
+        //console.log(listaTecnicos)
         return listaTecnicos;
         
         }
@@ -160,6 +160,7 @@ let newTick = reactive({});
 </script>
 <style scoped>
 #modal {
+  display: flex;
   background: rgba(0, 0, 0, 0.4);
   color: #fff;
   position: fixed;
