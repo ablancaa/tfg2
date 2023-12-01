@@ -20,6 +20,16 @@
             </div>
         </div>
     </div>
+    <!-- <div class="row" v-for="tecnico in props.userList" :key="tecnico.idUser">
+    <div class="col flex-items-technic"> 
+     <div class=""  v-if="tecnico.rol == 'Técnico'"><img :src="tecnico.imgUser " class="imgUser" width="50" height="50"></div>                
+    <div class="col"> 
+     <div class="flex-items-technic"  v-if="tecnico.rol == 'Técnico'">{{ tecnico.name }} {{ tecnico.surname1 }} </div></div></div>
+    </div>
+    <div class="row">
+        <button class="btn btn-primary profile-button" type="button" @click="newAssingment">Assingment<br/> Ticket</button>
+                <button @click="emit('close')" class="btn btn-primary profile-button">Cerrar</button>
+    </div> -->
     
     </div><!-- fin container -->
 </div><!-- fin Modal -->
@@ -114,7 +124,7 @@ onMounted(() => {
 }
 
 .flex-Technics {
-    padding:5px;
+ padding: 2px;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
