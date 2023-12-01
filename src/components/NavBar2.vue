@@ -35,20 +35,23 @@
 import { useDataStore } from '../store/datosUser.js'
 import { ref, onMounted, onBeforeMount } from 'vue';
 import { useRouter } from 'vue-router';
-
+import { db } from "../utils/FirebaseConfig.js"
+import { updateDoc, doc } from "firebase/firestore";
 const store = useDataStore();
 const router = useRouter();
 
- let userCurrenEmail = ref(store.datosUser.email);
- let userCurrenAvatar = ref(store.datosUser.avatar)
- let userCurrenIdUser = ref(store.datosUser.idUser)
- let userCurrenRol = ref(store.datosUser.rol)
+ let userCurrenEmail = ref(store.currenUser.email);
+ let userCurrenAvatar = ref(store.currenUser.avatar)
+ let userCurrenIdUser = ref(store.currenUser.idUser)
+ let userCurrenRol = ref(store.currenUser.rol)
+ let userFirebaseRef = ref(store.currenUser.firebaseRef)
 
   onMounted(() => {
-    userCurrenEmail = ref(store.datosUser.email);
-    userCurrenAvatar = ref(store.datosUser.avatar)
-    userCurrenIdUser = ref(store.datosUser.idUser)
-    userCurrenRol = ref(store.datosUser.rol)
+    userCurrenEmail = ref(store.currenUser.email);
+    userCurrenAvatar = ref(store.currenUser.avatar);
+    userCurrenIdUser = ref(store.currenUser.idUser);
+    userCurrenRol = ref(store.currenUser.rol);
+    userFirebaseRef = ref(store.currenUser.firebaseRef);
   });
 
   onBeforeMount(()=>{})
@@ -57,10 +60,19 @@ const router = useRouter();
   console.log("Avatar: "+userCurrenAvatar.value)
   console.log("IdUser: "+userCurrenIdUser.value)
   console.log("Rol: "+userCurrenRol.value)
+  console.log("Firebase Ref: "+userFirebaseRef.value)
  
-function exit () {
+const exit =  () => {
   store.setEmail('');
+  store.setidUser('');
+  store.setRol('');
+  store.setAvatar('');
+  store.setState(false);
   store.setName('');
+  store.setSurname1('');
+  store.setSurname2('');
+  store.setPhone('');
+  changeStateUser();
   localStorage.removeItem("tickets");
   localStorage.removeItem("usuarios");
   localStorage.removeItem("usersList");
@@ -68,8 +80,17 @@ function exit () {
   sessionStorage.clear();
   localStorage.clear();
   router.push("/")
+  
+
 
 }
+const changeStateUser = async () => {
+  //Actualización de campo State
+ const stateRef = doc(db, "users", userFirebaseRef.value);
+      await updateDoc(stateRef,{
+        state: false,     
+     });
+    }
 </script>
 
 
