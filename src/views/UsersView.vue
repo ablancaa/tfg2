@@ -34,12 +34,12 @@ import Footer from '@/components/Footer.vue'
 import { reactive, onMounted, ref, computed } from "vue";
 import { db, getDocs } from "../utils/FirebaseConfig.js"
 import { collection, addDoc, deleteDoc, doc } from "firebase/firestore";
-import { useDataStore } from '../store/datosUser.js'
+//import { useDataStore } from '../store/datosUser.js'
 //import router from '@/router';
 //import { useRouter } from 'vue-router'
 
 //const router = useRouter() //Utiliza el router.push("/")
-const store = useDataStore();
+//const store = useDataStore();
 let searchTerm = ref("");
 let users = reactive([]);
 let tickets = reactive([]);
@@ -54,10 +54,10 @@ let showModal = ref(false);
 onMounted(() => {
     getListaUsuarios();
     getListaTickets();
-    let perfil = JSON.parse(localStorage.getItem('currenUser'))
-    store.datosUser.email = perfil[0].email;
-    store.datosUser.avatar = perfil[0].imgUser;
-    store.datosUser.idUser = perfil[0].idUser;
+    // let perfil = JSON.parse(localStorage.getItem('currenUser'))
+    // store.datosUser.email = perfil[0].email;
+    // store.datosUser.avatar = perfil[0].imgUser;
+    // store.datosUser.idUser = perfil[0].idUser;
   });
 
 const usersListFiltered = computed(() => {
@@ -101,7 +101,7 @@ function showForm(){
 
 async function addUser(newUser){
   let assignment = ref("");
-    console.log(newUser);
+    //console.log(newUser);
   if(newUser.rol === 'Técnico') {
     assignment.value = false;
    
@@ -120,8 +120,8 @@ async function addUser(newUser){
       state: newUser.state,
     });
     
-    console.log("Document written with ID: ", docRef.id);
-    console.log(newUser);
+    //console.log("Document written with ID: ", docRef.id);
+    //console.log(newUser);
 
     } catch (e) {
       console.error("Error adding document: ", e);
@@ -142,8 +142,8 @@ async function addUser(newUser){
       state: newUser.state,
     });
 
-    console.log("Document written with ID: ", docRef.id);
-    console.log(newUser)
+    //console.log("Document written with ID: ", docRef.id);
+    //console.log(newUser)
     } catch (e) {
       console.error("Error adding document: ", e);
     }
@@ -180,9 +180,9 @@ querySnapshotTickets.forEach((doc) => {
  contadores[0].ticketsProcces = ticketProcces.length
  contadores[0].ticketsEnd = ticketEnd.length
 });
-console.log("Num Tickets: "+contadores[0].ticketsNum)
-console.log("Tickets Procces: "+contadores[0].ticketsProcces)
-console.log("Tickets End: "+contadores[0].ticketsEnd)
+//console.log("Num Tickets: "+contadores[0].ticketsNum)
+//console.log("Tickets Procces: "+contadores[0].ticketsProcces)
+//console.log("Tickets End: "+contadores[0].ticketsEnd)
 //console.log(tickets);
 }
 </script>

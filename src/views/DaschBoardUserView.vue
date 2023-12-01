@@ -96,8 +96,8 @@ import NavBar2 from '@/components/NavBar2.vue'
 import Footer from '@/components/Footer.vue'
 import { useDataStore } from '../store/datosUser.js'
 import { db } from "../utils/FirebaseConfig.js"
-import { collection, getDocs } from "firebase/firestore";
-import { reactive, onMounted, onBeforeMount } from 'vue'
+import { collection, getDocs,doc, updateDoc } from "firebase/firestore";
+import { reactive, onMounted, onBeforeMount, ref } from 'vue'
 //import {  useRoute } from 'vue-router'
 //const router = useRouter() //Utiliza el router.push("/")
 //const route = useRoute() //recibe los parámetros del router
@@ -106,7 +106,9 @@ let currenUser = reactive([]);
 
 const store = useDataStore();
 //let perfil = JSON.parse(localStorage.getItem('currenUser'))
-
+let refUserEnFirebase = ref()
+let refUserFire = ref();
+let ids = reactive([]);
 let users = reactive([]);
 let ticketsUsuario = reactive([]);
 let tickets = reactive([]);
@@ -163,6 +165,7 @@ let contadores = reactive([
     onMounted(()=>{
         getListados();
         temporizadorDeRetraso();
+        refUserEnFirebase.value = firebaseUserRef()
   
         // watchEffect(() => console.log(currenUser.email))
         // watchEffect(() => console.log(currenUser.idUser))
@@ -214,37 +217,57 @@ let contadores = reactive([
     localStorage.usuarios = JSON.stringify(contadores[0]);
     localStorage.setItem("usersList", JSON.stringify(users));
 
-    datosUsuarioLogado()
+    datosUsuarioLogado(users)
     
 }
 
-    const datosUsuarioLogado = () => {
-    let mail = emailUsuario();
-    //store.setUsersList(store.userList);
-    
-        const result = users.filter((item) => item.email === mail);
-        console.log(result[0])
-        currenUser.push(result[0]);
-        store.setidUser(currenUser[0].idUser)
-        store.setAvatar(currenUser[0].imgUser)
-        store.setEmail(currenUser[0].email)
-        store.setName(currenUser[0].name)
-        store.setRol(currenUser[0].rol)
-        store.setPhone(currenUser[0].phone)
- 
-    localStorage.setItem("currenUser", JSON.stringify(currenUser));
+const datosUsuarioLogado =  (lista) => {
+
+store.setUsersList(lista);  
+const usuario = lista.filter((item) => item.email === store.currenUser.email);
+
+currenUser.push(usuario[0]);
+store.setEmail(currenUser[0].email);
+store.setAvatar(currenUser[0].imgUser);
+store.setidUser(currenUser[0].idUser);
+store.setName(currenUser[0].name);
+store.setSurname1(currenUser[0].surname1);
+store.setSurname2(currenUser[0].surname2);
+store.setRol(currenUser[0].rol);
+store.setPhone(currenUser[0].phone);
+store.setState(true);
+store.setFirebaseRefCurrenUser(refUserEnFirebase.value)
 }
-function emailUsuario() {
-    //console.log(store.datosUser.email)
-    return store.datosUser.email
+
+//Función para buscar el número de referencia del usuario en Firebase
+const firebaseUserRef = async () => { 
+    const querySnapshotTickets = await getDocs(collection(db, "users"));
+    querySnapshotTickets.forEach((doc) => {
+        ids.push(doc.id);
+    });
+
+    //Bucle para buscar el usuario logado y su referencia en Firebase
+    for (let i = 0; i < ids.length; i++) {
+        if (store.currenUser.idUser == store.userList[i].idUser) {
+        refUserEnFirebase.value = ids[i]
+        }
+    }
+
+    //Actualización de campo State del usuario para que marque como activo
+    const stateRef = doc(db, "users", refUserEnFirebase.value);
+      await updateDoc(stateRef,{
+        state: true,     
+    });
+    //Variable que carga el id de firebase del usuario
+    refUserFire.value = refUserEnFirebase.value
 }
 async function getListaTicketsDelUsuario() {
 
- let ticketsUsu = tickets.filter(ticket => ticket.idUser == store.datosUser.idUser)
- let ticketProcces = tickets.filter(ticket => ticket.state == "procces" && ticket.idUser == store.datosUser.idUser)
- let ticketActive = tickets.filter(ticket => ticket.state == "active" && ticket.idUser == store.datosUser.idUser)
- let ticketWait = tickets.filter(ticket => ticket.state == "wait" && ticket.idUser == store.datosUser.idUser)
- let ticketEnd = tickets.filter(ticket => ticket.state == "end" && ticket.idUser == store.datosUser.idUser)
+ let ticketsUsu = tickets.filter(ticket => ticket.idUser == store.currenUser.idUser)
+ let ticketProcces = tickets.filter(ticket => ticket.state == "procces" && ticket.idUser == store.currenUser.idUser)
+ let ticketActive = tickets.filter(ticket => ticket.state == "active" && ticket.idUser == store.currenUser.idUser)
+ let ticketWait = tickets.filter(ticket => ticket.state == "wait" && ticket.idUser == store.currenUser.idUser)
+ let ticketEnd = tickets.filter(ticket => ticket.state == "end" && ticket.idUser == store.currenUser.idUser)
 
   console.log(ticketProcces.length)
   console.log(ticketActive.length)
@@ -253,7 +276,7 @@ async function getListaTicketsDelUsuario() {
   console.log(ticketsUsu);
 
  for (let i=0; i <  ticketsUsu.length; i++){
-    if(ticketsUsu[i].idUser == store.datosUser.idUser){
+    if(ticketsUsu[i].idUser == store.currenUser.idUser){
         // if(ticketsUsu[i].state == "procces"){
             //console.log(i)
             //contadorUsuario[0].ticketsUserNum = ticketsUsu.length;

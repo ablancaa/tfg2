@@ -71,15 +71,16 @@ onMounted(() => {
         } else {
           router.push("/dashBoardUser")
         }
-         let usu = store.userList.filter((usu) => usu.email == store.datosUser.email)
-         //console.log(usu)
-         store.setAvatar(usu[0].imgUser);
+         let usu = store.userList.filter((usu) => usu.email == store.currenUser.email)
+         console.log(usu)
          store.setidUser(usu[0].idUser);
          store.setName(usu[0].name);
          store.setSurname1(usu[0].surname1);
          store.setSurname2(usu[0].surname2);
          store.setRol(usu[0].rol);
          store.setPhone(usu[0].phone);
+         store.setState(true);
+         store.setAvatar(usu[0].imgUser);
        })
        .catch((error) => {
          console.log(error.code);
@@ -92,7 +93,7 @@ onMounted(() => {
    const querySnapshotUsers = await getDocs(collection(db, "users"));
    querySnapshotUsers.forEach((doc) => {
      users.push(doc.data());
-     store.userList = users;
+     store.setUsersList(users);
    });
  }
 </script>

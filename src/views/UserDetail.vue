@@ -16,7 +16,7 @@
                 <p class="phone">{{ user[0].phone }}</p>
             </div>
             <div class="col col-md-2 item-3">
-                <button @click="deleteUser(route.params.idUser)" class="ico" v-if="store.datosUser.rol == 'Admin'"><img src="../assets/ico/delete.png" width="20" height="20"  /></button>
+                <button @click="deleteUser(route.params.idUser)" class="ico" v-if="store.currenUser.rol == 'Admin'"><img src="../assets/ico/delete.png" width="20" height="20"  /></button>
             </div>
         </div>
         <div class="container">
@@ -82,7 +82,6 @@ let user = reactive([
         email: route.params.email,
         phone: route.params.phone,
         assignment: route.params.assignment,
-
     }]);
 
 onMounted(() => {

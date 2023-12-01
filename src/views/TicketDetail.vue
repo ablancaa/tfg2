@@ -75,7 +75,8 @@
                         <div class="flex-item">
                             <span @click="showAssingment()">
                                 <img src="../assets/ico/noAsignado.png" v-if="ticket[0].technical == 'Sin Asignar'" width="50" height="50" class="">
-                                <p v-if="ticket[0].technical == 'Sin Asignar'" class="technicDates">No Asignado</p> 
+                                <p v-if="ticket[0].technical == 'Sin Asignar'" class="technicDates">No Asignado</p>
+                                <span v-if="store.currenUser.rol =='Admin'"></span>
                             </span>
                         </div>
                         <div class="flex-item" v-for="avatar in users" :key="avatar.idUser">
@@ -113,7 +114,7 @@
           </div>
           </div>
           <div class="col col-md-2 item-3">
-            <span v-if="store.datosUser.rol == 'Admin'" >
+            <span v-if="store.currenUser.rol == 'Admin'" >
                 <button @click="deleteTicket(route.params.idTicket)" ><img src="../assets/ico/delete.png" width="30" height="30"  /></button>
             </span>
           </div>
@@ -186,8 +187,11 @@ function showForm(){
 }
 function showAssingment(){
     showAssingmentModal.value = true;
+    if(store.currenUser.rol != 'Admin'){
+        alert("El usuario "+store.currenUser.email+" no tiene permisos para asignar un Técnico porque su perfil es "+store.currenUser.rol)
+        showAssingmentModal.value = false;
+    }
 }
-
 
 async function getListaUsers() {
   const querySnapshotUsers = await getDocs(collection(db, "users"));
