@@ -1,7 +1,8 @@
 <template>
     <div class="contenedor">
          <div class="row">
-           <div class="co-xs-12"> <label for="myInput" class="label">
+           <div class="co-xs-12"> 
+           <label for="myInput" class="label">
              <span class="label-title">Búsqueda</span>
              <input id="myInput" class="input" name="text" placeholder="Escribe Algo..." type="text" v-model="search">   
           <!-- <button class="input2 margen" v-if="search.length" @click="clearSearch">Borrar</button>             -->
@@ -44,6 +45,7 @@ position: relative;
 font-size: .65rem;
 transition: all .3s ease-out;
 margin-top: 10px;
+border-radius: 12px;
 }
 
 .label > .label-title {
@@ -73,7 +75,7 @@ outline: 2px solid var(--color-light);
 outline-offset: -2px;
 border-radius: 12px;
 box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25), 0 -5px 20px rgba(98, 0, 255,.1);
-scale: 1.04;
+scale: 1.00;
 transition: all .5s cubic-bezier(0,1.46,1,1.62) .3s;
 }
 
