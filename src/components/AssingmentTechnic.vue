@@ -8,7 +8,7 @@
                     <div class="idUser" v-for="tecnico in props.userList" :key="tecnico.idUser">
                         <div class="flex-Technics" >
                             <div class="flex-items-technic"  v-if="tecnico.rol == 'Técnico'"><img :src="tecnico.imgUser " class="imgUser" width="50" height="50" @click="newAssingment(tecnico.idUser)"></div>
-                            <div class="flex-items-technic"  v-if="tecnico.rol == 'Técnico'" @click="newAssingment(tecnico.idUser)">{{ tecnico.name }} {{ tecnico.surname1 }} {{ tecnico.idUser }} </div>
+                            <div class="flex-items-technic"  v-if="tecnico.rol == 'Técnico'" @click="newAssingment(tecnico.idUser)">{{ tecnico.name }} {{ tecnico.surname1 }} </div>
                         </div>
                     </div>
                 </div>
