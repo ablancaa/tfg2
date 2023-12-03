@@ -120,14 +120,13 @@
           </div>
           <div class="col col-md-2 item-3">
             <span v-if="store.currenUser.rol == 'Admin'" >
-                <button @click="deleteTicket(route.params.idTicket)" ><img src="../assets/ico/delete.png" width="30" height="30"  /></button>
+                <button @click="deleteTicket(route.params.idTicket)"><img src="../assets/ico/delete.png" width="30" height="30"  /></button>
             </span>
           </div>
           <AddComment
           v-if="showModal" 
             @close="showModal = false" 
             @newComment="addComment"/>
-           
         
       </div><!--fin container 2 -->
       <div>

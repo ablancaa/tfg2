@@ -99,14 +99,14 @@
                     </router-link>
                 </div><!--Fin col 2 usuarios-->
                 <div class="col-sm-12 col-md-4">
-                    <router-link to="/usersView" class="page-link">
+                    <router-link to="tecnicosView" class="page-link">
                     <div class="bloque-tecnicos">
                         <div class="row">
                             <div class="col">
                                 <div class="siluelta_card_peq">
                                     <img alt="Imagen tickets" class="icono" src="../assets/ico/reparar.png"
                                         width="65">
-                                    <router-link to="/usersView" class="page-link">
+                                    <router-link to="/tecnicosView" class="page-link">
                                         <p class="title">Técnicos</p>
                                     </router-link>
                                 </div>
