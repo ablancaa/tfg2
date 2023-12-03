@@ -4,33 +4,20 @@
     <div class="flex-container">
         <div class="flex-items">
             <div class="tecnicos">
-                <div v-for="tecnico in props.userList" :key="tecnico.idUser">
-                    <div class="idUser">
-                        <div class="flex-Technics">
-                            <div class="flex-items-technic"  v-if="tecnico.rol == 'Técnico'"><img :src="tecnico.imgUser " class="imgUser" width="50" height="50"></div>
-                            <div class="flex-items-technic"  v-if="tecnico.rol == 'Técnico'">{{ tecnico.name }} {{ tecnico.surname1 }} </div>
+                <span class="title"><h1>Técnicos disponibles</h1></span>
+                    <div class="idUser" v-for="tecnico in props.userList" :key="tecnico.idUser">
+                        <div class="flex-Technics" >
+                            <div class="flex-items-technic"  v-if="tecnico.rol == 'Técnico'"><img :src="tecnico.imgUser " class="imgUser" width="50" height="50" @click="newAssingment(tecnico.idUser)"></div>
+                            <div class="flex-items-technic"  v-if="tecnico.rol == 'Técnico'" @click="newAssingment(tecnico.idUser)">{{ tecnico.name }} {{ tecnico.surname1 }} {{ tecnico.idUser }} </div>
                         </div>
-
                     </div>
                 </div>
-            </div>
             <div class="mt-5 text-center">
-                <button class="btn btn-primary profile-button" type="button" @click="newAssingment">Assingment<br/> Ticket</button>
-                <button @click="emit('close')" class="btn btn-primary profile-button">Cerrar</button>
+                <!-- <button class="btn btn-primary profile-button btnmargin" type="button" @click="newAssingment">Assingment Ticket</button> -->
+                <button class="btn btn-primary profile-button" @click="emit('close')">Cerrar</button>
             </div>
         </div>
-    </div>
-    <!-- <div class="row" v-for="tecnico in props.userList" :key="tecnico.idUser">
-    <div class="col flex-items-technic"> 
-     <div class=""  v-if="tecnico.rol == 'Técnico'"><img :src="tecnico.imgUser " class="imgUser" width="50" height="50"></div>                
-    <div class="col"> 
-     <div class="flex-items-technic"  v-if="tecnico.rol == 'Técnico'">{{ tecnico.name }} {{ tecnico.surname1 }} </div></div></div>
-    </div>
-    <div class="row">
-        <button class="btn btn-primary profile-button" type="button" @click="newAssingment">Assingment<br/> Ticket</button>
-                <button @click="emit('close')" class="btn btn-primary profile-button">Cerrar</button>
-    </div> -->
-    
+    </div>    
     </div><!-- fin container -->
 </div><!-- fin Modal -->
 </template>
@@ -42,7 +29,7 @@ const hoy = new Date(tiempoTranscurrido);
 hoy.toLocaleDateString();
 
 ////const store = useDataStore();
-const emit = defineEmits(['close'])
+const emit = defineEmits(['close','technicAssignment'])
 
 const props = defineProps({
         userList: {
@@ -53,14 +40,13 @@ const props = defineProps({
 let tec = reactive([])
     
 onMounted(() => {
-       tecnicos()
-        
+       tecnicos();
     });
 
     const tecnicos = () => {
         let listaTecnicos = reactive([])
             for(let i=0; i < props.userList.length; i++){
-            console.log(props.userList[i].rol)
+            //console.log(props.userList[i].rol)
             if(props.userList[i].rol === 'Técnico'){
                 
                 tec = 
@@ -72,9 +58,13 @@ onMounted(() => {
                         listaTecnicos.push(tec)
             }
         }
-        console.log(tec)
-        console.log(listaTecnicos)
+        //console.log(tec)
+        //console.log(listaTecnicos)
         return listaTecnicos;
+        }
+
+        const newAssingment = (idUser) =>{
+            emit('technicAssignment',idUser)
         }
 </script>
 
@@ -83,10 +73,10 @@ onMounted(() => {
   background: rgba(0, 0, 0, 0.4);
   color: #fff;
   position: fixed;
-  top: 0;
+  top:0;
   left: 0;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   transition: all .10s;
   z-index: 10;
   overflow-y: scroll;
@@ -97,23 +87,26 @@ onMounted(() => {
   flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
-  align-content: normal;
-  height: 100vh;
+  align-content: center;
 }
 
 .flex-items:nth-child(1) {
-  display: block;
+  margin-top: 75px;
   border-radius: 10px;
   flex-grow: 0;
   flex-shrink: 1;
-  flex-basis: auto;
-  align-self: auto;
   order: 0;
-  width: 350px;
-  height: auto;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  width: 100%;
+  height: 100%;
   background-color: #fff;
 }
 
+.title {
+    color: black;
+}
 .idUser{
     color: black;
 }
@@ -124,21 +117,27 @@ onMounted(() => {
 }
 
 .flex-Technics {
- padding: 2px;
+  padding: 1px;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
+  align-content: center;
+  font-size: 16px;
+  width: 90%;
+  
 }
+.flex-items-technic:nth-child(2) {  
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  width: 150px;
+  /* background-color: rgb(17, 201, 100);*/
+} 
 
-.flex-items-technic:nth-child(1) {
-    display: flex;
-  background-color: rgb(23, 226, 226);
-}
+.btnmargin{
+    margin-right: 10px;
 
-.flex-items-technic:nth-child(2) {
-
-  background-color: rgb(23, 226, 226);
 }
 </style>

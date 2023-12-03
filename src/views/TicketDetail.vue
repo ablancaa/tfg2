@@ -3,7 +3,7 @@
   <div class="container">
       <br />
       <div class="titleMark"><span class="pageTitle">Ticket Nº: <span class="nticket">{{ ticket[0].idTicket }}</span></span></div>   
-      <div class="col-12 col-md-4">
+      <div class="col-12 col-md-6">
          <div class="col" v-for="user in users" :key="user.idUser">
             <div class="silueta-card" v-if="ticket[0].idUser == user.idUser">
                 <div class="flex-items">
@@ -68,16 +68,21 @@
             </div>
           </div>
             <div class="col">
-                <div class="flex-container">
+                <div class="flex-container" v-if="ticket[0].technical == 'Sin Asignar'">
                         <div class="flex-item">
                             <strong>Asignado:</strong>
                         </div>
                         <div class="flex-item">
-                            <span @click="showAssingment()">
+                            <span @click="showAssingment()" v-if="store.currenUser.rol =='Admin'">
                                 <img src="../assets/ico/noAsignado.png" v-if="ticket[0].technical == 'Sin Asignar'" width="50" height="50" class="">
                                 <p v-if="ticket[0].technical == 'Sin Asignar'" class="technicDates">No Asignado</p>
-                                <span v-if="store.currenUser.rol =='Admin'"></span>
                             </span>
+                        </div>
+                        
+                    </div>
+                    <div class="flex-container" v-if="ticket[0].technical != 'Sin Asignar'">
+                        <div class="flex-item">
+                            <strong>Asignado:</strong>
                         </div>
                         <div class="flex-item" v-for="avatar in users" :key="avatar.idUser">
                             <img :src="avatar.imgUser" v-if="ticket[0].technical == avatar.idUser" width="50" height="50" class="imgUser"> 
@@ -129,20 +134,21 @@
         <AssingmentTechnic
         v-if="showAssingmentModal" 
             @close="showAssingmentModal = false" 
-            :userList="users"/>
+            :userList="users"
+            @technicAssignment="technicAssignment"/>
       </div>
 </div> 
-<Footer/>
+<Footer />
 </template>
 
 <script setup>
 import { reactive, ref, onMounted } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { db } from "../utils/FirebaseConfig.js";
 import { collection, deleteDoc, getDocs, doc, updateDoc } from "firebase/firestore";
 import { useDataStore } from '../store/datosUser.js'
 import NavBar2 from '@/components/NavBar2.vue'
-import router from '@/router';
+//import router from '@/router';
 import AddComment from '@/components/AddComment.vue'
 import {  } from 'firebase/database';
 import Footer from '@/components/Footer.vue';
@@ -150,7 +156,7 @@ import AssingmentTechnic from '@/components/AssingmentTechnic.vue';
 //import arrayUnion from 'array-union';
 
 const store = useDataStore();// Accede al store de la apliacion 
-//const router = useRouter() //Utiliza el router.push("/")
+const router = useRouter() //Utiliza el router.push("/")
 const route = useRoute() //recibe los parámetros del router
 let refTicketEnFirebase = ref()
 let ids = reactive([]);
@@ -179,9 +185,13 @@ let ticket = reactive([
     }]);
     
 onMounted(() => {
-    getListaTickets();
+    temporizadorDeTickets();
     getListaUsers();
 });
+
+const temporizadorDeTickets = ()=> {
+   setTimeout(getListaTickets, 1000);
+}
 function showForm(){
   showModal.value = true;
 }
@@ -206,6 +216,7 @@ async function getListaTickets() {
         querySnapshotTickets.forEach((doc) => {
         tickets.push(doc.data());
     });
+    console.log(tickets);
 }
 
   async function deleteTicket(idTicket) {
@@ -272,6 +283,41 @@ const  addComment = async (newComment) => {
 
 const deleteComment = () => {
     alert("Borrar Mensaje")
+}
+
+const technicAssignment = async (idTechnic) => {
+    //Lista de id de cada ticket en Firebase
+    const querySnapshotTickets = await getDocs(collection(db, "tickets"));
+    querySnapshotTickets.forEach((doc) => {
+        ids.push(doc.id);
+    });
+
+    //Bucle para buscar la referencia del ticket elegido en firebase
+    let technicalAssignement = reactive([])
+     for (let i = 0; i < tickets.length; i++) {
+        console.log(tickets[i].idTicket)
+        console.log(route.params.idTicke)
+         if (route.params.idTicket == tickets[i].idTicket) {
+            //comentariosAnteriores.push(...tickets[i].comments)
+            refTicketEnFirebase.value = ids[i]
+        }
+     }
+    //Actualización de campo tecnico asignado del ticket
+    console.log(refTicketEnFirebase.value)
+    ticket.technical = idTechnic;
+    technicalAssignement.push(idTechnic);
+    const technicalRef = doc(db, "tickets", refTicketEnFirebase.value);
+        await updateDoc(technicalRef,{
+        technical: technicalAssignement,
+        state: "procces"     
+        });
+    //alert("Ticket Detail: "+idTechnic);
+    showAssingmentModal.value = false;
+    ticket.technical = idTechnic;
+    console.log(ticket.technical)
+    //location.reload("/ticketDetail")
+    router.push("/ticketsView")
+
 }
 
 </script>

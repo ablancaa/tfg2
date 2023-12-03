@@ -1,7 +1,7 @@
 <template>
     <div class="container">
      <div class="row">
-        <div class="col-sm-12 col-md-6 col-lg-6 marginTop " v-for="user in props.usersList" :key="user">
+        <div class="col-sm-12 col-md-12 col-lg-6 marginTop " v-for="user in props.usersList" :key="user">
         <div v-for="ticket in props.ticketList" :key="ticket.idTicket"></div>
             <router-link :to="{ name: 'userDetail', 
                           params:  { idUser: user.idUser, 
