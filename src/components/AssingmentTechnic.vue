@@ -14,7 +14,7 @@
                 </div>
             <div class="mt-5 text-center">
                 <!-- <button class="btn btn-primary profile-button btnmargin" type="button" @click="newAssingment">Assingment Ticket</button> -->
-                <button class="btn btn-primary profile-button" @click="emit('close')">Cerrar</button>
+                <button class="btn btn-dark profile-button" @click="emit('close')">Cerrar</button>
             </div>
         </div>
     </div>    
