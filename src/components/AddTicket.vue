@@ -142,7 +142,6 @@ let newTick = reactive({});
                         name:props.userList[i].name,
                         surname1: props.userList[i].surname1,
                         surname2: props.userList[i].surname2
-
                         }
                         listaTecnicos.push(tec)
        
@@ -204,23 +203,11 @@ body {
     box-shadow: none
 }
 
-.back:hover {
-    color: #000000;
-    cursor: pointer
-}
-
 .labels {
     margin-top: 10px;
     font-size: 16px;
     color:#000000;
     font-weight: 600;
-}
-
-.add-experience:hover {
-    background: #BA68C8;
-    color: #ffffff;
-    cursor: pointer;
-    border: solid 1px #BA68C8
 }
 
 .titleMark{
