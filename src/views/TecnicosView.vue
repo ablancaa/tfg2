@@ -6,16 +6,34 @@
             <table class="table">
             <thead class="thead-dark">
                 <tr>
-                <th>Profile</th>
-                <th scope="col">Assignment</th>
-                <th scope="col">Ticket</th>
+                <th>Técnico</th>
+                <th scope="col">Tickets</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="tecnico in users" :key="tecnico.idUser">
-                <td v-if=" tecnico.rol == 'Técnico'"><img :src="tecnico.imgUser" width="45" height="45" class="imgUser"><br/>{{ tecnico.name }} {{ tecnico.surname1 }}</td>
-                <td v-if=" tecnico.rol == 'Técnico'" class="table-info">{{ tecnico.assignment }}</td>
-                <td v-if=" tecnico.rol == 'Técnico'">44444444444</td>
+                <td v-if=" tecnico.rol == 'Técnico'"><img :src="tecnico.imgUser" width="45" height="45" class="imgUser"><br/>{{ tecnico.name }} {{ tecnico.surname1 }} <span class="idUser"><br/>{{ tecnico.idUser }}</span></td>
+                <td v-if=" tecnico.rol == 'Técnico'">
+                    <span v-for="ticket in ticketsList" :key="ticket.idTicket">
+                        <p v-if="tecnico.idUser == ticket.technical[0]">
+                            <router-link :to="{ name: 'ticketDetail', 
+                            params:  {  idTicket: ticket.idTicket, title: ticket.title, 
+                                        description: ticket.description, 
+                                        category: ticket.category, 
+                                        state: ticket.state,
+                                        priority: ticket.priority, 
+                                        date: ticket.date, 
+                                        idUser: ticket.idUser,
+                                        comments:  JSON.stringify(ticket.comments),
+                                        technical: ticket.technical[0], //Es un array que puede contener más de un técnico
+                                        }}" class="page-link">
+                                <img src="../assets/ico/logoTicketBlack.png" width="40" height="40"/>
+                                <u><em>{{ ticket.idTicket }}</em></u>
+
+                            </router-link>
+                        </p>
+                    </span>
+                </td>
                 </tr>
             </tbody>
             </table>
@@ -31,19 +49,23 @@ import { db } from "../utils/FirebaseConfig.js"
 import { collection, getDocs } from "firebase/firestore";
 
 let users = reactive([]);
+let ticketsList = reactive([]);
 
 onMounted(() => {
     getListados();
-  
 });
 
 
 const getListados = async () => {
     const querySnapshotUsers = await getDocs(collection(db, "users"));
     querySnapshotUsers.forEach((doc) => {
-        users.push(doc.data());
-      
+        users.push(doc.data());     
 });
+    const querySnapshotTickets = await getDocs(collection(db, "tickets"));
+    querySnapshotTickets.forEach((doc) => {
+        ticketsList.push(doc.data());      
+});
+
 }
 
 
@@ -66,6 +88,10 @@ const getListados = async () => {
 .imgUser {
     border-radius: 50%;
     border: 2px solid rgb(0, 0, 0);
+}
+.idUser {
+    color:black;
+    font-size: 10px;
 }
 table tr {
     vertical-align: middle;
