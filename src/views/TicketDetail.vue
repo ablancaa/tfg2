@@ -118,9 +118,8 @@
         </div>
         <div class="col">
           <div class="flex-container" v-if="ticket[0].technical == 'Sin Asignar'">
-          
             <div class="flex-item" @click="showAssingment()">
-              <strong>Asignado:</strong>
+              <strong>Asignado:</strong><br/>
               <img
                   src="../assets/ico/noAsignado.png"
                   v-if="ticket[0].technical == 'Sin Asignar'"
@@ -128,7 +127,7 @@
                   height="50"
                   class=""
                 />
-                <p v-if="ticket[0].technical == 'Sin Asignar'" class="technicDates">
+                <p v-if="ticket[0].technical == 'Sin Asignar'">
                   No Asignado
                 </p>
             </div>
@@ -156,8 +155,9 @@
         </div>
         
       </div>
-    
-      <hr />
+      </div><!-- fin container -->
+      <br/>
+      <div class="container">
       <div class="row">
         <div class="col">
           <p class="titleTicket">
@@ -389,10 +389,10 @@ const addComment = async (newComment) => {
     comments: comentariosAnteriores,
   });
 
-  console.log(refTicketEnFirebase.value);
-  console.log(comentariosAnteriores);
+  //console.log(refTicketEnFirebase.value);
+  //console.log(comentariosAnteriores);
+  
   location.reload("/ticketDetail");
-  //router.push("/ticketsView")
 };
 
 const deleteComment = () => {
@@ -442,11 +442,9 @@ const technicAssignment = async (idTechnic) => {
     state: "active",
     comments: arrayUnion(comment) 
   });
-  console.log(route.params)
+  
   showAssingmentTechnicModal.value = false;
-  console.log(ticket.technical);
-  location.reload();
-  //router.push("/ticketsDetail");
+  router.push("/ticketsView");
 };
 
 const showState = () => {
@@ -503,6 +501,8 @@ const assignmentState = async (newState) => {
         state: newState,
         comments:  arrayUnion(com),
       });
+      
+      route.params.state = newState
       break;
     case "active":
     com = {
@@ -514,6 +514,7 @@ const assignmentState = async (newState) => {
         state: newState,
         comments:  arrayUnion(com),
       });
+      route.params.state = newState
       console.log("El Estado es ACTIVE");
       break;
     case "end":
@@ -526,6 +527,7 @@ const assignmentState = async (newState) => {
         state: newState,
         comments:  arrayUnion(com),
       });
+      route.params.state = newState
       console.log("El Estado es END");
       break;
     default:
@@ -535,13 +537,14 @@ const assignmentState = async (newState) => {
   }
 
    
-   
+  console.log(newState);
     console.log(refTicketEnFirebase.value);
     
     
     
-  alert("Se a cambiado es estado a: "+newState);
-  location.reload();
+  //alert("Se a cambiado es estado a: "+newState);
+  //route.params.state = newState.value
+  router.push("/ticketsView");
 };
 
 const assignmentPriority = (priority) => {

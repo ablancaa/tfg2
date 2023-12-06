@@ -29,7 +29,6 @@
                                         }}" class="page-link">
                                 <img src="../assets/ico/logoTicketBlack.png" width="40" height="40"/><br/>
                                 <u><em>{{ ticket.idTicket }}</em></u>
-
                             </router-link>
                         </p>
                     </span>
@@ -67,9 +66,6 @@ const getListados = async () => {
 });
 
 }
-
-
-
 </script>
 
 <style  scoped>
