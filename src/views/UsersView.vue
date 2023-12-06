@@ -1,6 +1,6 @@
 <template>
     <NavBar2/>
-    <div class="container">
+    <div class="container header-fijo">
         <br/>
         <div class="titleMark"><span class="pageTitle">Users View</span></div>
         <div class="searchbar"><SearchBar v-on:search="setSearchTerm"/></div>
@@ -205,6 +205,14 @@ querySnapshotTickets.forEach((doc) => {
     height: 55px;
     width: 100%;
     background-color: rgb(0, 0, 0); 
+}
+.header-fijo {
+  min-width: 100%;
+  position: fixed;
+  height: auto;
+  width: auto;
+  z-index: 3;
+  background-color: #ffffff;
 }
 .header-opciones{
     margin-top: 10px;
