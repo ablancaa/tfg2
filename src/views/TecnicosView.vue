@@ -27,7 +27,7 @@
                                         comments:  JSON.stringify(ticket.comments),
                                         technical: ticket.technical[0], //Es un array que puede contener más de un técnico
                                         }}" class="page-link">
-                                <img src="../assets/ico/logoTicketBlack.png" width="40" height="40"/>
+                                <img src="../assets/ico/logoTicketBlack.png" width="40" height="40"/><br/>
                                 <u><em>{{ ticket.idTicket }}</em></u>
 
                             </router-link>
