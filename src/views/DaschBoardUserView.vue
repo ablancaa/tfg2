@@ -25,6 +25,10 @@
                             <span class="num-contador"><span class="circulo-verde">{{ contadorUsuario[0].ticketsUserEnd }}</span></span><br/> 
                         </div>
                         <div class="col">
+                            <strong v-if="store.currenUser.rol == 'Técnico'">Asignados:</strong> 
+                            <span class="num-contador" v-if="store.currenUser.rol == 'Técnico'">
+                                <span class="circulo-verde">{{ contadorUsuario[0].ticketsAssignment }}</span>
+                            </span><br/><br/>
                             <img src="../assets/ico/notificacion.png" width="40" height="40" class="ico"/>
                             <span class="num-contador"><span class="circulo-notificaciones">25</span></span> 
                             <!-- <span class="num-contador"><span class="circulo-verde">{{ ticketsUsuario.length }}</span></span> -->
@@ -55,7 +59,7 @@
             <hr />
             <div class="historico" v-if="store.currenUser.rol == 'Técnico'"><span class="pageTitle">Tickets Asignados</span></div>
             <div class="row">
-                <div class="col-12" v-for=" ticket in tickets" :key="ticket.idUser">
+                <div class="col-sm-12" v-for=" ticket in tickets" :key="ticket.idUser">
                     <router-link :to="{ name: 'ticketDetail', 
                         params:  { 
                                     idTicket: ticket.idTicket,
@@ -143,6 +147,7 @@ let contadorUsuario = reactive([
          ticketsUserActive: 0,
          ticketsUserEnd: 0,
          ticketsUserWait: 0,
+         ticketsAssignment: 0,
      }
  ]);
 let contadores = reactive([
@@ -231,11 +236,13 @@ let contadores = reactive([
         let ticketEnd = tickets.filter(ticket => ticket.state == "end")
         let ticketActive = tickets.filter(ticket => ticket.state == "active")
         let ticketWait = tickets.filter(ticket => ticket.state == "wait")
+        
         contadores[1].ticketsNum = tickets.length
         contadores[1].ticketsProgress = ticketProcces.length
         contadores[1].ticketsEnd = ticketEnd.length
         contadores[1].ticketsActive = ticketActive.length
         contadores[1].ticketsWait = ticketWait.length
+        
         
     });
     localStorage.tickets = JSON.stringify(contadores[1]);
@@ -293,13 +300,14 @@ async function getListaTicketsDelUsuario() {
  let ticketActive = tickets.filter(ticket => ticket.state == "active" && ticket.idUser == store.currenUser.idUser)
  let ticketWait = tickets.filter(ticket => ticket.state == "wait" && ticket.idUser == store.currenUser.idUser)
  let ticketEnd = tickets.filter(ticket => ticket.state == "end" && ticket.idUser == store.currenUser.idUser)
-
+ let ticketAssignment = tickets.filter(ticket => ticket.technical[0] == store.currenUser.idUser)
   console.log(ticketProcces.length)
   console.log(ticketActive.length)
   console.log(ticketWait.length)
   console.log(ticketEnd.length)
   console.log(ticketsUsu);
-
+  console.log(ticketAssignment.length);
+  contadorUsuario[0].ticketsAssignment = ticketAssignment.length;
  for (let i=0; i <  ticketsUsu.length; i++){
     if(ticketsUsu[i].idUser == store.currenUser.idUser){
         // if(ticketsUsu[i].state == "procces"){
@@ -312,12 +320,12 @@ async function getListaTicketsDelUsuario() {
             contadorUsuario[0].ticketsUserWait = ticketWait.length;
             contadorUsuario[0].ticketsUserActive = ticketActive.length;
             contadorUsuario[0].ticketsUserEnd = ticketEnd.length;
-            
         //}
     }
     //console.log(ticketsUsu[i])
     ticketsUsuario.push(ticketsUsu[i])
     console.log(ticketsUsuario)
+    
  }
  
  
