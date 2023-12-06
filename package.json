@@ -13,6 +13,7 @@
     "chart.js": "^4.4.0",
     "core-js": "^3.8.3",
     "firebase": "^10.5.2",
+    "onesignal-vue": "^2.0.1",
     "pinia": "^2.1.7",
     "pinia-plugin-persist": "^1.0.0",
     "pinia-plugin-persistedstate": "^3.2.0",

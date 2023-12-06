@@ -253,7 +253,8 @@ const hoy = new Date(tiempoTranscurrido);
 hoy.toLocaleDateString();
 
 let refTicketEnFirebase = ref();
-let ids = reactive([]);
+let idsTickets = reactive([]);
+let idsUsers = reactive([]);
 let tickets = reactive([]);
 let users = reactive([]);
 let comments = reactive([]);
@@ -337,7 +338,7 @@ async function deleteTicket(idTicket) {
   console.log(idTicket);
   const querySnapshotClients = await getDocs(collection(db, "tickets"));
   querySnapshotClients.forEach((doc) => {
-    ids.push(doc.id);
+    idsTickets.push(doc.id);
     users.push(doc.data());
   });
 
@@ -345,7 +346,7 @@ async function deleteTicket(idTicket) {
     if (idTicket == tickets[i].idTicket) {
       //console.log(ids[i])
       //console.log(users[i].idUser)
-      refTicketEnFirebase.value = ids[i];
+      refTicketEnFirebase.value = idsTickets[i];
       //console.log(refUsuarioEnFirebase.value)
     }
   }
@@ -358,7 +359,7 @@ const addComment = async (newComment) => {
   //Lista de id de cada ticket en Firebase
   const querySnapshotTickets = await getDocs(collection(db, "tickets"));
   querySnapshotTickets.forEach((doc) => {
-    ids.push(doc.id);
+    idsTickets.push(doc.id);
   });
 
   //Bucle para buscar los comentarios del ticket elegido
@@ -367,7 +368,7 @@ const addComment = async (newComment) => {
     console.log(tickets[i].idTicket);
     if (route.params.idTicket == tickets[i].idTicket) {
       comentariosAnteriores.push(...tickets[i].comments);
-      refTicketEnFirebase.value = ids[i];
+      refTicketEnFirebase.value = idsTickets[i];
     }
   }
 
@@ -404,7 +405,15 @@ const technicAssignment = async (idTechnic) => {
   //Lista de id de cada ticket en Firebase
   const querySnapshotTickets = await getDocs(collection(db, "tickets"));
   querySnapshotTickets.forEach((doc) => {
-    ids.push(doc.id);
+    idsTickets.push(doc.id);
+  });
+
+  //Lista de id de cada usuario en Firebase
+  const querySnapshotUsers = await getDocs(collection(db, "users"));
+  let user = reactive([])
+  querySnapshotUsers.forEach((doc) => {
+    idsUsers.push(doc.id);
+    user.push(doc.id);
   });
 
   //Bucle para buscar la referencia del ticket elegido en firebase
@@ -413,7 +422,7 @@ const technicAssignment = async (idTechnic) => {
     //console.log(tickets[i].idTicket);
     //console.log(route.params.idTicke);
     if (route.params.idTicket == tickets[i].idTicket) {
-      refTicketEnFirebase.value = ids[i];
+      refTicketEnFirebase.value = idsTickets[i];
     }
   }
   ticket.technical = idTechnic;
@@ -423,9 +432,15 @@ const technicAssignment = async (idTechnic) => {
     //console.log(tickets[i].idTicket);
     if (route.params.idTicket == tickets[i].idTicket) {
       comentariosAnteriores.push(...tickets[i].comments);
-      refTicketEnFirebase.value = ids[i];
+      refTicketEnFirebase.value = idsTickets[i];
     }
   }
+  let userIdFirebase =''
+  for (let i=0; i < users.length; i++){
+    if(users[i].idUser == idTechnic)
+      console.log(idsUsers[i]);
+      userIdFirebase = idsUsers[i];
+    }
   
   //Actualización de campo tecnico asignado del ticket y mensaje de ticket activo al usuario
   console.log(refTicketEnFirebase.value);
@@ -442,7 +457,11 @@ const technicAssignment = async (idTechnic) => {
     state: "active",
     comments: arrayUnion(comment) 
   });
-  
+
+   const technicalAssingmentRef = doc(db, "users", userIdFirebase);
+   await updateDoc(technicalAssingmentRef, {
+     assignment: true, 
+   });
   showAssingmentTechnicModal.value = false;
   router.push("/ticketsView");
 };
@@ -463,7 +482,7 @@ const assignmentState = async (newState) => {
   //Lista de id de cada ticket en Firebase
   const querySnapshotTickets = await getDocs(collection(db, "tickets"));
   querySnapshotTickets.forEach((doc) => {
-    ids.push(doc.id);
+    idsTickets.push(doc.id);
   });
     //console.log(newState)
     //Bucle para buscar la referencia del ticket elegido en firebase
@@ -471,7 +490,7 @@ const assignmentState = async (newState) => {
         //console.log(tickets[i].idTicket);
         //console.log(route.params.idTicket);
         if (route.params.idTicket == tickets[i].idTicket) {
-        refTicketEnFirebase.value = ids[i];
+        refTicketEnFirebase.value = idsTickets[i];
         }
     }
 
