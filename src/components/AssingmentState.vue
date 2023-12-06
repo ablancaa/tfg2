@@ -1,10 +1,12 @@
 <template>
   <div id="modal">
     <div class="container">
+      <br/>
+      <div class="titleMark"><span class="pageTitle">Estados</span></div>
       <div class="flex-container">
         <div class="flex-items">
           <div class="tecnicos">
-            <span class="title"><h1>Estados disponibles</h1></span>
+            <span class="title"><h1></h1></span>
 
             <div class="flex-item">
               <strong>Estado:</strong>
@@ -153,8 +155,16 @@ p {
   width: 150px;
   /* background-color: rgb(17, 201, 100);*/
 }
-
-.btnmargin {
-  margin-right: 10px;
+.titleMark {
+    margin-top: 50px;
+    border-radius: 10px;
+    height: 55px;
+    width: 100%;
+    background-color: rgb(0, 0, 0);
+}
+.pageTitle {
+    color: #ffffff;
+    font-size: 38px;
+    font-weight: 700;
 }
 </style>

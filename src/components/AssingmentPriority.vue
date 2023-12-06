@@ -1,13 +1,14 @@
 <template>
 <div id="modal">
     <div class="container">
+    <br/>
+      <div class="titleMark"><span class="pageTitle">Prioridades</span></div>
     <div class="flex-container">
         <div class="flex-items">
             <div class="tecnicos">
-                <span class="title"><h1>Prioridades disponibles</h1></span>
-                
+                <span class="title"><h1></h1></span> 
             <div class="flex-item">
-              <strong>Prioridad:</strong>
+              <strong></strong>
             </div>
             <div class="flex-item">
               <img
@@ -15,25 +16,34 @@
                 width="50"
                 height="50"
                 @click="newPriority('normal')"/>
-                <p>Normal</p>
+                <div>Normal</div>
+              </div>
+              <br/>
+              <div class="flex-item">
               <img
                 src="../assets/ico/urgente.png"
                 width="50"
                 height="50"
                 @click="newPriority('urgente')"/>
-                <p>Urgente</p>
+                <div class>Urgente</div>
+              </div>
+              <br/>
+              <div class="flex-item">
               <img
                 src="../assets/ico/critico.png"
                 width="50"
                 height="50"
-                @click="newPriority('critico')"/>
-                <p>Crítico</p>
+                @click="newPriority('critico')"/> 
+                <div>Crítico</div>
+                </div>
+                <br/>
+                <div class="flex-item">
               <img
                 src="../assets/ico/importante.png"
                 width="50"
                 height="50"
                 @click="newPriority('importante')"/>
-                <p>Importante</p>
+                <div>Importante</div>
             </div>   
           </div>
             <div class="mt-5 text-center">
@@ -113,44 +123,32 @@ p{
   justify-content: center;
   align-items: center;
   align-content: center;
-  width: 100%;
+  width: 85%;
   height: 100%;
   background-color: #fff;
+  color:rgb(0, 0, 0)
 }
 
 .title {
     color: black;
 }
-.idUser{
-    color: black;
-}
-.imgUser{
-    border-radius: 50%;
-    border: 2px solid rgb(2, 30, 132);
-    margin: 0px 10px 0px 5px;
+
+.title {
+    font-size: 20px;
+    font-weight: 700;
 }
 
-.flex-Technics {
-  padding: 1px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
-  font-size: 16px;
-  width: 90%;
-  
+.titleMark {
+    margin-top: 50px;
+    border-radius: 10px;
+    height: 55px;
+    width: 100%;
+    background-color: rgb(0, 0, 0);
 }
-.flex-items-technic:nth-child(2) {  
-  justify-content: center;
-  align-items: center;
-  align-content: center;
-  width: 150px;
-  /* background-color: rgb(17, 201, 100);*/
-} 
+.pageTitle {
+    color: #ffffff;
+    font-size: 38px;
+    font-weight: 700;
+}
 
-.btnmargin{
-    margin-right: 10px;
-}
 </style>

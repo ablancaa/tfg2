@@ -1,10 +1,12 @@
 <template>
 <div id="modal">
     <div class="container">
+        <br/>
+      <div class="titleMark"><span class="pageTitle">Técnicos</span></div>
     <div class="flex-container">
         <div class="flex-items">
             <div class="tecnicos">
-                <span class="title"><h1>Técnicos disponibles</h1></span>
+                <span class="title"><h1></h1></span>
                     <div class="idUser" v-for="tecnico in props.userList" :key="tecnico.idUser">
                         <div class="flex-Technics" >
                             <div class="flex-items-technic"  v-if="tecnico.rol == 'Técnico'"><img :src="tecnico.imgUser " class="imgUser" width="50" height="50" @click="newAssingment(tecnico.idUser)"></div>
@@ -135,9 +137,16 @@ onMounted(() => {
   width: 150px;
   /* background-color: rgb(17, 201, 100);*/
 } 
-
-.btnmargin{
-    margin-right: 10px;
-
+.titleMark {
+    margin-top: 50px;
+    border-radius: 10px;
+    height: 55px;
+    width: 100%;
+    background-color: rgb(0, 0, 0);
+}
+.pageTitle {
+    color: #ffffff;
+    font-size: 38px;
+    font-weight: 700;
 }
 </style>
