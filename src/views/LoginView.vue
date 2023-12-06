@@ -15,9 +15,9 @@
               <input type="text" placeholder="Email" v-model="email" /><br /><br />
               <input type="text" placeholder="Password" v-model="password" /><br /><br />
               <button class="btn btn-dark" @click="login">Login</button><br />
-              <router-link to="/register">
+             <!-- <router-link to="/register">
                 <div><br/>Register</div>
-              </router-link>
+              </router-link> -->
         </form>
     </div>
     <div class="item3">
@@ -64,7 +64,7 @@ onMounted(() => {
     signInWithEmailAndPassword(auth, email.value, password.value)
       .then((userCredential) => {
       const user = userCredential.user;
-      console.log("Successfully registered!");
+      //console.log("Successfully registered!");
       store.setEmail(user.email);
         if (user.email == "ablancaa@gmail.com") {
           router.push("/dashBoardAdmin")
@@ -72,7 +72,7 @@ onMounted(() => {
           router.push("/dashBoardUser")
         }
          let usu = store.userList.filter((usu) => usu.email == store.currenUser.email)
-         console.log(usu)
+         //console.log(usu)
          store.setidUser(usu[0].idUser);
          store.setName(usu[0].name);
          store.setSurname1(usu[0].surname1);

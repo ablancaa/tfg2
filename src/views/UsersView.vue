@@ -31,6 +31,8 @@ import SearchBar from '@/components/SearchBar.vue'
 import UsersList from '@/components/UsersList.vue'
 import AddUser from "@/components/AddUser.vue"
 import Footer from '@/components/Footer.vue'
+import {getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import "firebase/auth";
 import { reactive, onMounted, ref, computed } from "vue";
 import { db, getDocs } from "../utils/FirebaseConfig.js"
 import { collection, addDoc, deleteDoc, doc } from "firebase/firestore";
@@ -119,6 +121,17 @@ async function addUser(newUser){
       email: newUser.email,
       state: newUser.state,
     });
+    let passwordDefecto = '123456';
+    await createUserWithEmailAndPassword(getAuth(), newUser.email, passwordDefecto)
+            .then((data)=> {
+                alert("Successfully registered!"+data.getAuth);
+                
+            })
+            .catch((error)=>{
+                console.log(error.code);
+                alert(error.message);
+            })
+
     
     //console.log("Document written with ID: ", docRef.id);
     //console.log(newUser);
@@ -141,7 +154,16 @@ async function addUser(newUser){
       email: newUser.email,
       state: newUser.state,
     });
-
+    await createUserWithEmailAndPassword(getAuth(), newUser.email, '123456')
+            .then((data)=> {
+                alert("Successfully registered!"+data.getAuth);
+                
+            })
+            .catch((error)=>{
+                console.log(error.code);
+                alert(error.message);
+            })
+    
     //console.log("Document written with ID: ", docRef.id);
     //console.log(newUser)
     } catch (e) {
