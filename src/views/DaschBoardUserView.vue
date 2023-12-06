@@ -22,8 +22,7 @@
                             <strong>En proceso:</strong> 
                             <span class="num-contador"><span class="circulo-verde">{{ contadorUsuario[0].ticketsUserProcces }}</span></span><br/>
                             <strong>Finalizados:</strong> 
-                            <span class="num-contador"><span class="circulo-verde">{{ contadorUsuario[0].ticketsUserEnd }}</span></span><br/>
-                            
+                            <span class="num-contador"><span class="circulo-verde">{{ contadorUsuario[0].ticketsUserEnd }}</span></span><br/> 
                         </div>
                         <div class="col">
                             <img src="../assets/ico/notificacion.png" width="40" height="40" class="ico"/>
@@ -54,6 +53,32 @@
     <div class="row">
         <div class="col-xs-12 col-md-12 col-lg-12 contenFlex">
             <hr />
+            <div class="historico" v-if="store.currenUser.rol == 'Técnico'"><span class="pageTitle">Tickets Asignados</span></div>
+            <div class="row">
+                <div class="col-12" v-for=" ticket in tickets" :key="ticket.idUser">
+                    <router-link :to="{ name: 'ticketDetail', 
+                        params:  { 
+                                    idTicket: ticket.idTicket,
+                                    title: ticket.title,
+                                    description: ticket.description,
+                                    category: ticket.category,
+                                    state: ticket.state,
+                                    priority: ticket.priority,
+                                    date: ticket.date,
+                                    idUser: ticket.idUser,
+                                    comments:  JSON.stringify(ticket.comments),
+                                    technical: ticket.technical[0],
+                                }}" class="page-link">  
+                    <div class="silueta-ticket" v-if="ticket.technical[0] == store.currenUser.idUser">
+                        <p class="info"><strong>{{ ticket.idTicket }}</strong><br/>
+                        <span class="title ">{{ ticket.title }}</span><br/>
+                        <span class="info ">{{ ticket.state }}</span> <br/>
+                        <span class="info ">{{ ticket.date}}</span></p>
+                    </div>
+                    </router-link>
+                </div>
+            </div>
+            <br/>
             <div class="historico"><span class="pageTitle">Histórico</span></div>
             <div class="bloque-tickets">
             <div class="row">
