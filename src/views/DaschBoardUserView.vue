@@ -25,7 +25,7 @@
                             <span class="num-contador"><span class="circulo-verde">{{ contadorUsuario[0].ticketsUserEnd }}</span></span><br/> 
                         </div>
                         <div class="col">
-                            <strong v-if="store.currenUser.rol == 'Técnico'">Asignados:</strong> 
+                            <strong v-if="store.currenUser.rol == 'Técnico' || store.currenUser.rol == 'Admin'">Asignados:</strong> 
                             <span class="num-contador" v-if="store.currenUser.rol == 'Técnico'">
                                 <span class="circulo-verde">{{ contadorUsuario[0].ticketsAssignment }}</span>
                             </span><br/><br/>

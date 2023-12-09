@@ -10,17 +10,6 @@ import { defineStore } from 'pinia'
 export const useDataStore  = defineStore('datosUser',{
     state: () => {
         return {
-            // datosUser: [{
-            //     idUser: '',
-            //     avatar: '',
-            //     name: '',
-            //     surname1:'',
-            //     surname2:'',
-            //     email: '',
-            //     rol: '',
-            //     phone: '',
-            //     state: false,               
-            // }],
             currenUser: [{
                 idUser: '',
                 avatar: '',
@@ -31,7 +20,8 @@ export const useDataStore  = defineStore('datosUser',{
                 rol: '',
                 phone: '',
                 state: false,
-                firebaseRef:''               
+                firebaseRef:'',
+                firebaseMessaging:'',              
             }],
             userList: [{}],
             ticketList: [],
@@ -49,8 +39,8 @@ export const useDataStore  = defineStore('datosUser',{
                 'currenUser.surname2',
                 'currenUser.state',
                 'currenUser.firebaseRef',
+                'currenUser.firebaseMessaging',
                 'userList',
-                
             ],
     },
     getters: {
@@ -91,11 +81,15 @@ export const useDataStore  = defineStore('datosUser',{
             this.currenUser.state = state;
         },
         setFirebaseRefCurrenUser(ref){
-            this.currenUser.firebaseRef = ref
+            this.currenUser.firebaseRef = ref;
+        },
+        setfirebaseMessagingRef(messaging){
+            this.currenUser.firebaseMessaging = messaging;
         },
         setUsersList(lista){
-            this.userList=lista
+            this.userList = lista;
         },
+       
         getUsersList: () => {
             return this.userList;
         },

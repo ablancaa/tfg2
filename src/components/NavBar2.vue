@@ -33,7 +33,7 @@
 
 <script setup>
 import { useDataStore } from '../store/datosUser.js'
-import { ref, onMounted, onBeforeMount } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { db } from "../utils/FirebaseConfig.js"
 import { updateDoc, doc } from "firebase/firestore";
@@ -44,6 +44,7 @@ const router = useRouter();
  let userCurrenAvatar = ref(store.currenUser.avatar)
  let userCurrenIdUser = ref(store.currenUser.idUser)
  let userCurrenRol = ref(store.currenUser.rol)
+ let userFirebaseMessagingRef = ref(store.currenUser.firebaseMessaging)
  let userFirebaseRef = ref(store.currenUser.firebaseRef)
 
   onMounted(() => {
@@ -52,17 +53,20 @@ const router = useRouter();
     userCurrenIdUser = ref(store.currenUser.idUser);
     userCurrenRol = ref(store.currenUser.rol);
     userFirebaseRef = ref(store.currenUser.firebaseRef);
+    userFirebaseMessagingRef = ref(store.currenUser.firebaseMessaging);
   });
 
-  onBeforeMount(()=>{})
+  //onBeforeMount(()=>{})
   
   console.log("Email: "+userCurrenEmail.value)
   console.log("Avatar: "+userCurrenAvatar.value)
   console.log("IdUser: "+userCurrenIdUser.value)
   console.log("Rol: "+userCurrenRol.value)
   console.log("Firebase Ref: "+userFirebaseRef.value)
+  console.log("Firebase Messaging Ref: "+userFirebaseMessagingRef.value)
  
-const exit =  () => {
+const exit = () => {
+  
   store.setEmail('');
   store.setidUser('');
   store.setRol('');
@@ -73,6 +77,10 @@ const exit =  () => {
   store.setSurname2('');
   store.setPhone('');
   changeStateUser();
+  store.setFirebaseRefCurrenUser('');
+  store.setfirebaseMessagingRef('');
+  store.setUsersList([]);
+ 
   localStorage.removeItem("tickets");
   localStorage.removeItem("usuarios");
   localStorage.removeItem("usersList");

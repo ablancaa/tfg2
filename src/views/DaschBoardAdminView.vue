@@ -145,7 +145,7 @@ import NavBar2 from '@/components/NavBar2.vue'
 import Footer from '@/components/Footer.vue'
 
 import { reactive, onMounted, onUpdated, onBeforeUnmount,ref } from "vue";
-import { db } from "../utils/FirebaseConfig.js"
+import { db, tokenMessaging } from "../utils/FirebaseConfig.js"
 import { collection, getDocs, updateDoc, doc } from "firebase/firestore";
 import Chart from 'chart.js/auto';
 import { useDataStore } from '../store/datosUser.js'
@@ -194,18 +194,22 @@ const temporizadorDeContadores = ()=> {
 }
 
 
-onMounted(() => {
+onMounted( () =>  {
     //getListados();
+    //datosUsuarioLogado();
     temporizadorDeContadores();
     temporizadorDeRetrasoGraficas();
-    refUserEnFirebase.value = firebaseUserRef()
-   
+    firebaseUserRef();
+    store.setFirebaseRefCurrenUser(refUserEnFirebase.value);
+    //console.log(refUserEnFirebase.value)
+    //console.log(tokenMessaging)
+    //store.setfirebaseMessagingRef(tokenMessaging);
+    //store.setFirebaseRefCurrenUser(refUserEnFirebase.value)
 });
 
 onUpdated(() => {
       
 });
-
 
 onBeforeUnmount(()=>{
 
@@ -316,9 +320,11 @@ const pintaGraficas = () => {
     });
 }
 
-//Función para que los datos del usuario sean persistentes en el store
-const datosUsuarioLogado =  (lista) => {
 
+
+//Función para que los datos del usuario sean persistentes en el store
+const datosUsuarioLogado = (lista) => {
+    //firebaseUserRef();
     store.setUsersList(lista);  
     const usuario = lista.filter((item) => item.email === store.currenUser.email);
     
@@ -332,7 +338,10 @@ const datosUsuarioLogado =  (lista) => {
     store.setRol(currenUser[0].rol);
     store.setPhone(currenUser[0].phone);
     store.setState(true);
-    store.setFirebaseRefCurrenUser(refUserEnFirebase.value)
+    store.setfirebaseMessagingRef(tokenMessaging);
+    console.log(refUserEnFirebase.value);
+    store.setFirebaseRefCurrenUser(refUserEnFirebase.value);
+ 
 }
 
 //Función para buscar el número de referencia del usuario en Firebase
@@ -352,11 +361,17 @@ const firebaseUserRef = async () => {
     //Actualización de campo State del usuario para que marque como activo
     const stateRef = doc(db, "users", refUserEnFirebase.value);
       await updateDoc(stateRef,{
-        state: true,     
+        state: true,
+        //firebaseRef: refUserEnFirebase.value    
     });
     //Variable que carga el id de firebase del usuario
+    //console.log(refUserEnFirebase.value)
+   
     refUserFire.value = refUserEnFirebase.value
+    store.setFirebaseRefCurrenUser(refUserEnFirebase.value)
+    
 }
+
 </script>
 
 

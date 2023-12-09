@@ -130,12 +130,9 @@ async function getListaTickets() {
     });
 }
 async function addTicket(newTicket){
-
-    //console.log(newTicket);
     
     try {
       
-
     const docRef = await addDoc(collection(db, "tickets"), {
       //idTicket: newTicket.idTicket,
       idTicket: newTicket.idTicket,

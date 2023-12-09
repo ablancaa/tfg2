@@ -177,7 +177,7 @@
                   <p class="titleTicket">{{ comen.email }} | {{ comen.date }}</p>
                   <p>{{ comen.comment }}</p>
                   <div class="btnComment">
-                    <button @click="deleteComment()">
+                    <button @click="deleteComment(comen)">
                       <img src="../assets/ico/delete.png" width="15" height="15" />
                     </button>
                   </div>
@@ -235,7 +235,7 @@
 import { reactive, ref, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { db } from "../utils/FirebaseConfig.js";
-import { collection, deleteDoc, getDocs, doc, updateDoc, arrayUnion } from "firebase/firestore";
+import { collection, deleteDoc, getDocs, doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 import { useDataStore } from "../store/datosUser.js";
 import NavBar2 from "@/components/NavBar2.vue";
 import AddComment from "@/components/AddComment.vue";
@@ -396,8 +396,32 @@ const addComment = async (newComment) => {
   location.reload("/ticketDetail");
 };
 
-const deleteComment = () => {
-  alert("Borrar Mensaje");
+const deleteComment = async (comentario) => {
+  console.log(comentario);
+   //Lista de id de cada ticket en Firebase
+   const querySnapshotTickets = await getDocs(collection(db, "tickets"));
+  querySnapshotTickets.forEach((doc) => {
+    idsTickets.push(doc.id);
+  });
+
+  //Bucle para buscar los comentarios del ticket elegido
+  let comentariosAnteriores = reactive([]);
+  for (let i = 0; i < tickets.length; i++) {
+    console.log(tickets[i].idTicket);
+    if (route.params.idTicket == tickets[i].idTicket) {
+      comentariosAnteriores.push(...tickets[i].comments);
+      refTicketEnFirebase.value = idsTickets[i];
+    }
+  }
+  console.log(comentariosAnteriores.length)
+  console.log(refTicketEnFirebase.value)
+   //Actualización de campo comentarios del ticket
+   const comentariosRef = doc(db, "tickets", refTicketEnFirebase.value);
+  await updateDoc(comentariosRef, {
+    comments: arrayRemove(comentario),
+  });
+  location.reload("/ticketDetail");
+  //alert("Borrar Mensaje");
 };
 
 const technicAssignment = async (idTechnic) => {
@@ -567,7 +591,7 @@ const assignmentState = async (newState) => {
 };
 
 const assignmentPriority = (priority) => {
-    alert("Ticket detail Pprioridad: "+ priority);
+    alert("Ticket detail Prioridad: "+ priority);
 }
 
 </script>

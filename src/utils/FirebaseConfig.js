@@ -4,6 +4,7 @@ import { getFirestore, collection, getDocs, setDoc, doc } from "firebase/firesto
 import { getAuth } from "firebase/auth";
 import { getDatabase } from "firebase/database";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
+//import { useDataStore } from '../store/datosUser.js'
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -27,7 +28,9 @@ const auth = getAuth(app);
 // Initialize Realtime Database and get a reference to the service
 const database = getDatabase(app);
 
+////const store = useDataStore();
 
+let tokenMessaging = '';
 
 // Get registration token. Initially this makes a network call, once retrieved
 // subsequent calls to getToken will return from cache.
@@ -41,7 +44,9 @@ getToken(messaging, { vapidKey: 'BAURg_lDgE3qsPlRKVr3VaGDHj5t5Xe1Gg_n0BN-9EYG8Ay
   if (currentToken) {
     // Send the token to your server and update the UI if necessary
     // ...
-    console.log("token is: ",currentToken)
+    //console.log("token is: ",currentToken)
+    //store.setfirebaseMessaging(currentToken);
+    tokenMessaging = currentToken;
   } else {
     // Show permission request UI
     console.log('No registration token available. Request permission to generate one.');
@@ -52,4 +57,4 @@ getToken(messaging, { vapidKey: 'BAURg_lDgE3qsPlRKVr3VaGDHj5t5Xe1Gg_n0BN-9EYG8Ay
   // ...
 });
 
-export {app, db, auth, collection, getDocs, setDoc, doc, database, messaging}
+export {app, db, auth, collection, getDocs, setDoc, doc, database, messaging, tokenMessaging}

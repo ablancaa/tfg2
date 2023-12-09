@@ -31,12 +31,13 @@
 //import { defineEmits } from 'vue'
 //import HelloWorld from '@/components/HelloWorld.vue'
 //const emit = defineEmits(['change', 'delete']);
-import { reactive, onMounted, ref } from 'vue'
+import { reactive, onMounted, ref, onBeforeUnmount, onUnmounted } from 'vue'
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { db, collection, getDocs } from "../utils/FirebaseConfig.js"
+import { db, collection, getDocs, tokenMessaging } from "../utils/FirebaseConfig.js"
 import { useRouter } from 'vue-router';
 import "firebase/auth";
 import { useDataStore } from '../store/datosUser.js'
+
 
 //import Footer from '@/components/Footer.vue';
 
@@ -47,12 +48,23 @@ const email = ref("");
 const password = ref("");
 const error = ref("El usuario o el password está vacío")
 
-let loginNoOk = ref(false);
+
 let users = reactive([]);
+let loginNoOk = ref(false);
+
 
 onMounted(() => {
   getListaUsuarios();
- });
+
+ })
+ 
+ onBeforeUnmount(() =>{
+  
+ })
+
+ onUnmounted(() => {
+
+ })
 
  const login = async () => {
 
@@ -81,12 +93,14 @@ onMounted(() => {
          store.setPhone(usu[0].phone);
          store.setState(true);
          store.setAvatar(usu[0].imgUser);
+         store.setfirebaseMessagingRef(tokenMessaging);
        })
        .catch((error) => {
          console.log(error.code);
          alert(error.message);
        })
    }
+
  }
 
  const getListaUsuarios = async () => {
@@ -95,7 +109,10 @@ onMounted(() => {
      users.push(doc.data());
      store.setUsersList(users);
    });
+   //console.log(users)
  }
+
+
 </script>
 
 <script>
