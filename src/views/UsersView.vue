@@ -16,12 +16,22 @@
                 </div>
             </div>
         </div>
+        
         <AddUser v-if="showModal" 
         @close="showModal = false" 
         @newUser="addUser"/>
     </div>
-    <UsersList :usersList="usersListFiltered" :ticketList="tickets" 
-        @deleteClientId="deleteClient"/>
+    <div class="container">
+      <div class="row">
+        <div class="col lista">
+          <UsersList :usersList="usersListFiltered" :ticketList="tickets" 
+          @deleteClientId="deleteClient"/>
+        </div>
+      </div>
+    </div>
+   
+  
+  
         <Footer/>
 </template>
 
@@ -283,5 +293,9 @@ querySnapshotTickets.forEach((doc) => {
     margin-top: -13px;
     margin-left: 0px;
     width: 65px;
+}
+
+.lista {
+  margin-top: 265px;
 }
 </style>

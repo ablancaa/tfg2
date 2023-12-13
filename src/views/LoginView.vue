@@ -14,7 +14,7 @@
         <form>
               <input type="text" placeholder="Email" v-model="email" /><br /><br />
               <input type="password" placeholder="Password" v-model="password" /><br /><br />
-              <button class="btn-dark" @click="login">Login</button><br />
+              <button class="btn btn-dark" @click="login">Login</button><br />
             
         </form>
     </div>

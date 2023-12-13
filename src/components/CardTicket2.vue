@@ -1,4 +1,5 @@
 <template>
+    <br/>
 <div class="silueta-card">
     <div class="row">
         <div class="col col-md-6 title"><h5>{{ props.tickets.title }}</h5></div>

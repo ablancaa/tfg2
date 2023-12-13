@@ -6,6 +6,7 @@ module.exports = defineConfig({
     registerType: 'autoUpdate',
     includeAssets: ['favicon.ico','icons/*'],
     name: 'TicketService',
+    description: 'Tickets para HelpDesk',
     themeColor: '#000000',
     msTileColor: '#000000',
     appleMobileWebAppCapable: 'yes',
@@ -36,6 +37,12 @@ module.exports = defineConfig({
         sizes: '512x512',
         type: 'image/png'
       },
+      {
+        src: '/icons/mask-icon.svg',
+        sizes: '512x512',
+        type: 'image/svg',
+        purpose: 'any maskable'
+      }
     ]
   }
 })
