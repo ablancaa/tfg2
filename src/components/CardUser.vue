@@ -59,7 +59,7 @@ import { defineProps } from 'vue';
 }
 
 .flex-items:nth-child(2) {
-    width: 220px;
+    width: 210px;
     justify-content: start;
     align-items:start;
     /* background-color: rgb(28, 196, 196); */
