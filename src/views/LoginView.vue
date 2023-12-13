@@ -2,26 +2,24 @@
   <div class="container-fluid">
     <div class="item1">
 
-        <p class="title"><img alt="icono usuario" src="../assets/ico/logoTicketWhite.png" width="80">
+        <p class="title"><img alt="icono usuario" src="../assets/ico/logoTicketWhite.png" width="80"/>
           <span class="tituloLogo"> TicketService</span>
         </p>
     </div>
     <div class="item2">
         <div class="tituloFormulario">
-            <h1><img alt="Vue logo" src="../assets/ico/userBlack.png" width="70"> Login</h1><br />
+            <h1><img alt="Vue logo" src="../assets/ico/userBlack.png" width="70"/> Login</h1><br />
         </div>
-        <div v-if="loginNoOk">{{ error }}</div>
+        <div v-if="loginNoOk" class="error">{{ error }}</div>
         <form>
               <input type="text" placeholder="Email" v-model="email" /><br /><br />
-              <input type="text" placeholder="Password" v-model="password" /><br /><br />
-              <button class="btn btn-dark" @click="login">Login</button><br />
-             <!-- <router-link to="/register">
-                <div><br/>Register</div>
-              </router-link> -->
+              <input type="password" placeholder="Password" v-model="password" /><br /><br />
+              <button class="btn-dark" @click="login">Login</button><br />
+            
         </form>
     </div>
     <div class="item3">
-      <!-- <Footer /> -->
+  
     </div>
   </div>
 </template>
@@ -35,15 +33,14 @@ import { reactive, onMounted, ref, onBeforeUnmount, onUnmounted } from 'vue'
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { db, collection, getDocs, tokenMessaging } from "../utils/FirebaseConfig.js"
 import { useRouter } from 'vue-router';
-import "firebase/auth";
 import { useDataStore } from '../store/datosUser.js'
 
+import "firebase/auth";
 
-//import Footer from '@/components/Footer.vue';
-
+const router = useRouter();
 const store = useDataStore();
 const auth = getAuth();
-const router = useRouter();
+
 const email = ref("");
 const password = ref("");
 const error = ref("El usuario o el password está vacío")

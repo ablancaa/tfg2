@@ -187,8 +187,8 @@
           </div>
           <br />
           <p class="ico">
-            <button @click="showForm()">
-              <img src="../assets/ico/agregar.png" width="30" height="30" />
+            <button @click="showForm()" class="agregar">
+              <img src="../assets/ico/agregar.png" width="30" height="30" class="agregar"/>
             </button>
           </p>
         </div>
@@ -200,7 +200,7 @@
           </button>
         </span>
       </div>
-      <AddComment v-if="showModal" @close="showModal = false" @newComment="addComment" />
+      <AddComment v-if="showModal" @close="showModal = false" @newComment="addComment" class="showModal" />
     </div>
     <!--fin container 2 -->
     <div>

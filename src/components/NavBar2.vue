@@ -24,7 +24,7 @@
             <li><a href="#"></a></li>
             <li><a href="#"></a></li>
             <li><span class="profile-image "><img :src='userCurrenAvatar' width="55"/> <!-- {{ userCurrenName }} --></span>
-            <router-link to="/"><img src="../assets/ico/exitWhite.png" width="25"  @click="exit"/></router-link></li>
+            <router-link to="/"><img src="../assets/ico/exitWhite.png" width="25"  @click="exit" class="exit-button"/></router-link></li>
           </div>
         </div>
       </div>

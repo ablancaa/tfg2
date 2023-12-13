@@ -328,6 +328,7 @@ const datosUsuarioLogado = (lista) => {
     store.setUsersList(lista);  
     const usuario = lista.filter((item) => item.email === store.currenUser.email);
     
+    if(usuario.length > 0){
     currenUser.push(usuario[0]);
     store.setEmail(currenUser[0].email);
     store.setAvatar(currenUser[0].imgUser);
@@ -341,6 +342,10 @@ const datosUsuarioLogado = (lista) => {
     store.setfirebaseMessagingRef(tokenMessaging);
     console.log(refUserEnFirebase.value);
     store.setFirebaseRefCurrenUser(refUserEnFirebase.value);
+} else {
+    // Manejar el caso en que no se encuentre un usuario
+    console.error('Usuario no encontrado.');
+}
  
 }
 
