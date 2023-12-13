@@ -297,5 +297,6 @@ querySnapshotTickets.forEach((doc) => {
 
 .lista {
   margin-top: 265px;
+  width: 150px;
 }
 </style>
