@@ -83,6 +83,7 @@ import { defineProps } from 'vue';
 
 .informacion {
     margin-top: 10px;
+    margin-left: -5px;
     line-height: 20px;
     text-align: left;
     font-size: 17px;
