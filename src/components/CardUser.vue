@@ -14,7 +14,18 @@
                 <div class="circulo-rojo" v-else></div>
             </div>
             <div class="flex-item-estado">
-                <p class="estado">{{ props.user.rol }}</p>
+                <p class="estado" v-if="props.user.rol=='Técnico'"><!--{{ props.user.rol }}-->
+                <img src="@/assets/ico/soporte-tecnico.png" class="imgico">
+                </p>
+                <p class="estado" v-if="props.user.rol=='Docente'"><!--{{ props.user.rol }}-->
+                <img src="@/assets/ico/educacion.png" class="imgico">
+                </p>
+                <p class="estado" v-if="props.user.rol=='Admin'"><!--{{ props.user.rol }}-->
+                <img src="@/assets/ico/administrador.png" class="imgico">
+                </p>
+                <p class="estado" v-if="props.user.rol=='Servicios'"><!--{{ props.user.rol }}-->
+                <img src="@/assets/ico/servicios.png" class="imgico">
+                </p>
             </div>
         </div> 
     </div>
@@ -71,7 +82,7 @@ import { defineProps } from 'vue';
   justify-content: normal;
   align-items: normal;
   align-content: normal;
-  width: 6.0vh;
+  
 }
 
 .flex-item-estado:nth-child(1) {
@@ -93,7 +104,6 @@ import { defineProps } from 'vue';
 .estado {
     font-size: 14px;
     margin-top: 10px;
-    margin-left: -10px;
     /* background-color: rgb(180, 9, 186);  */
 } 
 .flex-items:nth-child(3) {
@@ -103,13 +113,17 @@ import { defineProps } from 'vue';
     /* background-color: rgb(255, 0, 217); */
 }
 .imgUser{
-
-}
-img {
     border-radius: 50%;
     border: 2px solid rgb(2, 30, 132);
     margin: 0px 10px 0px 5px;
     margin-left: 6px;
+}
+.imgico{
+    width: 30px;
+    height: 30px;
+}
+img {
+   
 }
 
 .circulo-verde {
