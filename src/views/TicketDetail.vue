@@ -177,7 +177,7 @@
                   <p class="titleTicket">{{ comen.email }} | {{ comen.date }}</p>
                   <p>{{ comen.comment }}</p>
                   <div class="btnComment">
-                    <button @click="deleteComment(comen)">
+                    <button @click="deleteComment(comen)" class="agregar">
                       <img src="../assets/ico/delete.png" width="15" height="15" />
                     </button>
                   </div>
@@ -195,7 +195,7 @@
       </div>
       <div class="col col-md-2 item-3">
         <span v-if="store.currenUser.rol == 'Admin'">
-          <button @click="deleteTicket(route.params.idTicket)">
+          <button @click="deleteTicket(route.params.idTicket)" class="agregar">
             <img src="../assets/ico/delete.png" width="30" height="30" />
           </button>
         </span>
@@ -669,6 +669,9 @@ export default {
   border-radius: 10px;
   text-align: left;
   padding: 10px;
+}
+.agregar {
+  border-radius: 10px;
 }
 .ico {
   text-align: right;
