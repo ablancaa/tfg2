@@ -62,7 +62,7 @@ import { defineProps } from 'vue';
 }
 
 .flex-items:nth-child(2) {
-    width: 210px;
+    width: 200px;
     justify-content: start;
     align-items:start;
     /* background-color: rgb(28, 196, 196); */
@@ -103,6 +103,7 @@ import { defineProps } from 'vue';
 .flex-items:nth-child(3) {
     justify-content: center;
     align-items: center;
+
     /* background-color: rgb(255, 0, 217); */
 }
 .imgUser{
@@ -112,19 +113,20 @@ img {
     border-radius: 50%;
     border: 2px solid rgb(2, 30, 132);
     margin: 0px 10px 0px 5px;
+    margin-left: 1px;
 }
 
 .circulo-verde {
-    width: 20px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
     margin: auto;
     margin-top: 10px;
     border-radius: 50%;
     background: rgb(67, 228, 22);
 }
 .circulo-rojo {
-    width: 20px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
     margin: auto;
     margin-top: 10px;
     border-radius: 50%;
