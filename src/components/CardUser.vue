@@ -59,7 +59,7 @@ import { defineProps } from 'vue';
 }
 
 .flex-items:nth-child(2) {
-    width: 210px;
+    width: 220px;
     justify-content: start;
     align-items:start;
     /* background-color: rgb(28, 196, 196); */
@@ -71,7 +71,7 @@ import { defineProps } from 'vue';
   justify-content: normal;
   align-items: normal;
   align-content: normal;
-  width: 5.9vh;
+  width: 6.0vh;
 }
 
 .flex-item-estado:nth-child(1) {
