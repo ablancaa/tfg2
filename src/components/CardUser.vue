@@ -1,7 +1,7 @@
 <template>
 <div class="silueta-card">
     <div class="flex-items">
-        <img class="imgUser" :src="props.user.imgUser" width="60" height="60"/>
+        <img class="imgUser" :src="props.user.imgUser" width="50" height="50"/>
     </div>
     <div class="flex-items">
         <p class="informacion">{{ props.user.name }} {{ props.user.surname1 }} {{ props.user.surname2 }}<br/>
@@ -109,7 +109,7 @@ img {
     border-radius: 50%;
     border: 2px solid rgb(2, 30, 132);
     margin: 0px 10px 0px 5px;
-    margin-left: 1px;
+    margin-left: 6px;
 }
 
 .circulo-verde {
