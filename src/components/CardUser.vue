@@ -52,13 +52,10 @@ import { defineProps } from 'vue';
     box-shadow: 0px 5px 5px 2px #757575;
 }
 
-
 .flex-items:nth-child(1) {
-
     justify-content: center;
     align-items: center;
     /* background-color: aqua;  */
-   
 }
 
 .flex-items:nth-child(2) {
@@ -74,7 +71,7 @@ import { defineProps } from 'vue';
   justify-content: normal;
   align-items: normal;
   align-content: normal;
-  width: 60px;
+  width: 4.9vh;
 }
 
 .flex-item-estado:nth-child(1) {
@@ -83,10 +80,9 @@ import { defineProps } from 'vue';
 
 .informacion {
     margin-top: 10px;
-    margin-left: -5px;
     line-height: 20px;
     text-align: left;
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 700;
 }
 
@@ -97,7 +93,7 @@ import { defineProps } from 'vue';
 .estado {
     font-size: 14px;
     margin-top: 10px;
-    margin-left: -15px;
+    margin-left: -10px;
     /* background-color: rgb(180, 9, 186);  */
 } 
 .flex-items:nth-child(3) {
