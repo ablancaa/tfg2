@@ -18,7 +18,7 @@
                 <img src="@/assets/ico/soporte-tecnico.png" class="imgico">
                 </p>
                 <p class="estado" v-if="props.user.rol=='Docente'"><!--{{ props.user.rol }}-->
-                <img src="@/assets/ico/educacion.png" class="imgico">
+                <img src="@/assets/ico/profesor.png" class="imgico">
                 </p>
                 <p class="estado" v-if="props.user.rol=='Admin'"><!--{{ props.user.rol }}-->
                 <img src="@/assets/ico/administrador.png" class="imgico">
