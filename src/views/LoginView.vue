@@ -10,7 +10,7 @@
         <div class="tituloFormulario">
             <h1><img alt="Vue logo" src="../assets/ico/userBlack.png" width="70"/> Login</h1><br />
         </div>
-        <div v-if="loginNoOk" class="error">{{ error }}</div>
+        <div class="error" v-if="loginNoOk">{{ error }}</div>
         <form>
               <input type="text" placeholder="Email" v-model="email" /><br /><br />
               <input type="password" placeholder="Password" v-model="password" /><br /><br />
@@ -66,8 +66,8 @@ onMounted(() => {
  const login = async () => {
 
   if (email.value == '' || password.value == '') {
-    alert("Usuario o Password vacio");
-    loginNoOk.value = true;
+    //alert("Usuario o Password vacio");
+    loginNoOk = true;
     router.push("/")
   } else {
     signInWithEmailAndPassword(auth, email.value, password.value)
@@ -94,7 +94,7 @@ onMounted(() => {
        })
        .catch((error) => {
          console.log(error.code);
-         alert(error.message);
+         //alert(error.message);
        })
    }
 
