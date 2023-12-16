@@ -1,15 +1,15 @@
 
 describe('Dashboard Admin', () => {
   beforeEach(() => {
-    //Logar el usuario de prueba
-   cy.loginAsAdmin();
-   //cy.visit('http://localhost:8080/?#/dashBoardAdmin');
+   //Logar el usuario de prueba
+   //cy.loginAsAdmin();
+   //
   });
  
   it('Verifica la presencia de contadores', () => {
-    // Espera a que los contadores se carguen (ajusta según el tiempo necesario)
+    // Espera a que los contadores se carguen (ajustar según el tiempo necesario)
     cy.wait(2000);
-
+    cy.visit('http://localhost:8080/?#/dashBoardAdmin');
     // Comprueba si los contadores se muestran correctamente
     cy.get('.cuadrado-numerador').should('be.visible');
     cy.get('.num-contador').should('be.visible');
@@ -18,9 +18,8 @@ describe('Dashboard Admin', () => {
     cy.get('.circulo-naranja').should('be.visible');
   });
 
-  
-
   it('Verifica la navegación a ticketsView', () => {
+    cy.visit('http://localhost:8080/?#/dashBoardAdmin');
     // Haz clic en el enlace a ticketsView
     cy.get('.bloque-tickets a').click();
 
@@ -29,6 +28,7 @@ describe('Dashboard Admin', () => {
   });
 
   it('Verifica la navegación a usersView', () => {
+    cy.visit('http://localhost:8080/?#/dashBoardAdmin');
     // Haz clic en el enlace a usersView
     cy.get('.bloque-usuarios a').click();
 
@@ -37,6 +37,7 @@ describe('Dashboard Admin', () => {
   });
 
   it('Verifica la navegación a tecnicosView', () => {
+    cy.visit('http://localhost:8080/?#/dashBoardAdmin');
     // Haz clic en el enlace a tecnicosView
     cy.get('.bloque-tecnicos a').click();
 
