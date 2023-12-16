@@ -1,4 +1,8 @@
-# tfg2
+# tfg / TicketService – Desarrollo de una appWeb para gestión de procesos de atención al usuario en un centro educativo.
+
+Autor: Alberto Blanca Alcaide
+
+UOC 2023/24 - Grado multimedia (Mención Ingeniería WEB)
 
 ## Project setup
 ```
