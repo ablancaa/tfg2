@@ -165,7 +165,7 @@ let newTick = reactive({});
   position: fixed;
   top: 0;
   left: 0;
-  height: 100vh;
+  height: 110vh;
   width: 100vw;
   transition: all .10s;
   z-index: 10;
@@ -173,14 +173,14 @@ let newTick = reactive({});
 }
 
 body {
-    background: rgb(99, 39, 120);
+    background: rgb(83, 83, 83);
     color: #000000;
 
 }
 
 .form-control:focus {
     box-shadow: none;
-    border-color: #BA68C8
+    border-color: #090909
 }
 
 .profile-button {
@@ -199,7 +199,7 @@ body {
 }
 
 .profile-button:active {
-    background: #682773;
+    background: #1d1d1d;
     box-shadow: none
 }
 
