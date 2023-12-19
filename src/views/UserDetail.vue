@@ -38,10 +38,11 @@
                                     technical: ticket.technical[0],
                                 }}" class="page-link">  
                     <div class="silueta-ticket">
-                        <p class="info"><strong>{{ ticket.idTicket }}</strong><br/>
-                        <span class="info iduser">{{ ticket.title }}</span><br/>
-                        <span class="info iduser">{{ ticket.category }}</span><br/>
-                        <!-- <span class="info iduser">{{ ticket.state }}</span>--> </p> 
+                        <p class="info">
+                            <strong>{{ ticket.idTicket }}</strong><br/>
+                            <span class="info iduser">{{ ticket.title }}</span><br/>
+                            <span class="info iduser">{{ ticket.category }}</span><br/>
+                         </p> 
                     </div>
                     </router-link>
                 </div>
@@ -71,6 +72,8 @@ let users = reactive([]);
 let tickets = reactive([]);
 let ticketsUsuario = reactive([]);
 
+
+//Objeto usuario con los parámetros pasados por el router
 let user = reactive([
     {
         idUser: route.params.idUser,
@@ -88,6 +91,7 @@ onMounted(() => {
     getListaTickets();
 });
 
+//Borra un usuario en la base de datos
 async function deleteUser(idUser) {
     console.log(idUser)
     const querySnapshotClients = await getDocs(collection(db, "users"));
@@ -98,10 +102,7 @@ async function deleteUser(idUser) {
 
     for (let i = 0; i < users.length; i++) {
         if (idUser == users[i].idUser) {
-            //console.log(ids[i])
-            //console.log(users[i].idUser)
             refUsuarioEnFirebase.value = ids[i]
-            //console.log(refUsuarioEnFirebase.value)
         }
     }
 
@@ -109,20 +110,17 @@ async function deleteUser(idUser) {
     await router.push("/usersView")
 }
 
+//Listado de tickets asociados al usuario
 async function getListaTickets() {
 
 const querySnapshotTickets = await getDocs(collection(db, "tickets"));
     querySnapshotTickets.forEach((doc) => {
     tickets.push(doc.data());
-    console.log(tickets)
+  
 });
 
 let ticketsUsu = tickets.filter(ticket => ticket.idUser == route.params.idUser)
- console.log(route.params.idUser)
- console.log(ticketsUsu);
- for (let i=0; i <  ticketsUsu.length; i++){
-
-    console.log(ticketsUsu[i])
+ for (let i=0; i <  ticketsUsu.length; i++){ 
     ticketsUsuario.push(ticketsUsu[i])
  }
 }
@@ -193,17 +191,7 @@ hr {
     background-color: black;
     box-shadow: 2px 2px 4px 1px rgba(0, 0, 0, 0.25)
 }
-.item-1{
-    text-align: left;
-    float: left;
-    background-color: aqua;
-    width: 80px;
-}
-.item-2{
-    float: left;
-    text-align: left;
-    background-color: rgb(67, 133, 133); 
-}
+
 .item-3 {
     display: flex;
     justify-content:flex-end; 

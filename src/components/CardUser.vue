@@ -5,7 +5,7 @@
     </div>
     <div class="flex-items">
         <p class="informacion">{{ props.user.name }} {{ props.user.surname1 }} {{ props.user.surname2 }}<br/>
-            <span class="email">{{ props.user.email }}</span><br/><!--id: {{ props.user.idUser }}--></p>
+            <span class="email">{{ props.user.email }}</span><br/></p>
     </div>
     <div class="flex-items">
         <div class="flex-estado">
@@ -14,16 +14,16 @@
                 <div class="circulo-rojo" v-else></div>
             </div>
             <div class="flex-item-estado">
-                <p class="estado" v-if="props.user.rol=='Técnico'"><!--{{ props.user.rol }}-->
+                <p class="estado" v-if="props.user.rol=='Técnico'">
                 <img src="@/assets/ico/soporte-tecnico.png" class="imgico">
                 </p>
-                <p class="estado" v-if="props.user.rol=='Docente'"><!--{{ props.user.rol }}-->
+                <p class="estado" v-if="props.user.rol=='Docente'">
                 <img src="@/assets/ico/profesor.png" class="imgico">
                 </p>
-                <p class="estado" v-if="props.user.rol=='Admin'"><!--{{ props.user.rol }}-->
+                <p class="estado" v-if="props.user.rol=='Admin'">
                 <img src="@/assets/ico/administrador.png" class="imgico">
                 </p>
-                <p class="estado" v-if="props.user.rol=='Servicios'"><!--{{ props.user.rol }}-->
+                <p class="estado" v-if="props.user.rol=='Servicios'">
                 <img src="@/assets/ico/servicios.png" class="imgico">
                 </p>
             </div>
@@ -44,8 +44,7 @@ import { defineProps } from 'vue';
             type: Object,
         },    
     })
-   // console.log(props.ticket)
-    //console.log(props.user)
+
 </script>
 
 <style scoped>

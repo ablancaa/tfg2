@@ -25,7 +25,7 @@
                         <div class="row">
                             <div class="col">
                                 <div class="siluelta_card_peq">
-                                    <img alt="Imagen tickets" class="icono" src="../assets/ico/logoTicketBlack.png" width="65">
+                                    <img alt="Imagen tickets" class="icono" src="../assets/ico/logoTicketBlack.png" width="65" id="logoTicketBlack">
                                     <router-link to="/ticketsView" class="page-link">
                                         <p class="title">Tickets</p>
                                     </router-link>
@@ -71,7 +71,7 @@
                         <div class="row">
                             <div class="col">
                                 <div class="siluelta_card_peq">
-                                    <img alt="Imagen tickets" class="icono" src="../assets/ico/userBlack.png" width="65">
+                                    <img alt="Imagen tickets" class="icono" src="../assets/ico/userBlack.png" width="65" id="userBlack">
                                     <router-link to="/usersView" class="page-link">
                                         <p class="title">Usuarios</p>
                                     </router-link>
@@ -140,7 +140,7 @@
 </template>
 
 <script setup>
-//import NavBar from '@/components/NavBar.vue'
+
 import NavBar2 from '@/components/NavBar2.vue'
 import Footer from '@/components/Footer.vue'
 
@@ -149,8 +149,7 @@ import { db, tokenMessaging } from "../utils/FirebaseConfig.js"
 import { collection, getDocs, updateDoc, doc } from "firebase/firestore";
 import Chart from 'chart.js/auto';
 import { useDataStore } from '../store/datosUser.js'
-//import { useRoute } from 'vue-router';
-//const route = useRoute() //recibe los parámetros del router
+
 const store = useDataStore();
 let refUserEnFirebase = ref()
 let refUserFire = ref();
@@ -195,16 +194,12 @@ const temporizadorDeContadores = ()=> {
 
 
 onMounted( () =>  {
-    //getListados();
-    //datosUsuarioLogado();
+
     temporizadorDeContadores();
     temporizadorDeRetrasoGraficas();
     firebaseUserRef();
     store.setFirebaseRefCurrenUser(refUserEnFirebase.value);
-    //console.log(refUserEnFirebase.value)
-    //console.log(tokenMessaging)
-    //store.setfirebaseMessagingRef(tokenMessaging);
-    //store.setFirebaseRefCurrenUser(refUserEnFirebase.value)
+ 
 });
 
 onUpdated(() => {
@@ -212,6 +207,7 @@ onUpdated(() => {
 });
 
 onBeforeUnmount(()=>{
+    
 
 })
  const getListados = async () => {
@@ -258,10 +254,9 @@ onBeforeUnmount(()=>{
     localStorage.tickets = JSON.stringify(contadores[1]);
     localStorage.usuarios = JSON.stringify(contadores[0]);
     localStorage.setItem("usersList", JSON.stringify(users));
-    //store.userList = users;
+ 
     store.ticketList = tickets;
-    //console.log(store.ticketList)
-    //console.log(store.userList)
+   
     
     datosUsuarioLogado(users);
     
@@ -318,6 +313,7 @@ const pintaGraficas = () => {
             }
         }
     });
+    
 }
 
 

@@ -71,6 +71,7 @@ onMounted(() => {
     router.push("/")
   } else {
     signInWithEmailAndPassword(auth, email.value, password.value)
+   
       .then((userCredential) => {
       const user = userCredential.user;
       //console.log("Successfully registered!");
@@ -80,7 +81,7 @@ onMounted(() => {
         } else {
           router.push("/dashBoardUser")
         }
-         let usu = store.userList.filter((usu) => usu.email == store.currenUser.email)
+        let usu = store.userList.filter((usu) => usu.email == store.currenUser.email)
          //console.log(usu)
          store.setidUser(usu[0].idUser);
          store.setName(usu[0].name);

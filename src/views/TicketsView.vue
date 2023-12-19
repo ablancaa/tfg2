@@ -37,10 +37,7 @@ import { reactive, onMounted, ref, computed, onUpdated } from "vue";
 import { db } from "../utils/FirebaseConfig.js"
 import { collection, getDocs, addDoc } from "firebase/firestore";
 import { useDataStore } from '../store/datosUser.js'
-//import router from '@/router';
-//import { useRouter } from 'vue-router'
 
-//const router = useRouter() //Utiliza el router.push("/")
 const tiempoTranscurrido = Date.now();
 const hoy = new Date(tiempoTranscurrido);
 const store = useDataStore();
@@ -65,17 +62,13 @@ let contadores = reactive ([
 let showModal = ref(false);
 
 onUpdated(() => {
-  //getListaTickets();
+
 })
 
 onMounted(() => {
     getListaTickets();
     getListaUsers();
-    // let perfil = JSON.parse(localStorage.getItem('currenUser'))
-    // store.datosUser.email = perfil[0].email;
-    // store.datosUser.avatar = perfil[0].imgUser;
-    // store.datosUser.idUser = perfil[0].idUser;
-    //console.log("Ticket ")
+
 
 });
 
@@ -115,9 +108,9 @@ async function getListaUsers() {
     contadores[0].usersActive = activesUsers.length;
     contadores[0].usersDisconnect = disconnectUsers.length;
   });
-  //console.log(users);
-}
 
+}
+//Listado de tickets para contar los estados
 async function getListaTickets() {
     const querySnapshotTickets = await getDocs(collection(db, "tickets"));
     querySnapshotTickets.forEach((doc) => {
@@ -129,12 +122,12 @@ async function getListaTickets() {
       contadores[0].ticketsEnd = ticketEnd.length
     });
 }
+//Añade un ticket nuevo en la base de datos
 async function addTicket(newTicket){
     
     try {
       
     const docRef = await addDoc(collection(db, "tickets"), {
-      //idTicket: newTicket.idTicket,
       idTicket: newTicket.idTicket,
       idUser: newTicket.idUser,
       title: newTicket.title,
@@ -151,13 +144,12 @@ async function addTicket(newTicket){
       }]
     });
 
-    //console.log("Document written with ID: ", docRef.id);
-    //console.log(newTicket)
+    
 
     } catch (e) {
       console.error("Error adding document: ", e);
     }
-    //router.push("/ticketsView")
+ 
     location.reload("/ticketsView")
     showModal.value = false;
   }

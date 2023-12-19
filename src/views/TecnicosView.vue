@@ -54,7 +54,7 @@ onMounted(() => {
     getListados();
 });
 
-
+//Muestra la lista de tickets asociados a cada técnico
 const getListados = async () => {
     const querySnapshotUsers = await getDocs(collection(db, "users"));
     querySnapshotUsers.forEach((doc) => {

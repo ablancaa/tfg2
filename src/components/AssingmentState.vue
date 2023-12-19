@@ -58,7 +58,6 @@ const tiempoTranscurrido = Date.now();
 const hoy = new Date(tiempoTranscurrido);
 hoy.toLocaleDateString();
 
-////const store = useDataStore();
 const emit = defineEmits(["close", "stateAssignment"]);
 
 const newState = (state) => {

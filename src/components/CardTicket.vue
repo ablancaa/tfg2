@@ -29,7 +29,7 @@
                                 <span class="">
                                 <h6><strong>Usuario: </strong></h6>
                                 <img :src="user.imgUser" width="40" height="40" class="imgUser"/>
-                                <p class="nombre">{{ user.name }} {{ user.surname1 }} {{ user.surname2 }}<!-- <br/><strong>Rol: </strong>{{ user.rol }--></p></span>
+                                <p class="nombre">{{ user.name }} {{ user.surname1 }} {{ user.surname2 }}</p></span>
                             </div>
                         </div>
                     </div>
@@ -63,13 +63,7 @@ const props = defineProps({
         type: Object,
     }
 })
-// console.log(props.userList)
-// console.log(props.tickets)
 
-// function generarIdUnico () { 
-//     return Math.random().toString(30).substring(2);           
-// } 
-//console.log(generarIdUnico());
 </script>
 
 <style  scoped>

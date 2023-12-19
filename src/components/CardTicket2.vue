@@ -66,13 +66,7 @@ const props = defineProps({
         type: Object,
     }
 })
-// console.log(props.userList)
-// console.log(props.tickets)
 
-// function generarIdUnico () { 
-//     return Math.random().toString(30).substring(2);           
-// } 
-//console.log(generarIdUnico());
 </script>
 
 <style  scoped>

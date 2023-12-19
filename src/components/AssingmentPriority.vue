@@ -56,13 +56,11 @@
 </template>
 <script setup>
 import{ defineEmits } from 'vue'
-//import { useDataStore } from '../store/datosUser.js'
+
 const tiempoTranscurrido = Date.now();
 const hoy = new Date(tiempoTranscurrido);
 hoy.toLocaleDateString();
 
-//let normal = ref ('normal')
-////const store = useDataStore();
 const emit = defineEmits(['close','priorityAssignment'])
 
 const newPriority = (priority) =>{

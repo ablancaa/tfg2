@@ -77,7 +77,7 @@ async function getListados() {
         contadores[1].ticketsEnd = ticketEnd.length
         contadores[1].ticketsActive = ticketActive.length
         contadores[1].ticketsWait = ticketWait.length
-        // arrayGraficoResumen.ticketsNum = tickets.length;
+        
     });
 }
 

@@ -5,7 +5,6 @@
            <label for="myInput" class="label">
              <span class="label-title">Búsqueda</span>
              <input id="myInput" class="input" name="text" placeholder="Escribe Algo..." type="text" v-model="search">   
-          <!-- <button class="input2 margen" v-if="search.length" @click="clearSearch">Borrar</button>             -->
          </label>
        </div>
      </div>
@@ -17,9 +16,6 @@ import { defineEmits, watch, ref } from "vue";
 let search = ref('');
 const emit = defineEmits(["search"]);
 
-// const clearSearch = () => {
-//   search.value = "";
-// };
  watch(search, async (newValue) => {
      emit("search", newValue);
  });

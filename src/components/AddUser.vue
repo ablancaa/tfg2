@@ -28,12 +28,8 @@
                         </select>
                     </div>
                     <div class="col-md-12"><label class="labels">Address Line 1</label><input type="text" class="form-control" placeholder="enter address line 1" v-model="adress"></div>
-                    <!-- <div class="col-md-12"><label class="labels">Address Line 2</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div> -->
-                    <!-- <div class="col-md-12"><label class="labels">Postcode</label><input type="text" class="form-control" placeholder="Postcode" value=""></div>-->
-                    <!-- <div class="col-md-12"><label class="labels">State</label><input type="text" class="form-control" placeholder="State" value=""></div> -->
-                    <!-- <div class="col-md-12"><label class="labels">Area</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div> -->
+                   
                     <div class="col-md-12"><label class="labels">Email ID</label><input type="text" class="form-control" placeholder="enter email" v-model="email"></div>
-                    <!-- <div class="col-md-12"><label class="labels">idClient</label><input type="text" class="form-control" :placeholder="id" v-model="idClient" disabled></div> -->
                 </div>
                 <div class="mt-5 p-5 text-center"><button class="btn btn-primary profile-button" type="button" @click="newClient">Save Profile</button> <button @click="emit('close')" class="btn btn-primary profile-button">Cerrar</button></div>
             </div>
@@ -49,7 +45,7 @@ const emit = defineEmits(['newUser','close'])
 
 let id = ref(generarIdUnico());
 let idUser = ref("");
-let avatar = ref('https://i.pravatar.cc/80');
+let avatar = ref('https://i.pravatar.cc/80'); //Añade imagen automáticamente de una API
 let name = ref("");
 let surname1 = ref("");
 let surname2 = ref("");
@@ -63,6 +59,18 @@ let newUser = reactive({})
     const newClient = () => {
         if(name.value == ''){
             alert("Nombre no introducido");
+        } else if (surname1.value == '') {
+            alert("Apellido 1 no introducido");
+        } else if (surname2.value == '') {
+            alert("Apellido 2 no introducido");
+        } else if (rol.value == '') {
+            alert("Rol no introducido");
+        } else if (phone.value == '') {
+            alert("Teléfono no introducido");
+        } else if (adress.value == '') {
+            alert("Dirección no introducida");
+        } else if (email.value == '') {
+            alert("Email no introducida");
         } else {
             newUser = ({
                 idUser: id.value,
@@ -77,6 +85,7 @@ let newUser = reactive({})
                 state: false,
             });
         }
+        //Emite el nuevo usuario para la base de datos,
         emit('newUser', newUser);
         console.log(newUser);
     }

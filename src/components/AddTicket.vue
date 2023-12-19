@@ -38,16 +38,6 @@
                     </div>
                 </div>
                 <div class="row mt-3">                   
-                    <!-- <div class="col-md-12">
-                        <label class="labels">Estado</label>
-                        <select class="form-control" v-model="state">
-                            <option disabled value="">Seleccione un Estado</option>
-                            <option>wait</option>
-                            <option>procces</option>
-                            <option>active</option>
-                            <option>end</option>
-                        </select>
-                    </div> -->
                     <div class="col-md-12">
                         <label class="labels">Prioridad</label>
                         <select class="form-control" v-model="priority">
@@ -58,15 +48,6 @@
                             <option>Importante</option>
                         </select>
                     </div>
-                    <!-- <div class="col-md-12">
-                        <label class="labels">Técnico Asignado</label>
-                        <select class="form-control" v-model="technical">
-                            <option disabled value="">Seleccione un Técnico</option>
-                            <option v-for="user in props.userList" :key="user.idUser">
-                                {{ user.idUser }}
-                            </option>
-                        </select>
-                    </div> -->
                 </div>
                 <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button" @click="newTicket">Save Ticket</button> <button @click="emit('close')" class="btn btn-primary profile-button">Cerrar</button></div>
             </div>
@@ -104,12 +85,20 @@ let technical = ref("Sin Asignar")
 let tec = reactive([])
 
 
-
+//Objeto para nuevo ticket
 let newTick = reactive({});
 
     const newTicket = () => {
-        if(title.value == ''){
+        if (title.value == ''){
             alert("Título no introducido");
+        } else if (priority.value == ''){
+            alert ("Priority no introducida");
+        } else if (category.value == ''){
+            alert ("Category no introducida");
+        } else if (descripcion.value == ''){
+            alert("Descripcion no introducida");
+        } else if (state.value == ''){
+            alert("State no introducida");
         } else {
             newTick = ({
                 idTicket: idTicket.value,
@@ -123,8 +112,7 @@ let newTick = reactive({});
                 technical: [technical.value],
             });
         }
-        emit('newTicket', newTick);
-        //console.log(newTick);       
+        emit('newTicket', newTick);     
     }
 
     onMounted(() => {
@@ -134,7 +122,6 @@ let newTick = reactive({});
     const tecnicos = () => {
         let listaTecnicos = reactive([])
             for(let i=0; i < props.userList.length; i++){
-            //console.log(props.userList[i].rol)
             if(props.userList[i].rol === 'Técnico'){
                 
                 tec = 
@@ -147,8 +134,7 @@ let newTick = reactive({});
        
             }
         }
-        //console.log(tec)
-        //console.log(listaTecnicos)
+
         return listaTecnicos;
         
         }

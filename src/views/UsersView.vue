@@ -167,15 +167,11 @@ async function addUser(newUser){
     await createUserWithEmailAndPassword(getAuth(), newUser.email, '123456')
             .then((data)=> {
                 alert("Successfully registered!"+data.getAuth);
-                
             })
             .catch((error)=>{
                 console.log(error.code);
                 alert(error.message);
             })
-    
-    //console.log("Document written with ID: ", docRef.id);
-    //console.log(newUser)
     } catch (e) {
       console.error("Error adding document: ", e);
     }
@@ -184,6 +180,7 @@ async function addUser(newUser){
   showModal.value = false;
 }
 
+//Borra el usuario de la base de datos
 async function deleteClient(idUser) {
   console.log(idUser)
   let refUsuarioEnFirebase;
@@ -200,22 +197,18 @@ async function deleteClient(idUser) {
   showModal.value = false;
   
 }
-
+//Muestra los tickets que están en diferentes estados
 async function getListaTickets() {
-
 const querySnapshotTickets = await getDocs(collection(db, "tickets"));
-querySnapshotTickets.forEach((doc) => {
- tickets.push(doc.data());
- let ticketProcces = tickets.filter(ticket => ticket.state == "procces")
- let ticketEnd = tickets.filter(ticket => ticket.state == "end")
- contadores[0].ticketsNum = tickets.length
- contadores[0].ticketsProcces = ticketProcces.length
- contadores[0].ticketsEnd = ticketEnd.length
-});
-//console.log("Num Tickets: "+contadores[0].ticketsNum)
-//console.log("Tickets Procces: "+contadores[0].ticketsProcces)
-//console.log("Tickets End: "+contadores[0].ticketsEnd)
-//console.log(tickets);
+  querySnapshotTickets.forEach((doc) => {
+    tickets.push(doc.data());
+    let ticketProcces = tickets.filter(ticket => ticket.state == "procces")
+    let ticketEnd = tickets.filter(ticket => ticket.state == "end")
+    contadores[0].ticketsNum = tickets.length
+    contadores[0].ticketsProcces = ticketProcces.length
+    contadores[0].ticketsEnd = ticketEnd.length
+  });
+
 }
 </script>
 

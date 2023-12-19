@@ -33,11 +33,11 @@ let props = defineProps({
         type: Array,
     }
   })
+  //Emite que borre el ticket en concreto
   const deleteTicket = () =>{
   emit("deleteUser", deleteTicket)
  }
-//console.log(props.userList)
-//console.log(props.ticketList)
+
 </script>
   
 <style scoped>

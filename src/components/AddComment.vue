@@ -11,7 +11,7 @@
                 </div>
                 <div class="row">
                      <!-- <div class="col-6"><label class="labels">idTicket</label><input type="text" class="form-control" :placeholder="id" v-model="idTicket" disabled></div> -->
-                    <div class="col-7"><label class="labels">eMail</label><input type="text" class="form-control" :placeholder="email" v-model="email" disabled></div>
+                    <div class="col-7"><label class="labels">eMail</label><input type="text" class="form-control" id="email" :placeholder="email" v-model="email" disabled></div>
                     <!--<div class="col-sm-12 col-md-12"><label class="labels">Date</label><input type="date" class="form-control" placeholder="Date" v-model="date"></div>
                     <div class="col-sm-12 col-md-12"><label class="labels">Title</label><input type="text" class="form-control" placeholder="Title" v-model="title"></div>
                     <div class="col-md-12"><label class="labels">Categoría</label>
@@ -23,7 +23,7 @@
                             <option>Servicios</option>
                         </select>
                     </div> -->
-                    <div class="col-sm-12 col-md-12"><label class="labels">Descripción</label><textarea type="texarea" class="form-control" placeholder="Descripción" v-model="descripcion"></textarea> </div>
+                    <div class="col-sm-12 col-md-12"><label class="labels">Descripción</label><textarea type="text" class="form-control" placeholder="Descripción" v-model="descripcion"></textarea> </div>
                 </div>
                 <!-- <div class="row mt-3">                   
                     <div class="col-md-12"><label class="labels">Estado</label>
@@ -53,7 +53,9 @@
                         </select>
                     </div>
                 </div> -->
-                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button" @click="newComment">Save Comment</button> <button @click="emit('close')" class="btn btn-primary profile-button">Cerrar</button></div>
+                <div class="mt-5 text-center">
+                <button class="btn btn-primary profile-button" type="button" @click="newComment">Save Comment</button>
+                <button @click="emit('close')" class="btn btn-primary profile-button">Cerrar</button></div>
             </div>
         </div>
     </div>

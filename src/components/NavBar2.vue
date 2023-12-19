@@ -55,16 +55,15 @@ const router = useRouter();
     userFirebaseRef = ref(store.currenUser.firebaseRef);
     userFirebaseMessagingRef = ref(store.currenUser.firebaseMessaging);
   });
-
-  //onBeforeMount(()=>{})
-  
+ 
   console.log("Email: "+userCurrenEmail.value)
   console.log("Avatar: "+userCurrenAvatar.value)
   console.log("IdUser: "+userCurrenIdUser.value)
   console.log("Rol: "+userCurrenRol.value)
   console.log("Firebase Ref: "+userFirebaseRef.value)
   console.log("Firebase Messaging Ref: "+userFirebaseMessagingRef.value)
- 
+
+  //Borra todos los datos cuando sale de la aplicación.
 const exit = () => {
   
   store.setEmail('');
@@ -88,12 +87,11 @@ const exit = () => {
   sessionStorage.clear();
   localStorage.clear();
   router.push("/")
-  
-
-
 }
+
+//Cambia el estado del usuario
 const changeStateUser = async () => {
-  //Actualización de campo State
+  //Actualización de campo State del usuario, para que aparezca on-line o off-line
  const stateRef = doc(db, "users", userFirebaseRef.value);
       await updateDoc(stateRef,{
         state: false,     

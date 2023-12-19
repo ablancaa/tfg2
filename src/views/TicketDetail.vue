@@ -331,9 +331,9 @@ async function getListaTickets() {
   querySnapshotTickets.forEach((doc) => {
     tickets.push(doc.data());
   });
-  //console.log(tickets);
+ 
 }
-
+//Busca el ticket por referencia y lo borra
 async function deleteTicket(idTicket) {
   console.log(idTicket);
   const querySnapshotClients = await getDocs(collection(db, "tickets"));
@@ -344,16 +344,16 @@ async function deleteTicket(idTicket) {
 
   for (let i = 0; i < tickets.length; i++) {
     if (idTicket == tickets[i].idTicket) {
-      //console.log(ids[i])
-      //console.log(users[i].idUser)
+ 
       refTicketEnFirebase.value = idsTickets[i];
-      //console.log(refUsuarioEnFirebase.value)
+    
     }
   }
   console.log(refTicketEnFirebase.value);
   await deleteDoc(doc(db, "tickets", refTicketEnFirebase.value));
   router.push("/ticketsView");
 }
+
 
 const addComment = async (newComment) => {
   //Lista de id de cada ticket en Firebase
@@ -424,6 +424,7 @@ const deleteComment = async (comentario) => {
   //alert("Borrar Mensaje");
 };
 
+//Asigna un técnico al ticket por la id del usuario
 const technicAssignment = async (idTechnic) => {
   
   //Lista de id de cada ticket en Firebase
@@ -443,8 +444,6 @@ const technicAssignment = async (idTechnic) => {
   //Bucle para buscar la referencia del ticket elegido en firebase
   let technicalAssignement = reactive([]);
   for (let i = 0; i < tickets.length; i++) {
-    //console.log(tickets[i].idTicket);
-    //console.log(route.params.idTicke);
     if (route.params.idTicket == tickets[i].idTicket) {
       refTicketEnFirebase.value = idsTickets[i];
     }
@@ -453,7 +452,6 @@ const technicAssignment = async (idTechnic) => {
   //Bucle para buscar los comentarios del ticket elegido
    let comentariosAnteriores = reactive([]);
    for (let i = 0; i < tickets.length; i++) {
-    //console.log(tickets[i].idTicket);
     if (route.params.idTicket == tickets[i].idTicket) {
       comentariosAnteriores.push(...tickets[i].comments);
       refTicketEnFirebase.value = idsTickets[i];
@@ -508,11 +506,8 @@ const assignmentState = async (newState) => {
   querySnapshotTickets.forEach((doc) => {
     idsTickets.push(doc.id);
   });
-    //console.log(newState)
     //Bucle para buscar la referencia del ticket elegido en firebase
     for (let i = 0; i < tickets.length; i++) {
-        //console.log(tickets[i].idTicket);
-        //console.log(route.params.idTicket);
         if (route.params.idTicket == tickets[i].idTicket) {
         refTicketEnFirebase.value = idsTickets[i];
         }
@@ -579,14 +574,9 @@ const assignmentState = async (newState) => {
       );
   }
 
-   
   console.log(newState);
     console.log(refTicketEnFirebase.value);
     
-    
-    
-  //alert("Se a cambiado es estado a: "+newState);
-  //route.params.state = newState.value
   router.push("/ticketsView");
 };
 

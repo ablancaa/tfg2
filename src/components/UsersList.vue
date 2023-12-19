@@ -31,8 +31,8 @@ const emit = defineEmits(['deleteUser','close'])
         type: Array,
       }
   })
-  // console.log(props.usersList)
-  // console.log(props.ticketList)
+  
+//emite que borre el ususario en concreto
  const deleteUser = () =>{
   emit("deleteUser", deleteUser)
  }
