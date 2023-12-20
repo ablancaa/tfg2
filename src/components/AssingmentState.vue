@@ -60,6 +60,7 @@ hoy.toLocaleDateString();
 
 const emit = defineEmits(["close", "stateAssignment"]);
 
+//Cambia el estado del ticket
 const newState = (state) => {
   switch (state) {
     case "wait":

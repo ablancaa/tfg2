@@ -144,7 +144,7 @@
 import NavBar2 from '@/components/NavBar2.vue'
 import Footer from '@/components/Footer.vue'
 
-import { reactive, onMounted, onUpdated, onBeforeUnmount,ref } from "vue";
+import { reactive, onMounted, ref } from "vue";
 import { db, tokenMessaging } from "../utils/FirebaseConfig.js"
 import { collection, getDocs, updateDoc, doc } from "firebase/firestore";
 import Chart from 'chart.js/auto';
@@ -192,24 +192,13 @@ const temporizadorDeContadores = ()=> {
    setTimeout(getListados, 500);
 }
 
-
 onMounted( () =>  {
-
     temporizadorDeContadores();
     temporizadorDeRetrasoGraficas();
     firebaseUserRef();
     store.setFirebaseRefCurrenUser(refUserEnFirebase.value);
- 
 });
 
-onUpdated(() => {
-      
-});
-
-onBeforeUnmount(()=>{
-    
-
-})
  const getListados = async () => {
     const querySnapshotUsers = await getDocs(collection(db, "users"));
     const querySnapshotTickets = await getDocs(collection(db, "tickets"));
@@ -257,9 +246,7 @@ onBeforeUnmount(()=>{
  
     store.ticketList = tickets;
    
-    
-    datosUsuarioLogado(users);
-    
+    datosUsuarioLogado(users);   
 }
 
 const pintaGraficas = () => {
@@ -316,11 +303,9 @@ const pintaGraficas = () => {
     
 }
 
-
-
 //Función para que los datos del usuario sean persistentes en el store
 const datosUsuarioLogado = (lista) => {
-    //firebaseUserRef();
+  
     store.setUsersList(lista);  
     const usuario = lista.filter((item) => item.email === store.currenUser.email);
     
@@ -336,7 +321,6 @@ const datosUsuarioLogado = (lista) => {
     store.setPhone(currenUser[0].phone);
     store.setState(true);
     store.setfirebaseMessagingRef(tokenMessaging);
-    console.log(refUserEnFirebase.value);
     store.setFirebaseRefCurrenUser(refUserEnFirebase.value);
 } else {
     // Manejar el caso en que no se encuentre un usuario
@@ -366,7 +350,7 @@ const firebaseUserRef = async () => {
         //firebaseRef: refUserEnFirebase.value    
     });
     //Variable que carga el id de firebase del usuario
-    //console.log(refUserEnFirebase.value)
+   
    
     refUserFire.value = refUserEnFirebase.value
     store.setFirebaseRefCurrenUser(refUserEnFirebase.value)

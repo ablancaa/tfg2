@@ -59,9 +59,7 @@
 <script setup>
 import{ ref, reactive, defineEmits, defineProps, onMounted } from 'vue'
 import { useDataStore } from '../store/datosUser.js'
-//import { useRouter } from 'vue-router'
 
-//const router = useRouter() //Utiliza el router.push("/")
 const tiempoTranscurrido = Date.now();
 const hoy = new Date(tiempoTranscurrido);
 hoy.toLocaleDateString();

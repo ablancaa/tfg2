@@ -1,17 +1,10 @@
 <template>
-  <div>
-  <!-- <NavBar2/> -->
-  <!-- <nav>
-    <router-link to="/">Login</router-link> |
-    <router-link to="/userView">Users</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav> -->
-
+<div>
   <router-view/>
 </div>
 </template>
 <script setup>
-//import NavBar2 from './components/NavBar2.vue';
+
 </script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');

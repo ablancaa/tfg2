@@ -16,6 +16,7 @@ import { defineEmits, watch, ref } from "vue";
 let search = ref('');
 const emit = defineEmits(["search"]);
 
+//Observador de los que se ecribe en el input
  watch(search, async (newValue) => {
      emit("search", newValue);
  });

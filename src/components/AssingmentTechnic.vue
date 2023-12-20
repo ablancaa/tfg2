@@ -47,10 +47,11 @@ onMounted(() => {
     tecnicos();
 });
 
+//Creo un array con los técnicos en la base de datos
 const tecnicos = () => {
     let listaTecnicos = reactive([])
     for (let i = 0; i < props.userList.length; i++) {
-        //console.log(props.userList[i].rol)
+
         if (props.userList[i].rol === 'Técnico') {
 
             tec =
@@ -63,8 +64,7 @@ const tecnicos = () => {
             listaTecnicos.push(tec)
         }
     }
-    //console.log(tec)
-    //console.log(listaTecnicos)
+
     return listaTecnicos;
 }
 

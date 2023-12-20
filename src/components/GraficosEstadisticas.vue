@@ -34,6 +34,7 @@ onMounted(() => {
     pintaGraficaCategorias();
 });
 
+//Genera el gráfico de tickets de la base de datos
 const pintaGraficaTickets = () => {
 
     let ticket = JSON.parse(localStorage.tickets);
@@ -69,6 +70,8 @@ const pintaGraficaTickets = () => {
         }
     });
 }
+
+//Genera el gráfico de ususario
 const pintaGraficaUsuarios = () => {
 
     let usuarios = JSON.parse(localStorage.usuarios);
@@ -103,6 +106,7 @@ const pintaGraficaUsuarios = () => {
         }
     });
 }
+//Genera el gráfico de categorías de la base de datos
 const pintaGraficaCategorias = () => {
 
     let ticket = JSON.parse(localStorage.tickets);

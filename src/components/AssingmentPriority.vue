@@ -63,6 +63,7 @@ hoy.toLocaleDateString();
 
 const emit = defineEmits(['close','priorityAssignment'])
 
+//Cambia la prioridad del ticket
 const newPriority = (priority) =>{
 
   switch (priority) {

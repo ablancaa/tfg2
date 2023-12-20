@@ -226,8 +226,6 @@ async function getListados() {
         contadores[1].ticketsEnd = ticketEnd.length
         contadores[1].ticketsActive = ticketActive.length
         contadores[1].ticketsWait = ticketWait.length
-
-
     });
     localStorage.tickets = JSON.stringify(contadores[1]);
     localStorage.usuarios = JSON.stringify(contadores[0]);
@@ -237,6 +235,7 @@ async function getListados() {
 
 }
 
+//Se asignan los datos del usuario que hace login
 const datosUsuarioLogado = (lista) => {
 
     store.setUsersList(lista);
@@ -277,6 +276,8 @@ const firebaseUserRef = async () => {
     //Variable que carga el id de firebase del usuario
     refUserFire.value = refUserEnFirebase.value
 }
+
+//Adquiere la lista de tickets del usuario
 async function getListaTicketsDelUsuario() {
 
     let ticketsUsu = tickets.filter(ticket => ticket.idUser == store.currenUser.idUser)
@@ -303,9 +304,7 @@ async function getListaTicketsDelUsuario() {
         }
         
         ticketsUsuario.push(ticketsUsu[i])
-        console.log(ticketsUsuario)
     }
-
 }
 
 </script>

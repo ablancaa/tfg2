@@ -26,10 +26,7 @@
 </template>
 
 <script setup>
-// @ is an alias to /src
-//import { defineEmits } from 'vue'
-//import HelloWorld from '@/components/HelloWorld.vue'
-//const emit = defineEmits(['change', 'delete']);
+
 import { ref } from 'vue'
 import {getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import "firebase/auth";

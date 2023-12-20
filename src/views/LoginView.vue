@@ -25,10 +25,7 @@
 </template>
 
 <script setup>
-// @ is an alias to /src
-//import { defineEmits } from 'vue'
-//import HelloWorld from '@/components/HelloWorld.vue'
-//const emit = defineEmits(['change', 'delete']);
+
 import { reactive, onMounted, ref, onBeforeUnmount, onUnmounted } from 'vue'
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { db, collection, getDocs, tokenMessaging } from "../utils/FirebaseConfig.js"
@@ -71,7 +68,6 @@ onMounted(() => {
     router.push("/")
   } else {
     signInWithEmailAndPassword(auth, email.value, password.value)
-   
       .then((userCredential) => {
       const user = userCredential.user;
       //console.log("Successfully registered!");
@@ -82,7 +78,6 @@ onMounted(() => {
           router.push("/dashBoardUser")
         }
         let usu = store.userList.filter((usu) => usu.email == store.currenUser.email)
-         //console.log(usu)
          store.setidUser(usu[0].idUser);
          store.setName(usu[0].name);
          store.setSurname1(usu[0].surname1);
@@ -95,10 +90,8 @@ onMounted(() => {
        })
        .catch((error) => {
          console.log(error.code);
-         //alert(error.message);
        })
    }
-
  }
 
  const getListaUsuarios = async () => {
@@ -107,7 +100,6 @@ onMounted(() => {
      users.push(doc.data());
      store.setUsersList(users);
    });
-   //console.log(users)
  }
 
 

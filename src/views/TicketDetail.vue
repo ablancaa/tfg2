@@ -252,19 +252,19 @@ const tiempoTranscurrido = Date.now();
 const hoy = new Date(tiempoTranscurrido);
 hoy.toLocaleDateString();
 
+//Variables para uso en la vista
 let refTicketEnFirebase = ref();
 let idsTickets = reactive([]);
 let idsUsers = reactive([]);
 let tickets = reactive([]);
 let users = reactive([]);
 let comments = reactive([]);
-
 let showModal = ref(false);
 let showAssingmentTechnicModal = ref(false);
 let showAssingmentStateModal = ref(false);
 let showAssingmentPriorityModal = ref(false);
 
-comments.push(JSON.parse(route.params.comments));
+comments.push(JSON.parse(route.params.comments));//Parámetro recibido por el router
 
 let ticket = reactive([
   {
@@ -288,10 +288,13 @@ onMounted(() => {
 
 const temporizadorDeTickets = () => {
   setTimeout(getListaTickets, 1000);
-};
+}
+
 function showForm() {
   showModal.value = true;
 }
+
+//Función para asignar un técnico
 function showAssingment() {
     showAssingmentTechnicModal.value = true;
   if (store.currenUser.rol != "Admin") {
@@ -305,6 +308,7 @@ function showAssingment() {
   }
 }
 
+//Muestra la prioridad e impide que pueda cambiarla un usuario que no tenga permisos
 function showPriority() {
     showAssingmentPriorityModal.value = true;
   if (store.currenUser.rol != "Admin") {
@@ -318,14 +322,15 @@ function showPriority() {
   }
 }
 
+//Solicita lista de usuario del servidor y la guarda en array
 async function getListaUsers() {
   const querySnapshotUsers = await getDocs(collection(db, "users"));
   querySnapshotUsers.forEach((doc) => {
     users.push(doc.data());
   });
-  //console.log(users);
 }
 
+//Hace peticíon al servidor de la lista de tickets
 async function getListaTickets() {
   const querySnapshotTickets = await getDocs(collection(db, "tickets"));
   querySnapshotTickets.forEach((doc) => {
@@ -354,7 +359,7 @@ async function deleteTicket(idTicket) {
   router.push("/ticketsView");
 }
 
-
+//Función para añadir un comentario al ticket y que lo incluya como objeto
 const addComment = async (newComment) => {
   //Lista de id de cada ticket en Firebase
   const querySnapshotTickets = await getDocs(collection(db, "tickets"));
@@ -390,9 +395,7 @@ const addComment = async (newComment) => {
     comments: comentariosAnteriores,
   });
 
-  //console.log(refTicketEnFirebase.value);
-  //console.log(comentariosAnteriores);
-  
+  //Recarga la página para aplicar cambios
   location.reload("/ticketDetail");
 };
 
@@ -413,8 +416,7 @@ const deleteComment = async (comentario) => {
       refTicketEnFirebase.value = idsTickets[i];
     }
   }
-  console.log(comentariosAnteriores.length)
-  console.log(refTicketEnFirebase.value)
+
    //Actualización de campo comentarios del ticket
    const comentariosRef = doc(db, "tickets", refTicketEnFirebase.value);
   await updateDoc(comentariosRef, {
@@ -488,6 +490,7 @@ const technicAssignment = async (idTechnic) => {
   router.push("/ticketsView");
 };
 
+//Función para asignar estado
 const showState = () => {
     showAssingmentStateModal.value = true;
   if (store.currenUser.rol != "Admin") {
@@ -500,6 +503,8 @@ const showState = () => {
     showAssingmentStateModal.value = false;
   }
 }
+
+//Asigna el estado al ticket
 const assignmentState = async (newState) => {
   //Lista de id de cada ticket en Firebase
   const querySnapshotTickets = await getDocs(collection(db, "tickets"));
@@ -526,7 +531,7 @@ const assignmentState = async (newState) => {
         state: newState,
         comments:  arrayUnion(com),
       });
-      console.log("El Estado es WAIT");
+
       break;
     case "procces":
     com = {
@@ -534,7 +539,7 @@ const assignmentState = async (newState) => {
         comment: 'Ticket En proceso',
         date: hoy.toLocaleDateString(),
       }
-      console.log("El Estado es PROCCES");
+    
       await updateDoc(TicketRef, {
         state: newState,
         comments:  arrayUnion(com),
@@ -553,7 +558,7 @@ const assignmentState = async (newState) => {
         comments:  arrayUnion(com),
       });
       route.params.state = newState
-      console.log("El Estado es ACTIVE");
+     
       break;
     case "end":
       com = {
@@ -566,7 +571,7 @@ const assignmentState = async (newState) => {
         comments:  arrayUnion(com),
       });
       route.params.state = newState
-      console.log("El Estado es END");
+    
       break;
     default:
       console.log(

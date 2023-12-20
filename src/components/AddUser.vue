@@ -43,6 +43,7 @@ import{ ref, reactive, defineEmits } from 'vue'
 
 const emit = defineEmits(['newUser','close'])
 
+//Variables que recogen los datos del formulario
 let id = ref(generarIdUnico());
 let idUser = ref("");
 let avatar = ref('https://i.pravatar.cc/80'); //Añade imagen automáticamente de una API
@@ -85,11 +86,11 @@ let newUser = reactive({})
                 state: false,
             });
         }
-        //Emite el nuevo usuario para la base de datos,
+        //Emite el nuevo usuario para la base de datos
         emit('newUser', newUser);
         console.log(newUser);
     }
-
+//Genera un id único para cada usuario
     function generarIdUnico () { 
         return Math.random().toString(30).substring(2);           
     }

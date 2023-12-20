@@ -22,7 +22,9 @@
 <script setup>
 import { defineProps, defineEmits } from 'vue';
 import CardUser from './CardUser.vue';
+
 const emit = defineEmits(['deleteUser','close'])
+
   let props = defineProps({
     usersList: {
         type: Array,
@@ -31,8 +33,8 @@ const emit = defineEmits(['deleteUser','close'])
         type: Array,
       }
   })
-  
-//emite que borre el ususario en concreto
+
+//Emite que borre el ususario en concreto
  const deleteUser = () =>{
   emit("deleteUser", deleteUser)
  }

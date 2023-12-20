@@ -22,9 +22,10 @@
 </template> 
 <script setup>
 import { defineProps, defineEmits } from 'vue';
-//import CardTicket from './CardTicket.vue';
+
 import CardTicket2 from './CardTicket2.vue';
 const emit = defineEmits(['deleteTicket','close'])
+
 let props = defineProps({
     ticketList: {
         type: Array,
@@ -33,6 +34,7 @@ let props = defineProps({
         type: Array,
     }
   })
+
   //Emite que borre el ticket en concreto
   const deleteTicket = () =>{
   emit("deleteUser", deleteTicket)
