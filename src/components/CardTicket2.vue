@@ -15,25 +15,30 @@
         </div>
         <div class="col">
             <div class="estados">
-                <span><p class="estados-items"><strong>Categoría: </strong>{{ props.tickets.category }}</p></span>
-                <span><p class="estados-items"><strong>Date: </strong>{{ props.tickets.date }}</p></span>
+                <span><p class="estados-items"><strong>Categoría: </strong> {{ props.tickets.category }}</p></span>
+                <span><p class="estados-items"><strong>Date: </strong> {{ props.tickets.date }}</p></span>
                 <span>
-                    <p class="estados-items">
-                            <img src="../assets/ico/normal.png" width="24" height="24" v-if="props.tickets.priority == 'Normal'"/>
-                            <img src="../assets/ico/urgente.png" width="24" height="24" v-if="props.tickets.priority == 'Urgente'"/>
-                            <img src="../assets/ico/critico.png" width="24" height="24" v-if="props.tickets.priority == 'Crítico'"/>
-                            <img src="../assets/ico/importante.png" width="24" height="24" v-if="props.tickets.priority == 'Importante'"/>
-                            {{ props.tickets.priority }}  
-                            <img src="../assets/ico/active.png" width="24" height="24" v-if="props.tickets.state == 'active'"/>
-                            <img src="../assets/ico/procesando.png" width="24" height="24" v-if="props.tickets.state == 'wait'"/>
-                            <img src="../assets/ico/end.png" width="24" height="24" v-if="props.tickets.state == 'end'"/>
-                            <img src="../assets/ico/proceso.png" width="24" height="24" v-if="props.tickets.state == 'procces'"/>
-                            {{ props.tickets.state }}
-                    </p>
+                    
                 </span>
-                
             </div>
         </div>
+    </div>
+    <div class="row">
+    <div class="col">
+        <p class="estados-items">
+                            <img src="../assets/ico/normal.png" width="25" height="25" v-if="props.tickets.priority == 'Normal'"/>
+                            <img src="../assets/ico/urgente.png" width="25" height="25" v-if="props.tickets.priority == 'Urgente'"/>
+                            <img src="../assets/ico/critico.png" width="25" height="25" v-if="props.tickets.priority == 'Crítico'"/>
+                            <img src="../assets/ico/importante.png" width="25" height="25" v-if="props.tickets.priority == 'Importante'"/>
+                             <!-- [{{ props.tickets.priority }}] -->
+                            <span class="space">  </span>
+                            <img src="../assets/ico/active.png" width="25" height="25" v-if="props.tickets.state == 'active'"/>
+                            <img src="../assets/ico/procesando.png" width="25" height="25" v-if="props.tickets.state == 'wait'"/>
+                            <img src="../assets/ico/end.png" width="25" height="25" v-if="props.tickets.state == 'end'"/>
+                            <img src="../assets/ico/proceso.png" width="25" height="25" v-if="props.tickets.state == 'procces'"/>
+                            <!-- [{{ props.tickets.state }}]  -->
+                    </p>
+    </div>
     </div>
     <hr/>
     <div class="row">
@@ -98,6 +103,11 @@ const props = defineProps({
     border-radius: 10px;
     box-shadow: 0px 5px 5px 2px #757575;
 }
+.space{
+    margin-top: 10px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
 .estados{
     width: auto;
     margin-top: -20px;
@@ -121,7 +131,7 @@ const props = defineProps({
     margin-bottom: 2px;
 }
 .estados-items {
-    display: flex;
+    
     margin-bottom: 1px;
     font-size: 13px;
 }
@@ -142,7 +152,7 @@ const props = defineProps({
 }
 .title {
     text-align: left;
-    margin: 15px 0px 20px 30px;
+    margin: 15px 10px 20px 15px;
 }
 
 hr {
