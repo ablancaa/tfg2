@@ -56,7 +56,8 @@ let contadores = reactive ([
     {
       ticketsNum: 0,
       ticketsProcces: 0,
-      ticketsEnd: 0
+      ticketsEnd: 0,
+      ticketMessage: 0
     }
 ]);
 let showModal = ref(false);
@@ -113,14 +114,21 @@ async function getListaUsers() {
 //Listado de tickets para contar los estados
 async function getListaTickets() {
     const querySnapshotTickets = await getDocs(collection(db, "tickets"));
-    querySnapshotTickets.forEach((doc) => {
-      tickets.push(doc.data());
+    querySnapshotTickets.forEach((ticket) => {
+      tickets.push(ticket.data());
+    
       let ticketProcces = tickets.filter(ticket => ticket.state == "procces")
       let ticketEnd = tickets.filter(ticket => ticket.state == "end")
+      let ticketMessage = tickets.filter(msg => msg.idTicket.length)
+      //const recuento = almacenamiento.filter(item => item.estado === '0').length;
       contadores[0].ticketsNum = tickets.length
       contadores[0].ticketsProcces = ticketProcces.length
       contadores[0].ticketsEnd = ticketEnd.length
+      contadores[0].ticketMessage = ticketMessage.length
+         
     });
+
+
 }
 //Añade un ticket nuevo en la base de datos
 async function addTicket(newTicket){
@@ -137,14 +145,13 @@ async function addTicket(newTicket){
       priority: newTicket.priority,
       technical: newTicket.technical,          
       date: newTicket.date,
+      notify: 1,
       comments: [{
         email: 'No Asignado a técnico',
         comment:"El ticket ha sido guardado correctamente, lo antes posible se le asignará un técnico para su resolución",
         date: hoy.toLocaleDateString()
       }]
     });
-
-    
 
     } catch (e) {
       console.error("Error adding document: ", e);

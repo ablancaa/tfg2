@@ -50,7 +50,7 @@
         </div>
         <div class="col">
             <div class="notifys">
-                <p class="nNotify ico"><img src="../assets/ico/notificacion.png" width="35" height="35"/></p><p class="nNotify">6</p>
+                <p class="nNotify ico"><img src="../assets/ico/notificacion.png" width="35" height="35"/></p><p class="nNotify">{{ props.tickets.notify }}</p>
             </div>
         </div>
     </div><!-- Fin Row -->

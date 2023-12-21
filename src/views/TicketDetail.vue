@@ -193,7 +193,7 @@
           </p>
         </div>
       </div>
-      <div class="col col-md-2 item-3">
+      <div class="col-12">
         <span v-if="store.currenUser.rol == 'Admin'">
           <button @click="deleteTicket(route.params.idTicket)" class="agregar">
             <img src="../assets/ico/delete.png" width="30" height="30" />
@@ -284,6 +284,7 @@ let ticket = reactive([
 onMounted(() => {
   temporizadorDeTickets();
   getListaUsers();
+  
 });
 
 const temporizadorDeTickets = () => {
@@ -297,7 +298,7 @@ function showForm() {
 //Función para asignar un técnico
 function showAssingment() {
     showAssingmentTechnicModal.value = true;
-  if (store.currenUser.rol != "Admin") {
+  if (store.currenUser.rol != "Admin" && store.currenUser.rol != "Técnico") {
     alert(
       "El usuario " +
         store.currenUser.email +
@@ -349,14 +350,20 @@ async function deleteTicket(idTicket) {
 
   for (let i = 0; i < tickets.length; i++) {
     if (idTicket == tickets[i].idTicket) {
- 
       refTicketEnFirebase.value = idsTickets[i];
-    
     }
   }
-  console.log(refTicketEnFirebase.value);
+
+  
+  //console.log(refTicketEnFirebase.value);
   await deleteDoc(doc(db, "tickets", refTicketEnFirebase.value));
+  
   router.push("/ticketsView");
+}
+
+const contarComentarios = (comentarios) =>{
+  console.log(comentarios.length)
+return comentarios.length;
 }
 
 //Función para añadir un comentario al ticket y que lo incluya como objeto
@@ -376,7 +383,7 @@ const addComment = async (newComment) => {
       refTicketEnFirebase.value = idsTickets[i];
     }
   }
-
+  
   //Nuevo comentario para introducir en el ticket
   let com = reactive([
     {
@@ -388,11 +395,12 @@ const addComment = async (newComment) => {
 
   //Comentarios anteriores más el nuevo al final
   comentariosAnteriores.push(...com);
-
+  let contadorComentarios = contarComentarios(comentariosAnteriores);
   //Actualización de campo comentarios del ticket
   const comentariosRef = doc(db, "tickets", refTicketEnFirebase.value);
   await updateDoc(comentariosRef, {
     comments: comentariosAnteriores,
+    notify: contadorComentarios
   });
 
   //Recarga la página para aplicar cambios
@@ -416,11 +424,23 @@ const deleteComment = async (comentario) => {
       refTicketEnFirebase.value = idsTickets[i];
     }
   }
+  
+  // const comentariosRef = doc(db, "tickets", refTicketEnFirebase.value);
+  // await updateDoc(comentariosRef, {
+  //   notify: contadorComentarios,
+  // });
+  let contadorComentarios = contarComentarios(comentariosAnteriores);
+  console.log(contadorComentarios)
 
    //Actualización de campo comentarios del ticket
    const comentariosRef = doc(db, "tickets", refTicketEnFirebase.value);
   await updateDoc(comentariosRef, {
     comments: arrayRemove(comentario),
+   
+  });
+  
+  await updateDoc(comentariosRef, {
+    notify: contadorComentarios-1,
   });
   location.reload("/ticketDetail");
   //alert("Borrar Mensaje");
@@ -451,6 +471,7 @@ const technicAssignment = async (idTechnic) => {
     }
   }
   ticket.technical = idTechnic;
+
   //Bucle para buscar los comentarios del ticket elegido
    let comentariosAnteriores = reactive([]);
    for (let i = 0; i < tickets.length; i++) {
@@ -459,10 +480,15 @@ const technicAssignment = async (idTechnic) => {
       refTicketEnFirebase.value = idsTickets[i];
     }
   }
+
   let userIdFirebase =''
+  let nombreTecnico = ''
+  
+  //Bucle para encontar el nombre del técnico
   for (let i=0; i < users.length; i++){
     if(users[i].idUser == idTechnic)
-      console.log(idsUsers[i]);
+      nombreTecnico = users[i].name;
+      console.log(nombreTecnico)
       userIdFirebase = idsUsers[i];
     }
   
@@ -470,16 +496,21 @@ const technicAssignment = async (idTechnic) => {
   console.log(refTicketEnFirebase.value);
   ticket.technical = idTechnic;
   technicalAssignement.push(idTechnic);
+  
   const technicalRef = doc(db, "tickets", refTicketEnFirebase.value);
     let comment = {
         email: 'Mensaje del sistema',
-        comment: 'Un técnico ha sido asignado a su incidencia, pronto recibirá información de su parte, Gracias',
+        comment: 'El técnico '+nombreTecnico+' ha sido asignado a su incidencia, pronto recibirá información de su parte, Gracias',
         date: hoy.toLocaleDateString(),
     }
+  let contadorComentarios = contarComentarios(comentariosAnteriores);
+  console.log(contadorComentarios)
+ 
   await updateDoc(technicalRef, {
     technical: technicalAssignement,
     state: "active",
-    comments: arrayUnion(comment) 
+    comments: arrayUnion(comment),
+    notify: contadorComentarios+1
   });
 
    const technicalAssingmentRef = doc(db, "users", userIdFirebase);
@@ -493,7 +524,7 @@ const technicAssignment = async (idTechnic) => {
 //Función para asignar estado
 const showState = () => {
     showAssingmentStateModal.value = true;
-  if (store.currenUser.rol != "Admin") {
+  if (store.currenUser.rol != "Admin" && store.currenUser.rol != "Técnico") {
     alert(
       "El usuario " +
         store.currenUser.email +
@@ -519,6 +550,17 @@ const assignmentState = async (newState) => {
     }
 
     const TicketRef = doc(db, "tickets", refTicketEnFirebase.value);
+   
+     //Bucle para buscar los comentarios del ticket elegido
+   let comentariosAnteriores = reactive([]);
+   for (let i = 0; i < tickets.length; i++) {
+    if (route.params.idTicket == tickets[i].idTicket) {
+      comentariosAnteriores.push(...tickets[i].comments);
+      refTicketEnFirebase.value = idsTickets[i];
+    }
+  }
+    let contadorComentarios = contarComentarios(comentariosAnteriores);
+    
     let com = {}
     switch (newState) {
     case "wait":
@@ -530,6 +572,7 @@ const assignmentState = async (newState) => {
       await updateDoc(TicketRef, {
         state: newState,
         comments:  arrayUnion(com),
+        notify: contadorComentarios+1,
       });
 
       break;
@@ -543,6 +586,7 @@ const assignmentState = async (newState) => {
       await updateDoc(TicketRef, {
         state: newState,
         comments:  arrayUnion(com),
+        notify: contadorComentarios+1,
       });
       
       route.params.state = newState
@@ -556,6 +600,7 @@ const assignmentState = async (newState) => {
       await updateDoc(TicketRef, {
         state: newState,
         comments:  arrayUnion(com),
+        notify: contadorComentarios+1,
       });
       route.params.state = newState
      
@@ -569,6 +614,7 @@ const assignmentState = async (newState) => {
       await updateDoc(TicketRef, {
         state: newState,
         comments:  arrayUnion(com),
+        notify: contadorComentarios+1,
       });
       route.params.state = newState
     

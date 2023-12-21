@@ -73,11 +73,23 @@
                             }
                         }" class="page-link">
                             <div class="silueta-ticket" v-if="ticket.technical[0] == store.currenUser.idUser">
-                                <p class="info"><strong>{{ ticket.idTicket }}</strong><br />
-                                    <span class="title ">{{ ticket.title }}</span><br />
-                                    <span class="info ">{{ ticket.state }}</span> <br />
-                                    <span class="info ">{{ ticket.date }}</span>
+                                <p class="info"><strong>{{ ticket.idTicket }} | {{ ticket.date }} |     </strong>
+                                    <img src="../assets/ico/normal.png" width="20" v-if="ticket.priority == 'Normal'"/>
+                                        <img src="../assets/ico/urgente.png" width="20" v-if="ticket.priority == 'Urgente'"/>
+                                        <img src="../assets/ico/importante.png" width="20" v-if="ticket.priority == 'Crítico'"/>
+                                        <img src="../assets/ico/importante.png" width="20" v-if="ticket.priority == 'Importante'"/>{{ ticket.priority }}
+                                <br />
+                                    <span class="title "> 
+                                        <img src="../assets/ico/active.png" width="50" v-if="ticket.state == 'active'"/>
+                                        <img src="../assets/ico/end.png" width="50"  v-if="ticket.state == 'end'"/>
+                                        <img src="../assets/ico/proceso.png" width="50"  v-if="ticket.state == 'procces'"/>
+                                        <img src="../assets/ico/procesando.png" width="50" v-if="ticket.state == 'wait'"/>
+                                         {{ ticket.title }}
+                                    </span>
+                                
+                                               
                                 </p>
+                                
                             </div>
                         </router-link>
                     </div>
@@ -103,10 +115,25 @@
                                 }
                             }" class="page-link">
                                 <div class="silueta-ticket" v-if="ticket.state == 'end'">
-                                    <p class="info"><strong>{{ ticket.idTicket }}</strong><br />
-                                        <span class="title ">{{ ticket.title }}</span><br />
-                                        <span class="info ">{{ ticket.state }}</span> <br />
-                                        <span class="info ">{{ ticket.date }}</span>
+                                    <p class="info"><strong>{{ ticket.idTicket }} | {{ ticket.date }} | </strong>
+                                        <img src="../assets/ico/normal.png" width="20" v-if="ticket.priority == 'Normal'"/>
+                                        <img src="../assets/ico/urgente.png" width="20" v-if="ticket.priority == 'Urgente'"/>
+                                        <img src="../assets/ico/importante.png" width="20" v-if="ticket.priority == 'Crítico'"/>
+                                        <img src="../assets/ico/importante.png" width="20" v-if="ticket.priority == 'Importante'"/>
+                                        
+                                        
+                                        
+                                    
+                                    <br />
+                                       
+                                        <span class="title ">
+                                            <img src="../assets/ico/active.png" width="50" v-if="ticket.state == 'active'"/>
+                                            <img src="../assets/ico/end.png" width="50"  v-if="ticket.state == 'end'"/>
+                                            <img src="../assets/ico/proceso.png" width="50"  v-if="ticket.state == 'procces'"/>
+                                            <img src="../assets/ico/procesando.png" width="50" v-if="ticket.state == 'wait'"/>
+                                            {{ ticket.title }}
+                                        </span>
+                                        <span class="info "></span>
                                     </p>
                                 </div>
                             </router-link>
