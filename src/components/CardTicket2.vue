@@ -109,9 +109,8 @@ const props = defineProps({
     flex-direction: column;
 }
 .nNotify {
-    margin-top: -10px;
- 
-    margin-top: -5px;
+    margin-top: 0px;
+    margin-bottom: -1px;
     font-size: 25px;
     width: auto;
 }
