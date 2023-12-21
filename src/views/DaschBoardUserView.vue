@@ -313,12 +313,7 @@ async function getListaTicketsDelUsuario() {
     let ticketWait = tickets.filter(ticket => ticket.state == "wait" && ticket.idUser == store.currenUser.idUser)
     let ticketEnd = tickets.filter(ticket => ticket.state == "end" && ticket.idUser == store.currenUser.idUser)
     let ticketAssignment = tickets.filter(ticket => ticket.technical[0] == store.currenUser.idUser)
-    // console.log(ticketProcces.length)
-    // console.log(ticketActive.length)
-    // console.log(ticketWait.length)
-    // console.log(ticketEnd.length)
-    // console.log(ticketsUsu);
-    // console.log(ticketAssignment.length);
+
     contadorUsuario[0].ticketsAssignment = ticketAssignment.length;
     for (let i = 0; i < ticketsUsu.length; i++) {
         if (ticketsUsu[i].idUser == store.currenUser.idUser) {
