@@ -2,7 +2,12 @@
     <br/>
 <div class="silueta-card">
     <div class="row">
-        <div class="col col-md-6 title"><h5>{{ props.tickets.title }}</h5></div>
+        <div class="col col-md-6 title">
+            <h5>{{ props.tickets.title }}</h5>
+            <p class="subtitle">
+                <u><i><strong>Date: </strong> {{ props.tickets.date }} | <strong>Categoría: </strong> {{ props.tickets.category }}</i></u>
+            </p>
+        </div>
     </div>
     <div class="row">
         <div class="col">
@@ -15,29 +20,33 @@
         </div>
         <div class="col">
             <div class="estados">
-                <span><p class="estados-items"><strong>Categoría: </strong> {{ props.tickets.category }}</p></span>
-                <span><p class="estados-items"><strong>Date: </strong> {{ props.tickets.date }}</p></span>
-                <span>
-                    
-                </span>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-    <div class="col">
-        <p class="estados-items">
+                <p class="estados-items">
                             <img src="../assets/ico/normal.png" width="25" height="25" v-if="props.tickets.priority == 'Normal'"/>
                             <img src="../assets/ico/urgente.png" width="25" height="25" v-if="props.tickets.priority == 'Urgente'"/>
                             <img src="../assets/ico/critico.png" width="25" height="25" v-if="props.tickets.priority == 'Crítico'"/>
                             <img src="../assets/ico/importante.png" width="25" height="25" v-if="props.tickets.priority == 'Importante'"/>
-                             <!-- [{{ props.tickets.priority }}] -->
-                            <span class="space">  </span>
+                          {{ props.tickets.priority }}
+                             
+                    </p>
+                    <p class="estados-items">
+                          
                             <img src="../assets/ico/active.png" width="25" height="25" v-if="props.tickets.state == 'active'"/>
                             <img src="../assets/ico/procesando.png" width="25" height="25" v-if="props.tickets.state == 'wait'"/>
                             <img src="../assets/ico/end.png" width="25" height="25" v-if="props.tickets.state == 'end'"/>
                             <img src="../assets/ico/proceso.png" width="25" height="25" v-if="props.tickets.state == 'procces'"/>
-                            <!-- [{{ props.tickets.state }}]  -->
+                            {{ props.tickets.state }}
+                           
                     </p>
+            </div>
+            <div class="estados">
+                             
+            </div>
+            
+        </div>
+    </div>
+    <div class="row">
+    <div class="col">
+        
     </div>
     </div>
     <hr/>
@@ -108,10 +117,14 @@ const props = defineProps({
     margin-left: 15px;
     margin-right: 15px;
 }
+.subtitle{
+    font-size: 14px;
+}
 .estados{
-    width: auto;
+    text-align: left;
     margin-top: -20px;
-    background-color: beige; 
+    background-color: beige;
+    width: auto;
     border-radius: 10px 0px 0px 10px;
 }
 
@@ -131,7 +144,7 @@ const props = defineProps({
     margin-bottom: 2px;
 }
 .estados-items {
-    
+    margin-left: 20px;
     margin-bottom: 1px;
     font-size: 13px;
 }
@@ -140,8 +153,8 @@ const props = defineProps({
     flex-direction: column;
 }
 .nNotify {
-    margin-top: 0px;
-    margin-bottom: -1px;
+    margin-top: -10px;
+    margin-bottom: 5px;
     font-size: 25px;
     width: auto;
 }
