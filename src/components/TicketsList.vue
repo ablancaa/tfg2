@@ -14,17 +14,17 @@
                    comments:  JSON.stringify(ticket.comments),
                    technical: ticket.technical[0], //Es un array que puede contener más de un técnico
                  }}" class="page-link">
-            <CardTicket2 :tickets="ticket" :userList="userList" @deleteTicket="deleteTicket"/>
+            <CardTicket2 :tickets="ticket" :userList="userList" />
         </router-link>
         </div>
     </div><!-- Fin Row -->
 </div><!-- Fin Container -->
 </template> 
 <script setup>
-import { defineProps, defineEmits } from 'vue';
+import { defineProps,  } from 'vue';
 
 import CardTicket2 from './CardTicket2.vue';
-const emit = defineEmits(['deleteTicket','close'])
+//const emit = defineEmits(['deleteTicket','close'])
 
 let props = defineProps({
     ticketList: {
@@ -36,9 +36,9 @@ let props = defineProps({
   })
 
   //Emite que borre el ticket en concreto
-  const deleteTicket = () =>{
-  emit("deleteUser", deleteTicket)
- }
+//   const deleteTicket = () =>{
+//   emit("deleteTicket", deleteTicket)
+//  }
 
 </script>
   

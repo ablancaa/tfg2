@@ -127,8 +127,6 @@ async function getListaTickets() {
       contadores[0].ticketMessage = ticketMessage.length
          
     });
-
-
 }
 //Añade un ticket nuevo en la base de datos
 async function addTicket(newTicket){

@@ -39,9 +39,19 @@
                                 }}" class="page-link">  
                     <div class="silueta-ticket">
                         <p class="info">
-                            <strong>{{ ticket.idTicket }}</strong><br/>
-                            <span class="info iduser">{{ ticket.title }}</span><br/>
-                            <span class="info iduser">{{ ticket.category }}</span><br/>
+                            <span class="">{{ ticket.category }}</span><br/>
+                            <strong class="iduser">{{ ticket.idTicket }}</strong><br/>
+                            <!-- <span class="title">{{ ticket.title }}</span><br/> -->
+                            
+                            <img src="../assets/ico/normal.png" width="25" height="25" v-if="ticket.priority == 'Normal'"/>
+                            <img src="../assets/ico/urgente.png" width="25" height="25" v-if="ticket.priority == 'Urgente'"/>
+                            <img src="../assets/ico/critico.png" width="25" height="25" v-if="ticket.priority == 'Crítico'"/>
+                            <img src="../assets/ico/importante.png" width="25" height="25" v-if="ticket.priority == 'Importante'"/>
+                            <span class="space"></span>
+                            <img src="../assets/ico/active.png" width="25" height="25" v-if="ticket.state == 'active'"/>
+                            <img src="../assets/ico/procesando.png" width="25" height="25" v-if="ticket.state == 'wait'"/>
+                            <img src="../assets/ico/end.png" width="25" height="25" v-if="ticket.state == 'end'"/>
+                            <img src="../assets/ico/proceso.png" width="25" height="25" v-if="ticket.state == 'procces'"/>
                          </p> 
                     </div>
                     </router-link>
@@ -148,6 +158,15 @@ text-align: center;
     border-radius: 50%;
     border: 2px solid rgb(0, 0, 0);
     margin: 10px 10px 10px 10px;
+}
+.space{
+    margin-top: 10px;
+    margin-left: 15px;
+    margin-right: 15px;
+
+}
+.title{
+    font-size: 14px;
 }
 .nameSurname {
     color: #000;

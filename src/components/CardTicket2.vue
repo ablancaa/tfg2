@@ -112,11 +112,7 @@ const props = defineProps({
     border-radius: 10px;
     box-shadow: 0px 5px 5px 2px #757575;
 }
-.space{
-    margin-top: 10px;
-    margin-left: 15px;
-    margin-right: 15px;
-}
+
 .subtitle{
     font-size: 14px;
 }
