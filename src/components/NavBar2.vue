@@ -17,7 +17,7 @@
             <li><router-link to="/dashBoardUser">DashBoard User</router-link></li>
             <li><router-link to="/ticketsView">Tickets</router-link></li>
             <li v-if="userCurrenRol == 'Admin'"><router-link to="/usersView">Users</router-link></li>
-            <li v-if="userCurrenRol == 'Admin'"><router-link to="/estadisticasView">Estadísticas</router-link></li>
+            <li v-if="userCurrenRol == 'Admin' || userCurrenRol == 'Técnico'"><router-link to="/estadisticasView">Estadísticas</router-link></li>
             <li><router-link to="/about">About</router-link></li>
             <li><a href="#"></a></li>
             <li><a href="#"></a></li>
@@ -42,26 +42,26 @@ const router = useRouter();
 
  let userCurrenEmail = ref(store.currenUser.email);
  let userCurrenAvatar = ref(store.currenUser.avatar)
- let userCurrenIdUser = ref(store.currenUser.idUser)
+ //let userCurrenIdUser = ref(store.currenUser.idUser)
  let userCurrenRol = ref(store.currenUser.rol)
- let userFirebaseMessagingRef = ref(store.currenUser.firebaseMessaging)
+ //let userFirebaseMessagingRef = ref(store.currenUser.firebaseMessaging)
  let userFirebaseRef = ref(store.currenUser.firebaseRef)
 
   onMounted(() => {
     userCurrenEmail = ref(store.currenUser.email);
     userCurrenAvatar = ref(store.currenUser.avatar);
-    userCurrenIdUser = ref(store.currenUser.idUser);
+   // userCurrenIdUser = ref(store.currenUser.idUser);
     userCurrenRol = ref(store.currenUser.rol);
     userFirebaseRef = ref(store.currenUser.firebaseRef);
-    userFirebaseMessagingRef = ref(store.currenUser.firebaseMessaging);
+    //userFirebaseMessagingRef = ref(store.currenUser.firebaseMessaging);
   });
  
-  console.log("Email: "+userCurrenEmail.value)
-  console.log("Avatar: "+userCurrenAvatar.value)
-  console.log("IdUser: "+userCurrenIdUser.value)
-  console.log("Rol: "+userCurrenRol.value)
-  console.log("Firebase Ref: "+userFirebaseRef.value)
-  console.log("Firebase Messaging Ref: "+userFirebaseMessagingRef.value)
+  // console.log("Email: "+userCurrenEmail.value)
+  // console.log("Avatar: "+userCurrenAvatar.value)
+  // console.log("IdUser: "+userCurrenIdUser.value)
+  // console.log("Rol: "+userCurrenRol.value)
+  // console.log("Firebase Ref: "+userFirebaseRef.value)
+  // console.log("Firebase Messaging Ref: "+userFirebaseMessagingRef.value)
 
   //Borra todos los datos cuando sale de la aplicación.
 const exit = () => {
