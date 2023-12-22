@@ -169,7 +169,6 @@
             ><br />
             {{ ticket[0].description }}
           </p>
-
           <div class="comment">
             <div v-for="comentario in tickets" :key="comentario">
               <div v-for="comen in comentario.comments" :key="comen">
@@ -195,8 +194,8 @@
       </div>
       <div class="col-12">
         <span v-if="store.currenUser.rol == 'Admin'">
-          <button @click="deleteTicket(route.params.idTicket)" class="agregar">
-            <img src="../assets/ico/delete.png" width="30" height="30" />
+          <button @click="deleteTicket(route.params.idTicket)" class="agregar btn btn-danger">
+            <img src="../assets/ico/deleteWhite.png" width="30" height="30" />
           </button>
         </span>
       </div>
@@ -713,6 +712,7 @@ export default {
 }
 .agregar {
   border-radius: 10px;
+  box-shadow: 0px 1px 1px 1px #757575;
 }
 
 .btn {
