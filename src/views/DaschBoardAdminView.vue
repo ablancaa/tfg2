@@ -41,19 +41,22 @@
                                     <div class="">
                                         <h5>En proceso: </h5>
                                     </div>
-                                    <span class="num-contador circulo-naranja">{{ contadores[1].ticketsProgress }}</span>
+                                    <span class="num-contador circulo-naranja" v-if="contadores[1].ticketsProgress > 1">{{ contadores[1].ticketsProgress }}</span>
+                                    <span class="num-contador circulo-verde" v-if="contadores[1].ticketsProgress == 0">{{ contadores[1].ticketsProgress }}</span>
                                 </div>
                                 <div class="">
                                     <div class="">
                                         <h5>Activos: </h5>
                                     </div>
-                                    <span class="num-contador circulo-naranja">{{ contadores[1].ticketsActive }}</span>
+                                    <span class="num-contador circulo-naranja" v-if="contadores[1].ticketsActive > 1">{{ contadores[1].ticketsActive }}</span>
+                                    <span class="num-contador circulo-verde" v-if="contadores[1].ticketsActive == 0">{{ contadores[1].ticketsActive }}</span>
                                 </div>
                                 <div class="">
                                     <div class="">
                                         <h5>En Espera: </h5>
                                     </div>
-                                    <span class="num-contador circulo-naranja">{{ contadores[1].ticketsWait }}</span>
+                                    <span class="num-contador circulo-naranja" v-if="contadores[1].ticketsWait == 1">{{ contadores[1].ticketsWait }}</span>
+                                    <span class="num-contador circulo-verde" v-if="contadores[1].ticketsWait == 0">{{ contadores[1].ticketsWait }}</span>
                                 </div>
                                 <div class="">
                                     <h5>Finalizados:</h5>
