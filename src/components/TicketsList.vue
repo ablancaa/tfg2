@@ -21,7 +21,7 @@
 </div><!-- Fin Container -->
 </template> 
 <script setup>
-import { defineProps,  } from 'vue';
+import { defineProps } from 'vue';
 
 import CardTicket2 from './CardTicket2.vue';
 //const emit = defineEmits(['deleteTicket','close'])
@@ -44,6 +44,6 @@ let props = defineProps({
   
 <style scoped>
 .marginTop{
-    margin-top: 0px;
+    margin-top: -15px;
 }
 </style>
