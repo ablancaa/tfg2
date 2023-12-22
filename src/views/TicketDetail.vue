@@ -406,6 +406,7 @@ const addComment = async (newComment) => {
   location.reload("/ticketDetail");
 };
 
+//Función para Borrar un comentario del ticket
 const deleteComment = async (comentario) => {
   console.log(comentario);
    //Lista de id de cada ticket en Firebase
@@ -424,10 +425,6 @@ const deleteComment = async (comentario) => {
     }
   }
   
-  // const comentariosRef = doc(db, "tickets", refTicketEnFirebase.value);
-  // await updateDoc(comentariosRef, {
-  //   notify: contadorComentarios,
-  // });
   let contadorComentarios = contarComentarios(comentariosAnteriores);
   console.log(contadorComentarios)
 
@@ -550,7 +547,7 @@ const assignmentState = async (newState) => {
 
     const TicketRef = doc(db, "tickets", refTicketEnFirebase.value);
    
-     //Bucle para buscar los comentarios del ticket elegido
+   //Bucle para buscar los comentarios del ticket elegido
    let comentariosAnteriores = reactive([]);
    for (let i = 0; i < tickets.length; i++) {
     if (route.params.idTicket == tickets[i].idTicket) {
@@ -558,6 +555,7 @@ const assignmentState = async (newState) => {
       refTicketEnFirebase.value = idsTickets[i];
     }
   }
+    //Contabiliza los comentarios para actualizar la variable notify de ticket
     let contadorComentarios = contarComentarios(comentariosAnteriores);
     
     let com = {}
@@ -625,7 +623,7 @@ const assignmentState = async (newState) => {
   }
 
   console.log(newState);
-    console.log(refTicketEnFirebase.value);
+  console.log(refTicketEnFirebase.value);
     
   router.push("/ticketsView");
 };
