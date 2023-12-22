@@ -33,7 +33,7 @@
                                 <span class="num-contador" v-if="store.currenUser.rol == 'Técnico'">
                                     <span class="circulo-verde">{{ contadorUsuario[0].ticketsAssignment }}</span>
                                 </span><br /><br />
-                                <img src="../assets/ico/notificacion.png" width="40" height="40" class="ico" />
+                                <img src="../assets/ico/charlando.png" width="40" height="40" class="ico" />
                                 <span class="num-contador"><span class="circulo-notificaciones">25</span></span>
                             </div>
                         </div>
