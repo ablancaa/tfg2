@@ -7,7 +7,7 @@
             <thead class="thead-dark">
                 <tr>
                 <th>Técnico</th>
-                <th scope="col">Tickets</th>
+                <th scope="col">Tickets Asignados</th>
                 </tr>
             </thead>
             <tbody>
