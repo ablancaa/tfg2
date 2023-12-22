@@ -187,8 +187,8 @@
           </div>
           <br />
           <p class="ico">
-            <button @click="showForm()" class="agregar">
-              <img src="../assets/ico/agregar.png" width="30" height="30" class="agregar"/>
+            <button @click="showForm()" class="agregar btn btn-dark">
+              <img src="../assets/ico/agregarWhite.png" width="30" height="30" class="agregar"/>
             </button>
           </p>
         </div>
@@ -714,6 +714,10 @@ export default {
 .agregar {
   border-radius: 10px;
 }
+
+.btn {
+  width: auto;
+}
 .ico {
   text-align: right;
 }
@@ -722,7 +726,6 @@ export default {
 .silueta-card {
   display: flex;
   flex-direction: row;
-
   justify-content: space-around;
   align-items: center;
   margin-top: 10px;

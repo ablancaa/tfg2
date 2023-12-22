@@ -81,7 +81,7 @@
         <div class="col">
             <div class="notifys">
                 <p class="nNotify ico">
-                    <img src="../assets/ico/notificacion1.png" width="35" height="35" v-if="props.tickets.notify >= 1"/>
+                    <img src="../assets/ico/charlando.png" width="35" height="35" v-if="props.tickets.notify >= 1"/>
                     <img src="../assets/ico/notificacion.png" width="35" height="35" v-else/>
                 </p>
                 <p class="nNotify">{{ props.tickets.notify }}</p>
@@ -149,8 +149,8 @@ const props = defineProps({
     flex-direction: column;
 }
 .nNotify {
-    margin-top: -10px;
-    margin-bottom: 5px;
+    margin-top: 10px;
+    margin-bottom: -15px;
     font-size: 25px;
     width: auto;
 }
@@ -168,7 +168,7 @@ hr {
     height: 2px;
     background-color: black;
     box-shadow: 2px 2px rgba(120, 120, 120, .25);
-    margin-top: 5px;
+    margin-top: 0px;
 }
 .imgUser {
     border-radius: 50%;
@@ -176,71 +176,5 @@ hr {
     margin: 0px 0px 0px 0px;
 }
 
-.flex-container1 {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  justify-content: normal;
-  align-items:flex-start;
-  align-content: flex-start;
-}
-.flex-container2 {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content:space-between;
-  align-items:center; 
-  align-content:center;
-  
-}
-
-.item-title {
-    display: flex;
-    align-content: center;
-    justify-content: start;
-    padding: 10px;
-    background-color: aqua;
-}
-.item-nticket {
-    display: flex;
-    align-content: center;
-    justify-content: start;
-    background-color: rgb(13, 83, 83);
-}
-.item-state {
-    display: flex;
-    align-content: center;
-    justify-content: start;
-    padding: 10px;
-    background-color: rgb(13, 83, 83);
-}
-.flex-items:nth-child(1) {
-  display: block;
-  flex-grow: 0;
-  flex-shrink: 1;
-  flex-basis: auto;
-  align-self: auto;
-  align-items: start;
-  align-content:center;
-  order: 0;
-}
-
-.flex-items:nth-child(2) {
-  display: block;
-  flex-grow: 0;
-  flex-shrink: 1;
-  flex-basis: auto;
-  align-self: auto;
-  order: 0;
-}
-
-.flex-items:nth-child(3) {
-  display: block;
-  flex-grow: 0;
-  flex-shrink: 1;
-  flex-basis: auto;
-  align-self: auto;
-  order: 0;
-}
 
 </style>
