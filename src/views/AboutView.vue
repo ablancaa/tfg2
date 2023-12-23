@@ -18,7 +18,7 @@
     <table class="table">
             <thead class="thead-dark">
                 <tr>
-                <th colspan="4">Iconografía</th>
+                <th colspan="5">Iconografía</th>
                 </tr>
             </thead>
             <tbody>
@@ -42,13 +42,13 @@
                   <td><img alt="Icono" src="../assets/ico/proceso.png" width="40"/></td>
                 </tr>
                 <tr>
-                <td colspan="4"><a href="https://www.flaticon.es/iconos-gratis/mensaje" title="mensaje iconos">Mensaje iconos creados por Freepik - Flaticon</a></td>
+                <td colspan="5"><a href="https://www.flaticon.es/iconos-gratis/mensaje" title="mensaje iconos">Mensaje iconos creados por Freepik - Flaticon</a></td>
                 </tr>
             </tbody>
             </table>
       </div>
-      <Footer/>
   </div>
+  <Footer/>
 </template>
 <script setup>
 import NavBar2 from '@/components/NavBar2.vue'
