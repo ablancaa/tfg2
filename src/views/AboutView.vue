@@ -87,7 +87,7 @@
                   </td>
                   <td class="letterMin">
                     <h6>Node.js</h6>
-                    <p>Entorno de ejecución de JavaScript orientado a eventos asíncronos. https://nodejs.org/en</p>
+                    <p>Entorno de ejecución de JavaScript orientado a eventos asíncronos. <a href="https://nodejs.org/en">https://nodejs.org/en</a></p>
                   </td>                 
                   
                 </tr>
@@ -99,7 +99,7 @@
                   </td>
                   <td class="letterMin">
                     <h6>Vue.js (Vue 3)</h6>
-                    <p>Framework Javascript progresivo, para el desarrollo de interfaces web. Con este framework se ha desarrollado toda la aplicación, utilizando una programación modular en los ficheros para vistas independientes con su contenido propio de código Javascript, HTML y CSS. https://vuejs.org/</p>
+                    <p>Framework Javascript progresivo, para el desarrollo de interfaces web. Con este framework se ha desarrollado toda la aplicación, utilizando una programación modular en los ficheros para vistas independientes con su contenido propio de código Javascript, HTML y CSS. <a href="https://vuejs.org/">https://vuejs.org/</a></p>
                   </td>
                 </tr>
                 <tr>
@@ -110,7 +110,7 @@
                   </td>
                   <td class="letterMin">
                   <h6>Pinia</h6>
-                  <p>Herramienta para almacenamiento en memoria de cliente de información en la aplicación, Pinia está desarrollada para implementarse con Vue 3. En la aplicación se usa para intercambiar entre vistas la información de autenticación del usuario y la información de los diferentes tickets y usuarios. https://pinia.vuejs.org/</p>
+                  <p>Herramienta para almacenamiento en memoria de cliente de información en la aplicación, Pinia está desarrollada para implementarse con Vue 3. En la aplicación se usa para intercambiar entre vistas la información de autenticación del usuario y la información de los diferentes tickets y usuarios.<a href="https://pinia.vuejs.org/">https://pinia.vuejs.org/</a></p>
                   </td>
                 </tr>
                 <tr>
@@ -142,7 +142,7 @@
                   </td>
                   <td class="letterMin">
                   <h6>Chart.js</h6>
-                  <p>Biblioteca de JavaScript que permite crear gráficos interactivos y atractivos en páginas web. Esta biblioteca es fácil de usar y se integra bien con otras tecnologías web como HTML, CSS y Canvas. En la aplicación es utilizada para mostrar la información estadística a los usuarios. https://www.chartjs.org/ </p>
+                  <p>Biblioteca de JavaScript que permite crear gráficos interactivos y atractivos en páginas web. Esta biblioteca es fácil de usar y se integra bien con otras tecnologías web como HTML, CSS y Canvas. En la aplicación es utilizada para mostrar la información estadística a los usuarios.<a href="https://www.chartjs.org/">https://www.chartjs.org/</a>  </p>
                   </td>
                 </tr>
                 <tr>
@@ -164,7 +164,7 @@
                   </td>
                     <td class="letterMin">
                     <h6>Netlify</h6>
-                    <p> Plataforma de desarrollo y alojamiento web que simplifica el proceso de implementación y gestión de sitios web. Ofrece una variedad de servicios integrados que son particularmente útiles para desarrolladores web y equipos que buscan una solución completa para construir, implementar y escalar sus aplicaciones web estáticas y dinámicas.</p>
+                    <p> Plataforma de desarrollo y alojamiento web que simplifica el proceso de implementación y gestión de sitios web. Ofrece una variedad de servicios integrados que son particularmente útiles para desarrolladores web y equipos que buscan una solución completa para construir, implementar y escalar sus aplicaciones web estáticas y dinámicas.<a href="https://www.netlify.com/">https://www.netlify.com/</a></p>
                   </td>
                 </tr>
                 <tr>
@@ -175,7 +175,7 @@
                   </td>
                   <td class="letterMin">
                     <h6>Cypress.js</h6>
-                    <p> Herramienta de testing escrita en Javascript, ésta herramienta automatiza la comprobación de que un producto de software cumple con los requisitos iniciales y funciona de manera óptima.</p>
+                    <p> Herramienta de testing escrita en Javascript, ésta herramienta automatiza la comprobación de que un producto de software cumple con los requisitos iniciales y funciona de manera óptima.<a href="https://www.cypress.io/">https://www.cypress.io/</a></p>
                   </td>
                 </tr>
                 <tr>
