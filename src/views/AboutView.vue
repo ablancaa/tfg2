@@ -18,7 +18,7 @@
     <table class="table">
             <thead class="thead-dark">
                 <tr>
-                <th colspan="5">Iconografía</th>
+                <th colspan="5"><h3>Iconografía</h3></th>
                 </tr>
             </thead>
             <tbody>
@@ -37,9 +37,18 @@
                   <td><img alt="Icono" src="../assets/ico/procesando.png" width="40"/></td>
                 </tr>
                 <tr>
-                  
                   <td><img alt="Icono" src="../assets/ico/end.png" width="40"/></td>
                   <td><img alt="Icono" src="../assets/ico/proceso.png" width="40"/></td>
+                  <td><img src="../assets/ico/exitBlack.png" width="40" /></td>
+                  <td><img src="../assets/ico/delete.png" width="40" /></td>
+                  <td><img src="@/assets/ico/soporte-tecnico.png" width="40"/></td>
+                </tr>
+                <tr>
+                  <td><img alt="Icono" src="../assets/ico/profesor.png" width="40"/></td>
+                  <td><img alt="Icono" src="../assets/ico/administrador.png" width="40"/></td>
+                  <td><img src="../assets/ico/servicios.png" width="40" /></td>
+                  <td></td>
+                  <td></td>
                 </tr>
                 <tr>
                 <td colspan="5"><a href="https://www.flaticon.es/iconos-gratis/mensaje" title="mensaje iconos">Mensaje iconos creados por Freepik - Flaticon</a></td>
@@ -55,7 +64,7 @@ import NavBar2 from '@/components/NavBar2.vue'
 import Footer from '@/components/Footer.vue';
 </script>
 <style scoped>
-.titleMark{
+.titleMark {
     margin-top: 50px;
     border-radius: 10px;
     height: 55px;
