@@ -16,7 +16,7 @@
         <h5>2023/24 UOC</h5><br/><br/>
       </div>
       <hr/>
-      <div class="col-6"><br/><h6><strong>Nombre Consultor/a:</strong></h6> Helena Boltà Torrell</div>
+      <div class="col-6"><br/><h6><strong>Nombre Consultor/a del TFG:</strong></h6> Helena Boltà Torrell</div>
       <div class="col-6"><br/><h6><strong>Profesor/a responsable de la asignatura:</strong></h6>Carles Garrigues </div>     
       <hr/>
       <div>
