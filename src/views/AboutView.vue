@@ -14,19 +14,45 @@
       <div class="col-12"><br/><h5>2023/24 UOC</h5></div>
       <hr/>
       <div>
-        <img src="../assets/ico/charlando.png" width="40" height="40" class="ico" />
-        | <a href="https://www.flaticon.es/iconos-gratis/mensaje" title="mensaje iconos">Mensaje iconos creados por Freepik - Flaticon</a>
-        <img alt="Icono Usuario" src="../assets/ico/userBlack.png" width="40"/>
-        | <a href="https://www.flaticon.es/iconos-gratis/mensaje" title="mensaje iconos">Mensaje iconos creados por Freepik - Flaticon</a>
-        <img alt="Logo ticket" src="../assets/ico/logoTicketBlack.png" width="40">
-        | <a href="https://www.flaticon.es/iconos-gratis/mensaje" title="mensaje iconos">Mensaje iconos creados por Freepik - Flaticon</a>
     </div>
+    <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                <th colspan="4">Iconografía</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  <td><img alt="Icono" src="../assets/ico/charlando.png" width="40" height="40"/></td>
+                  <td><img alt="Icono" src="../assets/ico/userBlack.png" width="40"/></td>
+                  <td><img alt="Icono" src="../assets/ico/logoTicketBlack.png" width="40"/></td>
+                  <td><img alt="Icono" src="../assets/ico/reparar.png" width="40"/></td>
+                  <td><img alt="Icono" src="../assets/ico/normal.png" width="40" height="40"/></td>
+                </tr>
+                <tr>
+                  <td><img alt="Icono" src="../assets/ico/urgente.png" width="40" height="40"/></td>
+                  <td><img alt="Icono" src="../assets/ico/critico.png" width="40"/></td>                 
+                  <td><img alt="Icono" src="../assets/ico/importante.png" width="40"/></td>
+                  <td><img alt="Icono" src="../assets/ico/active.png" width="40"/></td>
+                  <td><img alt="Icono" src="../assets/ico/procesando.png" width="40"/></td>
+                </tr>
+                <tr>
+                  
+                  <td><img alt="Icono" src="../assets/ico/end.png" width="40"/></td>
+                  <td><img alt="Icono" src="../assets/ico/proceso.png" width="40"/></td>
+                </tr>
+                <tr>
+                <td colspan="4"><a href="https://www.flaticon.es/iconos-gratis/mensaje" title="mensaje iconos">Mensaje iconos creados por Freepik - Flaticon</a></td>
+                </tr>
+            </tbody>
+            </table>
       </div>
-      
+      <Footer/>
   </div>
 </template>
 <script setup>
 import NavBar2 from '@/components/NavBar2.vue'
+import Footer from '@/components/Footer.vue';
 </script>
 <style scoped>
 .titleMark{
