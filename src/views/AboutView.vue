@@ -9,15 +9,20 @@
       <h3>TFG - Desarrollo de aplicaciones sobre dispositivos móviles</h3><br/></div>
       <br/>
       <hr/>
-      
-    
-      
       <div class="col-12"><img src="../assets/img/Profile2.jpg" width="100" class="imagen"/></div>
       <div class="col-12"><br/><p>Alberto Blanca Alcaide</p></div>
       <div class="col-12"><br/><h5>2023/24 UOC</h5></div>
       <hr/>
-      
+      <div>
+        <img src="../assets/ico/charlando.png" width="40" height="40" class="ico" />
+        | <a href="https://www.flaticon.es/iconos-gratis/mensaje" title="mensaje iconos">Mensaje iconos creados por Freepik - Flaticon</a>
+        <img alt="Icono Usuario" src="../assets/ico/userBlack.png" width="40"/>
+        | <a href="https://www.flaticon.es/iconos-gratis/mensaje" title="mensaje iconos">Mensaje iconos creados por Freepik - Flaticon</a>
+        <img alt="Logo ticket" src="../assets/ico/logoTicketBlack.png" width="40">
+        | <a href="https://www.flaticon.es/iconos-gratis/mensaje" title="mensaje iconos">Mensaje iconos creados por Freepik - Flaticon</a>
     </div>
+      </div>
+      
   </div>
 </template>
 <script setup>
