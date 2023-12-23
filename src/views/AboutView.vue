@@ -185,16 +185,16 @@
             </table>
             <div class="col-12">
               <h6>Licencia</h6>
-              <img src="../assets/img/by-nc-nd-eu_.png" width="150"/>
+              <img src="../assets/img/by-nc-nd-eu_.png" width="160"/>
               <p class="letterMin"><br/>
                 Esta obra está sujeta a una licencia de Reconocimiento-NoComercial-SinObraDerivada 3.0 España de Creative Commons<br/><br/>
+                
                 <strong>B) GNU Free Documentation License (GNU FDL)</strong><br/><br/> Copyright © 2024 <strong>Alberto Blanca Alcaide.</strong><br/><br/>
                 Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. 
                 A copy of the license is included in the section entitled "GNU Free Documentation License".<br/><br/>
 
                 <strong>C) Copyright</strong>©<br/> (El/la autor/a)
                 Reservados todos los derechos. Está prohibido la reproducción total o parcial de esta obra por cualquier medio o procedimiento, comprendidos la impresión, la reprografía, el MPB, el tratamiento informático o cualquier otro sistema, así como la distribución de ejemplares mediante alquiler y préstamo, sin la autorización escrita del autor o de los límites que autorice la Ley de Propiedad Intelectual.
-
               </p>
             </div>
             </div>
