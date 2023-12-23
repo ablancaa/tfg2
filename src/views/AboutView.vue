@@ -18,7 +18,7 @@
     <table class="table">
             <thead class="thead-dark">
                 <tr>
-                <th colspan="5"><h3>Iconografía</h3></th>
+                <th colspan="5"><h3>Iconografía</h3><a href="https://www.flaticon.es/iconos-gratis/mensaje" title="mensaje iconos">Iconos creados por Freepik - Flaticon</a></th>
                 </tr>
             </thead>
             <tbody>
@@ -51,7 +51,7 @@
                   <td></td>
                 </tr>
                 <tr>
-                <td colspan="5"><a href="https://www.flaticon.es/iconos-gratis/mensaje" title="mensaje iconos">Mensaje iconos creados por Freepik - Flaticon</a></td>
+                <td colspan="5"></td>
                 </tr>
             </tbody>
             </table>
