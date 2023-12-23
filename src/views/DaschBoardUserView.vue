@@ -24,8 +24,10 @@
                                 <span class="num-contador"><span class="circulo-verde">{{
                                     contadorUsuario[0].ticketsUserProcces }}</span></span><br />
                                 <strong>Finalizados:</strong>
-                                <span class="num-contador"><span class="circulo-verde">{{ contadorUsuario[0].ticketsUserEnd
-                                }}</span></span><br />
+                                <span class="num-contador">
+                                    <span class="circulo-verde" v-if="contadorUsuario[0].ticketsUserEnd > 1">{{ contadorUsuario[0].ticketsUserEnd }}</span>
+                                    <span class="circulo-rojo" v-if="contadorUsuario[0].ticketsUserEnd == 0">{{ contadorUsuario[0].ticketsUserEnd }}</span>
+                                </span><br />
                             </div>
                             <div class="col">
                                 <strong
@@ -424,6 +426,16 @@ export default {
     border-radius: 50%;
     background: rgb(67, 228, 22);
     font-weight: 700;
+    color: #FFF;
+}
+.circulo-rojo {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: rgb(228, 22, 22);
+    font-weight: 700;
+    font-size: 18px;
     color: #FFF;
 }
 
