@@ -121,9 +121,6 @@ import { defineProps } from 'vue';
     width: 30px;
     height: 30px;
 }
-img {
-   
-}
 
 .circulo-verde {
     width: 15px;
