@@ -146,7 +146,7 @@ let newTick = reactive({});
   display: flex;
   background: rgba(0, 0, 0, 0.4);
   color: #fff;
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   /* height: auto; */
