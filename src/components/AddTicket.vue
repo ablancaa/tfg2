@@ -149,7 +149,7 @@ let newTick = reactive({});
   position: fixed;
   top: 0;
   left: 0;
-  height: auto;
+  /* height: auto; */
   width: 101vw;
   transition: all .10s;
   z-index: 10;
