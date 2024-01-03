@@ -165,9 +165,7 @@ text-align: center;
     margin-right: 15px;
 
 }
-.title{
-    font-size: 14px;
-}
+
 .nameSurname {
     color: #000;
     font-size: 18px;

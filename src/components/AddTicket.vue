@@ -146,7 +146,7 @@ let newTick = reactive({});
   display: flex;
   background: rgba(0, 0, 0, 0.4);
   color: #fff;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   /* height: auto; */
@@ -164,14 +164,16 @@ body {
 
 .form-control:focus {
     box-shadow: none;
-    border-color: #090909
+    border-color: #090909;
+    
 }
 
 .profile-button {
     background: rgb(0, 0, 0);
     box-shadow: none;
-    border: none
+    border: none;
 }
+
 
 .profile-button:hover {
     background: #100f10
