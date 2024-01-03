@@ -25,7 +25,7 @@
                                     contadorUsuario[0].ticketsUserProcces }}</span></span><br />
                                 <strong>Finalizados:</strong>
                                 <span class="num-contador">
-                                    <span class="circulo-verde" v-if="contadorUsuario[0].ticketsUserEnd > 1">{{ contadorUsuario[0].ticketsUserEnd }}</span>
+                                    <span class="circulo-verde" v-if="contadorUsuario[0].ticketsUserEnd > 0">{{ contadorUsuario[0].ticketsUserEnd }}</span>
                                     <span class="circulo-rojo" v-if="contadorUsuario[0].ticketsUserEnd == 0">{{ contadorUsuario[0].ticketsUserEnd }}</span>
                                 </span><br />
                             </div>
@@ -39,20 +39,49 @@
                                 <span class="num-contador"><span class="circulo-notificaciones">25</span></span>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col">
-
-                            </div>
-                            <div class="col">
-                                <strong></strong>
-
-                            </div>
-                        </div>
                     </div>
                 </div>
             </router-link>
         </div><!-- fin Cabecera -->
         <div class="row">
+            <div class="container">
+        <div class="titleMark"><span class="pageTitle">Tickets Asociados</span></div>
+            <div class="row">
+                <div class="col-6" v-for=" ticket in ticketsUsuario" :key="ticket.idUser">
+                    <router-link :to="{ name: 'ticketDetail',
+                         params:  { 
+                                    idTicket: ticket.idTicket,
+                                    title: ticket.title,
+                                    description: ticket.description,
+                                    category: ticket.category,
+                                    state: ticket.state,
+                                    priority: ticket.priority,
+                                    date: ticket.date,
+                                    idUser: ticket.idUser,
+                                    comments: JSON.stringify(ticket.comments),
+                                    technical: ticket.technical[0],
+                                }}" class="page-link">  
+                    <div class="silueta-ticket">
+                        <p class="info">
+                            <span class="">{{ ticket.category }}</span><br/>
+                            <strong class="iduser">{{ ticket.idTicket }}</strong><br/>
+                            <!-- <span class="title">{{ ticket.title }}</span><br/> -->
+                            
+                            <img src="../assets/ico/normal.png" width="25" height="25" v-if="ticket.priority == 'Normal'"/>
+                            <img src="../assets/ico/urgente.png" width="25" height="25" v-if="ticket.priority == 'Urgente'"/>
+                            <img src="../assets/ico/critico.png" width="25" height="25" v-if="ticket.priority == 'Crítico'"/>
+                            <img src="../assets/ico/importante.png" width="25" height="25" v-if="ticket.priority == 'Importante'"/>
+                            <span class="space"></span>
+                            <img src="../assets/ico/active.png" width="25" height="25" v-if="ticket.state == 'active'"/>
+                            <img src="../assets/ico/procesando.png" width="25" height="25" v-if="ticket.state == 'wait'"/>
+                            <img src="../assets/ico/end.png" width="25" height="25" v-if="ticket.state == 'end'"/>
+                            <img src="../assets/ico/proceso.png" width="25" height="25" v-if="ticket.state == 'procces'"/>
+                         </p> 
+                    </div>
+                    </router-link>
+                </div>
+            </div>
+        </div><!--fin container 2 -->
             <div class="col-xs-12 col-md-12 col-lg-12 contenFlex">
                 <hr />
                 <div class="historico" v-if="store.currenUser.rol == 'Técnico'"><span class="pageTitle">Tickets
@@ -343,6 +372,7 @@ export default {
 .cabecera {
     width: auto;
     display: fixed;
+    margin-bottom: -30px;
 }
 
 .titleMark {
