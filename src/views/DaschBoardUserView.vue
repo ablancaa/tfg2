@@ -36,7 +36,7 @@
                                     <span class="circulo-verde">{{ contadorUsuario[0].ticketsAssignment }}</span>
                                 </span><br /><br />
                                 <img src="../assets/ico/charlando.png" width="40" height="40" class="ico" />
-                                <span class="num-contador"><span class="circulo-notificaciones">25</span></span>
+                                <!-- <span class="num-contador"><span class="circulo-notificaciones">51</span></span> -->
                             </div>
                         </div>
                     </div>
@@ -60,23 +60,25 @@
                                     idUser: ticket.idUser,
                                     comments: JSON.stringify(ticket.comments),
                                     technical: ticket.technical[0],
-                                }}" class="page-link">  
+                                }}" class="page-link" v-if="ticket.state != ''">  
                     <div class="silueta-ticket">
-                        <p class="info">
-                            <span class="">{{ ticket.category }}</span><br/>
-                            <strong class="iduser">{{ ticket.idTicket }}</strong><br/>
-                            <!-- <span class="title">{{ ticket.title }}</span><br/> -->
-                            
-                            <img src="../assets/ico/normal.png" width="25" height="25" v-if="ticket.priority == 'Normal'"/>
+                        <div class="d-flex justify-content-center ico-ticket">
+                            <img src="../assets/ico/normal.png" width="25" height="25" v-if="ticket.priority == 'Normal'"/> 
                             <img src="../assets/ico/urgente.png" width="25" height="25" v-if="ticket.priority == 'Urgente'"/>
                             <img src="../assets/ico/critico.png" width="25" height="25" v-if="ticket.priority == 'Crítico'"/>
                             <img src="../assets/ico/importante.png" width="25" height="25" v-if="ticket.priority == 'Importante'"/>
-                            <span class="space"></span>
+                            <span class="space"> </span>
                             <img src="../assets/ico/active.png" width="25" height="25" v-if="ticket.state == 'active'"/>
                             <img src="../assets/ico/procesando.png" width="25" height="25" v-if="ticket.state == 'wait'"/>
                             <img src="../assets/ico/end.png" width="25" height="25" v-if="ticket.state == 'end'"/>
                             <img src="../assets/ico/proceso.png" width="25" height="25" v-if="ticket.state == 'procces'"/>
+                        </div>
+                        <p class="info">
+                            <span class="title-ticket"><p>{{ ticket.category }} | {{ ticket.idTicket }}<br/></p></span>
+                            <span class="title-ticket">{{ ticket.title }}</span>
                          </p> 
+                         
+                         
                     </div>
                     </router-link>
                 </div>
@@ -392,7 +394,28 @@ export default {
     box-shadow: -5px 6px 4px 0px rgba(0, 0, 0, 0.25);
     border: 1px solid rgba(0, 0, 0, 0.50);
 }
+.info {
+margin-top: 10px;
+text-align: center;
+}
+.ico-ticket{
+    margin-top: 10px;
+    margin-bottom: -10px;
+}
+.iduser{
+    text-align: center;
+    font-size: 10px;
+}
+.space{
+    margin-top: 10px;
+    margin-left: 15px;
+    margin-right: 15px;
 
+}
+.iduser{
+    text-align: center;
+    font-size: 10px;
+}
 .pageTitle {
     color: #ffffff;
     font-size: 38px;
@@ -417,7 +440,11 @@ export default {
     display: flex;
     flex-direction: column;
 }
-
+.title-ticket {
+    font-size: 14px;
+    text-align: center;
+    margin-top: 0px;
+}
 .bloque-estadiscicas-usuario {
     flex-shrink: 0;
     margin-top: 15px;
