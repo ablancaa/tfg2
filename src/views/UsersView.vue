@@ -134,7 +134,7 @@ async function addUser(newUser){
     let passwordDefecto = '123456';
     await createUserWithEmailAndPassword(getAuth(), newUser.email, passwordDefecto)
             .then((data)=> {
-                alert("Successfully registered!"+data.getAuth);
+                alert("Successfully registered!");
                 
             })
             .catch((error)=>{
