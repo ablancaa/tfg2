@@ -11,7 +11,7 @@
                 <div class="col">
                     <div class="row">
                             <div class="col-6"><p class="estado-online ">On-Line:</p> <p class="estado-offline">Off-Line:</p></div>
-                            <div class="col-6"><div class="circulo-verde">{{ contadores[0].usersActive }}</div> <div class="circulo-rojo">{{ contadores[0].usersDisconnect }}</div></div>
+                            <div class="col-6"><div class="circulo-verde"><span class="contadores">{{ contadores[0].usersActive }}</span></div> <div class="circulo-rojo"><span class="contadores">{{ contadores[0].usersDisconnect }}</span></div></div>
                     </div>
                 </div>
             </div>
@@ -260,8 +260,8 @@ const querySnapshotTickets = await getDocs(collection(db, "tickets"));
     font-weight: 700;
 }
 .circulo-verde {
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
 
     margin-left: 10px;
     margin-top: 5px;
@@ -270,24 +270,27 @@ const querySnapshotTickets = await getDocs(collection(db, "tickets"));
     color: black;
 }
 .circulo-rojo {
-    width: 20px;
-    height: 20px;
-    margin-top: 4px;
+    width: 22px;
+    height: 22px;
+    margin-top: 2px;
     margin-left: 10px;
     border-radius: 50%;
     background: rgb(228, 22, 22);
 }
 .estado-online{
     margin-top: 3px;
-    margin-left: 0px;
+    margin-left: -5px;
     width: 65px;
 }
 .estado-offline{
     margin-top: -13px;
     margin-left: 0px;
     width: 65px;
+    
 }
-
+.contadores {
+  font-size: 14px;
+}
 .lista {
   margin-top: 265px;
   width: 150px;

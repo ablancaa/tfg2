@@ -18,7 +18,7 @@
             <li><router-link to="/ticketsView">Tickets</router-link></li>
             <li v-if="userCurrenRol == 'Admin'"><router-link to="/usersView">Users</router-link></li>
             <li v-if="userCurrenRol == 'Admin' || userCurrenRol == 'Técnico'"><router-link to="/estadisticasView">Estadísticas</router-link></li>
-            <li><router-link to="/about" @click="close">About</router-link></li>
+            <li><router-link to="/about">About</router-link></li>
             <li><a href="#"></a></li>
             <li><a href="#"></a></li>
             <li><a href="#"></a></li>
